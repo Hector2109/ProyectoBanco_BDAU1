@@ -1,5 +1,7 @@
 package org.itson.bdavanzadas.bancodominio;
 
+import java.util.GregorianCalendar;
+
 /**
  * Esta clase representa una transferencia en el sistema bancario.
  * Una transferencia contiene información sobre el ID de la transferencia,
@@ -8,7 +10,7 @@ package org.itson.bdavanzadas.bancodominio;
  * 
  * @author Hector Espinoza y Enrique Rodriguez
  */
-public class Transferencia {
+public class Transferencia extends Transaccion{
     
     private int id_transferencia; // ID de la transferencia.
     private int id_transaccion; // ID de la transacción asociada.
@@ -20,13 +22,16 @@ public class Transferencia {
      * @param id_transferencia el ID de la transferencia.
      * @param id_transaccion el ID de la transacción asociada.
      * @param num_cuenta_transferir el número de cuenta a la que se está transfiriendo el dinero.
+     * @param saldo_transaccion monto a transferir.
+     * @param fecha fecha de la transferencia.
+     * @param num_cuenta numero de cuenta del que se transfiere.
      */
-    public Transferencia(int id_transferencia, int id_transaccion, int num_cuenta_transferir) {
+    public Transferencia(int id_transferencia, int num_cuenta_transferir, int id_transaccion, float saldo_transaccion, GregorianCalendar fecha, int num_cuenta) {
+        super(id_transaccion, saldo_transaccion, fecha, num_cuenta);
         this.id_transferencia = id_transferencia;
-        this.id_transaccion = id_transaccion;
         this.num_cuenta_transferir = num_cuenta_transferir;
     }
-
+    
     /**
      * Método para obtener el ID de la transferencia.
      * @return el ID de la transferencia.

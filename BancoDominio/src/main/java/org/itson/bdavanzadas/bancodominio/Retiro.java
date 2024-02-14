@@ -1,5 +1,7 @@
 package org.itson.bdavanzadas.bancodominio;
 
+import java.util.GregorianCalendar;
+
 /**
  * Esta clase representa un retiro en el sistema bancario.
  * Un retiro está asociado a una transacción y contiene información sobre el folio,
@@ -7,7 +9,7 @@ package org.itson.bdavanzadas.bancodominio;
  * 
  * @author Hector Espinoza y Enrique Rodriguez
  */
-public class Retiro {
+public class Retiro extends Transaccion{
     
     private int folio; // Folio del retiro.
     private String contrasenia; // Contraseña del retiro.
@@ -21,12 +23,15 @@ public class Retiro {
      * @param contrasenia la contraseña del retiro.
      * @param estado el estado del retiro.
      * @param id_transaccion la ID de la transacción asociada al retiro.
+     * @param saldo_transaccion monto a retirar.
+     * @param fecha fecha del retiro.
+     * @param num_cuenta numero de cuenta del que se retira.
      */
-    public Retiro(int folio, String contrasenia, byte estado, int id_transaccion) {
+    public Retiro(int folio, String contrasenia, byte estado, int id_transaccion, float saldo_transaccion, GregorianCalendar fecha, int num_cuenta) {
+        super(id_transaccion, saldo_transaccion, fecha, num_cuenta);
         this.folio = folio;
         this.contrasenia = contrasenia;
         this.estado = estado;
-        this.id_transaccion = id_transaccion;
     }
 
     /**
