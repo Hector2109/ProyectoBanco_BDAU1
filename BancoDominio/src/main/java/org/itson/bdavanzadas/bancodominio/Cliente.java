@@ -3,7 +3,7 @@ package org.itson.bdavanzadas.bancodominio;
 import java.util.GregorianCalendar;
 
 /**
- * Equipo
+ * 
  * @author Hector Espinoza y Enrique Rodriguez
  */
 public class Cliente {
