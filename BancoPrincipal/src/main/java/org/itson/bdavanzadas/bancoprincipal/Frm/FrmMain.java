@@ -19,7 +19,8 @@ public class FrmMain extends javax.swing.JFrame {
     /**
      * Creates new form FrmMain
      */
-    public FrmMain() {
+    private final IClientesDAO clientesDAO;
+    public FrmMain(IClientesDAO clientesDAO) {
         initComponents();
         String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
         String usuario = "root";
@@ -29,6 +30,7 @@ public class FrmMain extends javax.swing.JFrame {
         IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
         IClientesDAO sociosDAO = new ClientesDAO(conexion);
         setVisible (true);
+        this.clientesDAO = clientesDAO;
     }
 
     /**
@@ -129,7 +131,8 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-        
+        DlgRegistro registro = new DlgRegistro(clientesDAO);
+        registro.setVisible(true);
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
 
