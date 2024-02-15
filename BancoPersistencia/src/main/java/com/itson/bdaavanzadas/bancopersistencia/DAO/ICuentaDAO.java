@@ -20,7 +20,7 @@ public interface ICuentaDAO {
 
     List<Cuenta> consultar() throws PersistenciaException;
 
-    public void desactivarCuenta(byte estado);
+    public void desactivarCuenta(int num_cuenta);
 
     public Cuenta actualizarCliente(CuentaActualizadaDTO cuentaActualizada) throws PersistenciaException;
 }
