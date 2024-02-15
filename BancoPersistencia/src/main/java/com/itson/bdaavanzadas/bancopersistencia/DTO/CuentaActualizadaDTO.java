@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Esta clase representa un DTO (Data Transfer Object) para la información actualizada de una cuenta en un sistema bancario.
+ * Contiene los datos básicos de la cuenta y métodos para validar la información.
  */
 package com.itson.bdaavanzadas.bancopersistencia.DTO;
 
@@ -8,73 +8,131 @@ import com.itson.bdaavanzadas.bancopersistencia.excepciones.ValidacionDTOExcepti
 import java.util.GregorianCalendar;
 
 /**
- *
+ * DTO para representar la información actualizada de una cuenta en el banco.
+ * Contiene los datos básicos de la cuenta y métodos para validar la información.
+ * 
  * @author Hector Espinoza y Enrique Rodriguez
  */
 public class CuentaActualizadaDTO {
 
-    private int num_cuenta;//número de cuenta.
-    private float saldo;//saldo de la cuenta.
-    private GregorianCalendar fecha_apertura;//fecha apertura de la cuenta.
-    private byte estado;//Estado de la cuenta.
-    private int id_cliente;//id cliente asociado con la cuenta.
-
+    private int num_cuenta; // Número de cuenta
+    private float saldo; // Saldo de la cuenta
+    private GregorianCalendar fecha_apertura; // Fecha de apertura de la cuenta
+    private byte estado; // Estado de la cuenta
+    private int id_cliente; // ID del cliente asociado con la cuenta
+    
+    /**
+     * Obtiene el número de cuenta.
+     * 
+     * @return Número de cuenta
+     */
     public int getNum_cuenta() {
         return num_cuenta;
     }
 
+    /**
+     * Modifica el número de cuenta.
+     * 
+     * @param num_cuenta Número de cuenta
+     */
     public void setNum_cuenta(int num_cuenta) {
         this.num_cuenta = num_cuenta;
     }
 
+    /**
+     * Obtiene el saldo de la cuenta.
+     * 
+     * @return Saldo de la cuenta
+     */
     public float getSaldo() {
         return saldo;
     }
 
+    /**
+     * Modifica el saldo de la cuenta.
+     * 
+     * @param saldo Saldo de la cuenta
+     */
     public void setSaldo(float saldo) {
         this.saldo = saldo;
     }
 
+    /**
+     * Obtiene la fecha de apertura de la cuenta.
+     * 
+     * @return Fecha de apertura de la cuenta
+     */
     public GregorianCalendar getFecha_apertura() {
         return fecha_apertura;
     }
 
+    /**
+     * Modifica la fecha de apertura de la cuenta.
+     * 
+     * @param fecha_apertura Fecha de apertura de la cuenta
+     */
     public void setFecha_apertura(GregorianCalendar fecha_apertura) {
         this.fecha_apertura = fecha_apertura;
     }
 
+    /**
+     * Obtiene el estado de la cuenta.
+     * 
+     * @return Estado de la cuenta
+     */
     public byte getEstado() {
         return estado;
     }
 
+    /**
+     * Modifica el estado de la cuenta.
+     * 
+     * @param estado Estado de la cuenta
+     */
     public void setEstado(byte estado) {
         this.estado = estado;
     }
 
+    /**
+     * Obtiene el ID del cliente asociado con la cuenta.
+     * 
+     * @return ID del cliente asociado con la cuenta
+     */
     public int getId_cliente() {
         return id_cliente;
     }
 
+    /**
+     * Modifica el ID del cliente asociado con la cuenta.
+     * 
+     * @param id_cliente ID del cliente asociado con la cuenta
+     */
     public void setId_cliente(int id_cliente) {
         this.id_cliente = id_cliente;
     }
 
+    /**
+     * Verifica si los datos de la cuenta son válidos.
+     * Lanza una excepción si algún dato es inválido.
+     * 
+     * @return true si los datos son válidos, false en caso contrario
+     * @throws ValidacionDTOException si algún dato es inválido
+     */
     public boolean esValido() throws ValidacionDTOException {
-        if ((Integer)this.num_cuenta == null) {
-            throw new ValidacionDTOException("Número de cuenta invalido");
+        if (this.num_cuenta <= 0) {
+            throw new ValidacionDTOException("Número de cuenta inválido");
         }
-        if (this.saldo < 0
-                || (Float) this.saldo == null) {
-            throw new ValidacionDTOException("Saldo invalido, saldo negativo");
+        if (this.saldo < 0) {
+            throw new ValidacionDTOException("Saldo inválido, saldo negativo");
         }
         if (this.fecha_apertura == null) {
-            throw new ValidacionDTOException("Error en fecha, fecha vacia");
+            throw new ValidacionDTOException("Fecha de apertura inválida, fecha vacía");
         }
         if (this.estado == 0) {
             throw new ValidacionDTOException("Cuenta desactivada");
         }
-        if ((Integer) this.id_cliente == null) {
-            throw new ValidacionDTOException("ID de cliente vacio");
+        if (this.id_cliente <= 0) {
+            throw new ValidacionDTOException("ID de cliente inválido");
         }
         return true;
     }

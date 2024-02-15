@@ -16,7 +16,7 @@ import org.itson.bdavanzadas.bancodominio.Cuenta;
  */
 public interface ICuentaDAO {
 
-    Cuenta agragarCliente(CuentaNuevaDTO cuentaNueva) throws PersistenciaException;
+    Cuenta agregarCliente(CuentaNuevaDTO cuentaNueva) throws PersistenciaException;
 
     List<Cuenta> consultar() throws PersistenciaException;
 
