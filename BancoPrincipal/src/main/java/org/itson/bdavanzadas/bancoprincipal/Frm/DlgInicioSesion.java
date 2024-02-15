@@ -59,6 +59,11 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         txtPasswordContrasenia.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
 
         btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         btnRestaurar.setText("Restaurar");
         btnRestaurar.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +126,10 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         txtUsuario.setText("");
         txtPasswordContrasenia.setText("");
     }//GEN-LAST:event_btnRestaurarActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

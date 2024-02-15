@@ -20,8 +20,6 @@ public class BancoPrincipal {
         //String contrasenia = "kikin22";
         IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
 
-        FrmMain main = new FrmMain();
-
         IClientesDAO clientesDAO = new ClientesDAO(conexion);
         FrmMain main = new FrmMain(clientesDAO);
 
