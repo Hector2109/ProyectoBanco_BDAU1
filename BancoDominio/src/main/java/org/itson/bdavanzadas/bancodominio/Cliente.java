@@ -1,6 +1,10 @@
 package org.itson.bdavanzadas.bancodominio;
 
+
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Objects;
+
 
 /**
  * 
@@ -228,6 +232,30 @@ public class Cliente {
         this.cp = cp;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.id_cliente);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cliente other = (Cliente) obj;
+        return Objects.equals(this.id_cliente, other.id_cliente);
+    }
+
+    
+    
     /**
     * Regresa todos los atributos del cliente
     * @return Cliente

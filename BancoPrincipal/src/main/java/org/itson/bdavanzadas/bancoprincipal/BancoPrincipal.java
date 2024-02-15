@@ -15,10 +15,13 @@ public class BancoPrincipal {
     public static void main(String[] args) {
         String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
         String usuario = "root";
-        String contrasenia = "Alluka04";
+        String contrasenia = "hector21";
         //String contrasenia = "Itson";
         //String contrasenia = "kikin22";
         IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
+
+        FrmMain main = new FrmMain();
+
         IClientesDAO clientesDAO = new ClientesDAO(conexion);
         FrmMain main = new FrmMain(clientesDAO);
 
