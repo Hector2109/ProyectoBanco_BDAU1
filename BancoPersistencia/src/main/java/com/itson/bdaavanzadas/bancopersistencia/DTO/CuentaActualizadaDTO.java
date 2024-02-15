@@ -1,7 +1,4 @@
-/*
- * Esta clase representa un DTO (Data Transfer Object) para la información actualizada de una cuenta en un sistema bancario.
- * Contiene los datos básicos de la cuenta y métodos para validar la información.
- */
+
 package com.itson.bdaavanzadas.bancopersistencia.DTO;
 
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.ValidacionDTOException;
