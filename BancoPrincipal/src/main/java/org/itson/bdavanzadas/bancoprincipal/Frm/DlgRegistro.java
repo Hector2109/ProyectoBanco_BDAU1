@@ -40,17 +40,15 @@ public class DlgRegistro extends javax.swing.JDialog {
         clienteNuevo.setNombre(nombre);
         clienteNuevo.setApellido_pa(aP);
         clienteNuevo.setApellido_ma(aM);
-        int anio = Integer.parseInt(anioNa);
-        int mes = Integer.parseInt(mesNa);
-        int dia = Integer.parseInt(diaNa);
-        GregorianCalendar fechaNacimiento = new GregorianCalendar(anio, mes, dia);
-        clienteNuevo.setFecha_nacimiento(fechaNacimiento);
+        //java.util.Date fechaSeleccionada = jDateFechaNacimiento.getDate();
+        //java.sql.Date fechaNacimiento = new java.sql.Date(fechaSeleccionada.getTime());
+        //clienteNuevo.setFecha_nacimiento(fechaNacimiento);
         clienteNuevo.setCalle(calle);
         clienteNuevo.setColonia(colonia);
         clienteNuevo.setNumero_casa(num_casa);
         clienteNuevo.setCp(cp);
         try {
-            clienteNuevo.esValido();
+            //clienteNuevo.esValido();
             Cliente cliente = this.clientesDAO.agregarCliente(clienteNuevo);
             JOptionPane.showMessageDialog(this, "Se registró el cliente", "Todo correcto", JOptionPane.INFORMATION_MESSAGE);
             limpiar();
@@ -77,6 +75,8 @@ public class DlgRegistro extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -104,6 +104,19 @@ public class DlgRegistro extends javax.swing.JDialog {
         btnAceptar = new javax.swing.JButton();
 
         jLabel6.setText("jLabel6");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -307,6 +320,8 @@ public class DlgRegistro extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtAnioCumple;
     private javax.swing.JTextField txtApellidoMa;
     private javax.swing.JTextField txtApellidoPa;
