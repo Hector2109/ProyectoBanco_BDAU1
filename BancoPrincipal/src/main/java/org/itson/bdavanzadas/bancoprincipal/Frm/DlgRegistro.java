@@ -4,17 +4,22 @@
  */
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
+import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
+import org.itson.bdavanzadas.bancodominio.Cliente;
+
 /**
  *
  * @author Hector Espinoza
  */
 public class DlgRegistro extends javax.swing.JDialog {
 
+    
+    
     /**
      * Creates new form DlgRegistro
      */
-    public DlgRegistro(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public DlgRegistro(IClientesDAO ClientesDAO, Cliente cliente) {
+        
         initComponents();
     }
 
@@ -237,7 +242,7 @@ public class DlgRegistro extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnRestaurarActionPerformed
 
 

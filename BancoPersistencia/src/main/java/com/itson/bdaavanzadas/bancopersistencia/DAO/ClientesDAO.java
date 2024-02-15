@@ -112,7 +112,10 @@ public class ClientesDAO implements IClientesDAO{
         return clientes;
     }
 
-    
+    /**
+     * Contiene la sentencia SQL apra lograr eliminar un cliente de la base de datos
+     * @param id 
+     */
     @Override
     public void eliminarCliente(Long id) {
         String sentenciaSQL = "DELETE FROM Clientes WHERE id = ?";
@@ -139,6 +142,12 @@ public class ClientesDAO implements IClientesDAO{
     }
     }
 
+    /**
+     * Contiene la sentencia SQL para actualizar un cliente de la base de datos
+     * @param clienteActualizado
+     * @return Cliente
+     * @throws PersistenciaException En caso de algún error
+     */
     @Override
     public Cliente actualizarCliente(ClienteActualizadoDTO clienteActualizado) throws PersistenciaException {
         String sentenciaSQL = """

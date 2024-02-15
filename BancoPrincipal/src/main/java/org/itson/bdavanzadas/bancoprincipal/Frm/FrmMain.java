@@ -4,6 +4,12 @@
  */
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
+import com.itson.bdaavanzadas.bancopersistencia.DAO.ClientesDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
+import org.itson.bdavanzadas.bancodominio.Cliente;
+
 /**
  *
  * @author Enrique Rodriguez
@@ -15,6 +21,14 @@ public class FrmMain extends javax.swing.JFrame {
      */
     public FrmMain() {
         initComponents();
+        String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
+        String usuario = "root";
+        String contrasenia = "hector21";
+        //String contrasenia = "Itson";
+        //String contrasenia = "kikin22";
+        IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
+        IClientesDAO sociosDAO = new ClientesDAO(conexion);
+        setVisible (true);
     }
 
     /**
@@ -44,6 +58,11 @@ public class FrmMain extends javax.swing.JFrame {
 
         btnRegistrarse.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         btnRegistrarse.setText("Registrarse");
+        btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarseActionPerformed(evt);
+            }
+        });
 
         btnSalir.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         btnSalir.setText("Salir");
@@ -102,12 +121,16 @@ public class FrmMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
+        
+    }//GEN-LAST:event_btnRegistrarseActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
