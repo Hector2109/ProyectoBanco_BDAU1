@@ -6,7 +6,6 @@ package org.itson.bdavanzadas.bancoprincipal.Frm;
 
 import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
 import com.itson.bdaavanzadas.bancopersistencia.DTO.ClienteNuevoDTO;
-import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.bancodominio.Cliente;
 
@@ -27,26 +26,25 @@ public class DlgRegistro extends javax.swing.JDialog {
         String nombre = txtNombre.getText();
         String aP = txtApellidoPa.getText();
         String aM = txtApellidoMa.getText();
-        String anioNa = txtAnioCumple.getText();
-        String mesNa = txtMesCumple.getText();
-        String diaNa = txtDiaCumple.getText();
         String calle = txtCalle.getText();
         String colonia = txtColonia.getText();
         String num_casa = txtNumCasa.getText();
         String cp = txtCP.getText();
+        String contra = txtContrasenia.getText();
 
         ClienteNuevoDTO clienteNuevo = new ClienteNuevoDTO();
 
         clienteNuevo.setNombre(nombre);
         clienteNuevo.setApellido_pa(aP);
         clienteNuevo.setApellido_ma(aM);
-        //java.util.Date fechaSeleccionada = jDateFechaNacimiento.getDate();
-        //java.sql.Date fechaNacimiento = new java.sql.Date(fechaSeleccionada.getTime());
-        //clienteNuevo.setFecha_nacimiento(fechaNacimiento);
+        java.util.Date fechaSeleccionada = jDateFechaNacimiento.getDate();
+        java.sql.Date fechaNacimiento = new java.sql.Date(fechaSeleccionada.getTime());
+        clienteNuevo.setFecha_nacimiento(fechaNacimiento);
         clienteNuevo.setCalle(calle);
         clienteNuevo.setColonia(colonia);
         clienteNuevo.setNumero_casa(num_casa);
         clienteNuevo.setCp(cp);
+        clienteNuevo.setContrasenia(contra);
         try {
             //clienteNuevo.esValido();
             Cliente cliente = this.clientesDAO.agregarCliente(clienteNuevo);
@@ -61,9 +59,6 @@ public class DlgRegistro extends javax.swing.JDialog {
         txtNombre.setText("");
         txtApellidoPa.setText("");
         txtApellidoMa.setText("");
-        txtAnioCumple.setText("");
-        txtMesCumple.setText("");
-        txtDiaCumple.setText("");
         txtCalle.setText("");
         txtColonia.setText("");
         txtNumCasa.setText("");
@@ -81,17 +76,11 @@ public class DlgRegistro extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtApellidoPa = new javax.swing.JTextField();
         txtApellidoMa = new javax.swing.JTextField();
-        txtAnioCumple = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtMesCumple = new javax.swing.JTextField();
-        txtDiaCumple = new javax.swing.JTextField();
         txtCalle = new javax.swing.JTextField();
         txtColonia = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -102,6 +91,13 @@ public class DlgRegistro extends javax.swing.JDialog {
         btnVolver = new javax.swing.JButton();
         btnRestaurar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
+
+        jDateFechaNacimiento = new com.toedter.calendar.JDateChooser();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        txtContrasenia = new javax.swing.JTextField();
+        txtConfirmarContrasenia = new javax.swing.JTextField();
+
 
         jLabel6.setText("jLabel6");
 
@@ -128,12 +124,6 @@ public class DlgRegistro extends javax.swing.JDialog {
         jLabel3.setText("Apellido Paterno:");
 
         jLabel4.setText("Apellido Materno:");
-
-        jLabel5.setText("Año Nacimiento:");
-
-        jLabel7.setText("Mes de Nacimiento:");
-
-        jLabel8.setText("Día de Nacimiento:");
 
         jLabel9.setText("Calle:");
 
@@ -186,6 +176,34 @@ public class DlgRegistro extends javax.swing.JDialog {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
+        jLabel5.setText("Ingrese contra");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtConfirmarContrasenia)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 28, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addGap(17, 17, 17))
+                    .addComponent(txtContrasenia)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(txtConfirmarContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,12 +223,9 @@ public class DlgRegistro extends javax.swing.JDialog {
                                         .addComponent(txtApellidoPa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                                         .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)))
                                 .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtDiaCumple, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(txtCalle))
-                                .addGap(57, 57, 57))
+                                .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
+
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,14 +249,35 @@ public class DlgRegistro extends javax.swing.JDialog {
                                         .addGap(93, 93, 93)
                                         .addComponent(jLabel9)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)))
+
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4)
+                                    .addComponent(txtApellidoMa, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                    .addComponent(jDateFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(43, 43, 43)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel11)
+                                    .addComponent(txtColonia)
+                                    .addComponent(jLabel10)
+                                    .addComponent(txtNumCasa)
+                                    .addComponent(txtCP, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(93, 93, 93)
+                                .addComponent(jLabel9)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(117, 117, 117))))
+                        .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -288,6 +324,46 @@ public class DlgRegistro extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtMesCumple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(24, 24, 24)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel9))
+                            .addGap(12, 12, 12)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtApellidoPa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel10))
+                            .addGap(6, 6, 6)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtApellidoMa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtColonia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel11)
+                                    .addGap(5, 5, 5)
+                                    .addComponent(txtNumCasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel12)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(83, 83, 83)
+                                    .addComponent(jDateFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
@@ -307,6 +383,10 @@ public class DlgRegistro extends javax.swing.JDialog {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnRestaurar;
     private javax.swing.JButton btnVolver;
+
+
+    private com.toedter.calendar.JDateChooser jDateFechaNacimiento;
+
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -316,20 +396,18 @@ public class DlgRegistro extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtAnioCumple;
     private javax.swing.JTextField txtApellidoMa;
     private javax.swing.JTextField txtApellidoPa;
     private javax.swing.JTextField txtCP;
     private javax.swing.JTextField txtCalle;
     private javax.swing.JTextField txtColonia;
-    private javax.swing.JTextField txtDiaCumple;
-    private javax.swing.JTextField txtMesCumple;
+    private javax.swing.JTextField txtConfirmarContrasenia;
+    private javax.swing.JTextField txtContrasenia;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumCasa;
     // End of variables declaration//GEN-END:variables

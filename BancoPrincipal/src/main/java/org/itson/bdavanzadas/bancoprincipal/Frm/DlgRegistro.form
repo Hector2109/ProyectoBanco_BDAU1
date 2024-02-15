@@ -69,14 +69,10 @@
                                   </Group>
                               </Group>
                               <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtDiaCumple" pref="156" max="32767" attributes="0"/>
-                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtCalle" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                              <Component id="txtCalle" min="-2" pref="156" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
+
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -106,10 +102,33 @@
                                   </Group>
                               </Group>
                               <EmptySpace pref="57" max="32767" attributes="0"/>
+
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtApellidoMa" alignment="0" pref="141" max="32767" attributes="0"/>
+                                  <Component id="jDateFechaNacimiento" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtColonia" max="32767" attributes="0"/>
+                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtNumCasa" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtCP" alignment="0" pref="156" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jPanel2" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -120,21 +139,52 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtNombre" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtNombre" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtApellidoPa" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCalle" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtApellidoMa" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtColonia" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                  <Component id="txtNumCasa" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtCP" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                                  <Component id="jDateFechaNacimiento" min="-2" pref="22" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -176,6 +226,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtMesCumple" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtCP" alignment="3" min="-2" max="-2" attributes="0"/>
+
                       </Group>
                   </Group>
               </Group>
@@ -208,21 +259,6 @@
         <Property name="text" type="java.lang.String" value="Apellido Materno:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="A&#xf1;o Nacimiento:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel7">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Mes de Nacimiento:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel8">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="D&#xed;a de Nacimiento:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
         <Property name="text" type="java.lang.String" value="Calle:"/>
@@ -234,16 +270,10 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtApellidoMa">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtAnioCumple">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
         <Property name="text" type="java.lang.String" value="Colonia:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtMesCumple">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtDiaCumple">
     </Component>
     <Component class="javax.swing.JTextField" name="txtCalle">
     </Component>
@@ -326,5 +356,54 @@
         </Component>
       </SubComponents>
     </Container>
+
+    <Component class="com.toedter.calendar.JDateChooser" name="jDateFechaNacimiento">
+    </Component>
+    <Container class="javax.swing.JPanel" name="jPanel2">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="txtConfirmarContrasenia" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="txtContrasenia" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="txtContrasenia" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                  <Component id="txtConfirmarContrasenia" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="88" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ingrese contra"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtContrasenia">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtConfirmarContrasenia">
+        </Component>
+      </SubComponents>
+    </Container>
+
   </SubComponents>
 </Form>
