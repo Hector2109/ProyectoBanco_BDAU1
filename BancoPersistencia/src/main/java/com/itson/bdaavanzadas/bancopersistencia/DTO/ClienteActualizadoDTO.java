@@ -1,6 +1,7 @@
 package com.itson.bdaavanzadas.bancopersistencia.DTO;
 
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.ValidacionDTOException;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -13,7 +14,7 @@ public class ClienteActualizadoDTO {
     private String nombre; //Nombre del cliente del banco
     private String apellido_pa; //Apellido Paterno del cliente del banco
     private String apellido_ma; //Apellido Materno del cliente del banco
-    private GregorianCalendar fecha_nacimiento;//Fecha de nacimiento 
+    private Date fecha_nacimiento;//Fecha de nacimiento 
     private String calle; //Calle del cliente
     private String colonia; //Colonia del cliente
     private String numero_casa; //Número de casa del cliente
@@ -88,7 +89,7 @@ public class ClienteActualizadoDTO {
      * Obtiene la fecha de nacimiento del cliente
      * @return fecha de nacimiento
      */
-    public GregorianCalendar getFecha_nacimiento() {
+    public Date getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
@@ -96,7 +97,7 @@ public class ClienteActualizadoDTO {
      * Modifica la fecha de nacimiento del cliente
      * @param fecha_nacimiento 
      */
-    public void setFecha_nacimiento(GregorianCalendar fecha_nacimiento) {
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 

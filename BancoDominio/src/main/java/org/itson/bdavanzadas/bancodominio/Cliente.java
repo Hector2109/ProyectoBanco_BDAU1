@@ -1,7 +1,10 @@
 package org.itson.bdavanzadas.bancodominio;
 
+
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Objects;
+
 
 /**
  * 
@@ -13,7 +16,7 @@ public class Cliente {
     private String nombre; //Nombre del cliente del banco
     private String apellido_pa; //Apellido Paterno del cliente del banco
     private String apellido_ma; //Apellido Materno del cliente del banco
-    private GregorianCalendar fecha_nacimiento;//Fecha de nacimiento 
+    private Date fecha_nacimiento;//Fecha de nacimiento 
     private String calle; //Calle del cliente
     private String colonia; //Colonia del cliente
     private String numero_casa; //Número de casa del cliente
@@ -62,7 +65,7 @@ public class Cliente {
         this.cp = cp;
     }
 
-    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, GregorianCalendar fecha_nacimiento, String calle, String colonia, String numero_casa, String cp) {
+    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle, String colonia, String numero_casa, String cp) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.apellido_pa = apellido_pa;
@@ -145,7 +148,7 @@ public class Cliente {
      * Obtiene la fecha de nacimiento del cliente
      * @return fecha de nacimiento
      */
-    public GregorianCalendar getFecha_nacimiento() {
+    public Date getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
@@ -153,7 +156,7 @@ public class Cliente {
      * Modifica la fecha de nacimiento del cliente
      * @param fecha_nacimiento 
      */
-    public void setFecha_nacimiento(GregorianCalendar fecha_nacimiento) {
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
