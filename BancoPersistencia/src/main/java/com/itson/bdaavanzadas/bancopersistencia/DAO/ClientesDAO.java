@@ -134,28 +134,28 @@ public class ClientesDAO implements IClientesDAO{
     }
     }
 
-//    @Override
-//    public Cliente actualizarCliente(ClienteActualizadoDTO clienteActualizado) throws PersistenciaException {
-//        String sentenciaSQL = """
-//            UPDATE clientes SET nombre = ?, telefono = ?, correo = ?
-//                              WHERE id = ?""";
-//
-//        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
-//
-//            comando.setString(1, clienteActualizado.getNombre());
-//            comando.setString(2, clienteActualizado.getTelefono());
-//            comando.setString(3, clienteActualizado.getCorreo());
-//            comando.setLong(4, clienteActualizado.getId());
-//
-//            int numeroRegistrosInsertados = comando.executeUpdate();
-//
-//            logger.log(Level.INFO, "Se actualizo al cliente {0}", numeroRegistrosInsertados);
-//            return new Cliente(clienteActualizado.getId(), clienteActualizado.getNombre(), clienteActualizado.getTelefono(), clienteActualizado.getCorreo());
-//        } catch (SQLException ex) {
-//            logger.log(Level.SEVERE, "No se pudo actualizar el cliente", ex);
-//            throw new PersistenciaException("No se pudo actualizar el cliente", ex);
-//        }
-//    }
+    @Override
+    public Cliente actualizarCliente(ClienteActualizadoDTO clienteActualizado) throws PersistenciaException {
+        String sentenciaSQL = """
+            UPDATE clientes SET nombre = ?, telefono = ?, correo = ?
+                              WHERE id = ?""";
+
+        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
+
+            comando.setString(1, clienteActualizado.getNombre());
+            comando.setString(2, clienteActualizado.getTelefono());
+            comando.setString(3, clienteActualizado.getCorreo());
+            comando.setLong(4, clienteActualizado.getId());
+
+            int numeroRegistrosInsertados = comando.executeUpdate();
+
+            logger.log(Level.INFO, "Se actualizo al cliente {0}", numeroRegistrosInsertados);
+            return new Cliente(clienteActualizado.getId(), clienteActualizado.getNombre(), clienteActualizado.getTelefono(), clienteActualizado.getCorreo());
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "No se pudo actualizar el cliente", ex);
+            throw new PersistenciaException("No se pudo actualizar el cliente", ex);
+        }
+    }
     
     
     
