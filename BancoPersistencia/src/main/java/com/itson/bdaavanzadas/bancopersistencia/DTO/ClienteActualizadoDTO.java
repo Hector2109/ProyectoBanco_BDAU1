@@ -18,6 +18,7 @@ public class ClienteActualizadoDTO {
     private String colonia; //Colonia del cliente
     private String numero_casa; //Número de casa del cliente
     private String cp; //código postal del cliente
+    private String contrasenia; //código postal del cliente
 
     /**
      * Obtiene el ID cliente 
@@ -175,12 +176,12 @@ public class ClienteActualizadoDTO {
         }
         if (this.apellido_pa == null || 
                 this.apellido_pa.isBlank() || 
-                this.apellido_pa.length() > 50){
+                this.apellido_pa.length() > 25){
             throw new ValidacionDTOException("Apellido paterno del cliente inválido");
         }
         if (this.calle == null || 
                 this.calle.isBlank() || 
-                this.calle.length() > 50){
+                this.calle.length() > 45){
             throw new ValidacionDTOException("Calle del cliente inválido");
         }
         if (this.numero_casa == null || 
@@ -190,12 +191,17 @@ public class ClienteActualizadoDTO {
         }
         if (this.colonia == null || 
                 this.colonia.isBlank() || 
-                this.colonia.length() > 50){
+                this.colonia.length() > 45){
             throw new ValidacionDTOException("Colonia del cliente inválido");
         }
         if (this.cp == null || 
                 this.cp.isBlank() || 
                 this.cp.length() > 5){
+            throw new ValidacionDTOException("Calle del cliente inválido");
+        }
+        if (this.contrasenia == null || 
+                this.contrasenia.isBlank() || 
+                this.contrasenia.length() > 50){
             throw new ValidacionDTOException("Calle del cliente inválido");
         }
         return true;
