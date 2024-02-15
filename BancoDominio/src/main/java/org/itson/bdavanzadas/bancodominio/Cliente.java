@@ -17,6 +17,7 @@ public class Cliente {
     private String colonia; //Colonia del cliente
     private String numero_casa; //Número de casa del cliente
     private String cp; //código postal del cliente
+    private String contrasenia; //Contraseña del cliente
 
     /**
      * Constructor para crear un objeto Cliente
@@ -29,7 +30,7 @@ public class Cliente {
      * @param numero_casa numero de cas del cliente
      * @param cp código postal del cliente
      */
-    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, String calle, String colonia, String numero_casa, String cp) {
+    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, String calle, String colonia, String numero_casa, String cp, String contrasenia) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.apellido_pa = apellido_pa;
@@ -38,7 +39,28 @@ public class Cliente {
         this.colonia = colonia;
         this.numero_casa = numero_casa;
         this.cp = cp;
+        this.contrasenia = contrasenia;
     }
+
+    /**
+     * Este constructor se utiliza para los objetos clientes los cuales se requeiren consultarm, de esta forma se muestra
+     * el nombre completo en un campo y la contraseña no es guardada ni mostrada
+     * @param id_cliente id del cliente
+     * @param nombre nombre del cliente
+     * @param calle calle del cliente
+     * @param colonia colonia del cliente
+     * @param numero_casa numero de casa
+     * @param cp código postal del cliente
+     */
+    public Cliente(Long id_cliente, String nombre, String calle, String colonia, String numero_casa, String cp) {
+        this.id_cliente = id_cliente;
+        this.nombre = nombre;
+        this.calle = calle;
+        this.colonia = colonia;
+        this.numero_casa = numero_casa;
+        this.cp = cp;
+    }
+    
     
     /**
      * Obtiene la id del cliente
@@ -120,8 +142,14 @@ public class Cliente {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    
-    
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
     /**
      * Obtiene la call del cliente
      * @return calle del cliente
