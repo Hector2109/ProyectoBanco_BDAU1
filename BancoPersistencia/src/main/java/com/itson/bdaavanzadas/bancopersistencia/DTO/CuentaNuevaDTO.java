@@ -1,6 +1,4 @@
-
 package com.itson.bdaavanzadas.bancopersistencia.DTO;
-
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.ValidacionDTOException;
 import java.util.GregorianCalendar;
 
