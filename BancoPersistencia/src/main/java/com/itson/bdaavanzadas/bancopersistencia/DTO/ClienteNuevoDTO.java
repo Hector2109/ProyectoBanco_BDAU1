@@ -156,6 +156,31 @@ public class ClienteNuevoDTO {
                 this.nombre.length() > 50){
             throw new ValidacionDTOException("Nombre del cliente inválido");
         }
+        if (this.apellido_pa == null || 
+                this.apellido_pa.isBlank() || 
+                this.apellido_pa.length() > 50){
+            throw new ValidacionDTOException("Apellido paterno del cliente inválido");
+        }
+        if (this.calle == null || 
+                this.calle.isBlank() || 
+                this.calle.length() > 50){
+            throw new ValidacionDTOException("Calle del cliente inválido");
+        }
+        if (this.numero_casa == null || 
+                this.numero_casa.isBlank() || 
+                this.numero_casa.length() > 5){
+            throw new ValidacionDTOException("Calle del cliente inválido");
+        }
+        if (this.colonia == null || 
+                this.colonia.isBlank() || 
+                this.colonia.length() > 50){
+            throw new ValidacionDTOException("Colonia del cliente inválido");
+        }
+        if (this.cp == null || 
+                this.cp.isBlank() || 
+                this.cp.length() > 5){
+            throw new ValidacionDTOException("Calle del cliente inválido");
+        }
         return true;
     }
     
