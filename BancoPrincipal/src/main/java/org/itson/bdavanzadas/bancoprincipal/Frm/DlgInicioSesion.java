@@ -4,17 +4,24 @@
  */
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
+import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
+import org.itson.bdavanzadas.bancodominio.Cliente;
+
 /**
  *
  * @author Hector Espinoza
  */
 public class DlgInicioSesion extends javax.swing.JDialog {
 
+    private final IClientesDAO clientesDAO;
+    private Cliente cliente;
+    
     /**
      * Creates new form DlgInicioSesion
      */
-    public DlgInicioSesion(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public DlgInicioSesion(IClientesDAO clientesDAO, Cliente cliente) {
+        this.clientesDAO = clientesDAO;
+        this.cliente = cliente;
         initComponents();
     }
 
@@ -54,6 +61,11 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         btnVolver.setText("Volver");
 
         btnRestaurar.setText("Restaurar");
+        btnRestaurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestaurarActionPerformed(evt);
+            }
+        });
 
         btnAceptar.setText("Iniciar Sesión");
 
@@ -104,6 +116,11 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarActionPerformed
+        txtUsuario.setText("");
+        txtPasswordContrasenia.setText("");
+    }//GEN-LAST:event_btnRestaurarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

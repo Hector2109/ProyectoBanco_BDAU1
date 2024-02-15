@@ -17,11 +17,10 @@ public class BancoPrincipal {
         FrmMain form = new FrmMain ();
         String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
         String usuario = "root";
-        String contrasenia = "Alluka04";
+        String contrasenia = "hector21";
         //String contrasenia = "Itson";
         //String contrasenia = "kikin22";
         IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
         FrmMain main = new FrmMain();
-        main.setVisible(true);
     }
 }
