@@ -6,7 +6,7 @@ package com.itson.bdaavanzadas.bancopersistencia.DTO;
 
 /**
  *
- * @author Enrique Rodriguez
+ * @author Hector Espinoza y Enrique Rodriguez
  */
 public class CuentaNuevaDTO {
     

@@ -6,7 +6,7 @@ package com.itson.bdaavanzadas.bancopersistencia.DAO;
 
 /**
  *
- * @author Enrique Rodriguez
+ * @author Hector Espinoza y Enrique Rodriguez
  */
 public class CuentaDAO {
     
