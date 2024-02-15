@@ -12,7 +12,7 @@ import org.itson.bdavanzadas.bancodominio.Cliente;
  */
 public interface IClientesDAO {
     
-    Cliente agragarCliente (ClienteNuevoDTO clienteNuevo) throws PersistenciaException;
+    Cliente agregarCliente (ClienteNuevoDTO clienteNuevo) throws PersistenciaException;
     
     List <Cliente> consultar() throws PersistenciaException;
 

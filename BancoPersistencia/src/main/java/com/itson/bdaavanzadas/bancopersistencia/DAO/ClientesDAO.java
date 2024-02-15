@@ -36,7 +36,7 @@ public class ClientesDAO implements IClientesDAO{
      * @throws PersistenciaException en caso de un error al agregar al cliente
      */
     @Override
-    public Cliente agragarCliente(ClienteNuevoDTO clienteNuevo) throws PersistenciaException {
+    public Cliente agregarCliente(ClienteNuevoDTO clienteNuevo) throws PersistenciaException {
         String sentenciaSQL = """
             INSERT INTO clientes(nombre,apellido_paterno,apellido_materno,fecha_nacimiento,calle,colonia,
                               cp,num_casa,contrasenia)
@@ -69,6 +69,11 @@ public class ClientesDAO implements IClientesDAO{
         }
     }
 
+    /**
+     * Regresa una lista de los clientes del banco
+     * @return lizsta de clientes
+     * @throws PersistenciaException 
+     */
     @Override
     public List<Cliente> consultar() throws PersistenciaException {
         String sentenciaSQL = """
@@ -137,20 +142,28 @@ public class ClientesDAO implements IClientesDAO{
     @Override
     public Cliente actualizarCliente(ClienteActualizadoDTO clienteActualizado) throws PersistenciaException {
         String sentenciaSQL = """
-            UPDATE clientes SET nombre = ?, telefono = ?, correo = ?
+            UPDATE clientes SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, 
+                              fecha_nacimiento = ?, calle = ?,  colonia = ?, cp = ?, num_casa = ?
                               WHERE id = ?""";
 
         try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
 
             comando.setString(1, clienteActualizado.getNombre());
-            comando.setString(2, clienteActualizado.getTelefono());
-            comando.setString(3, clienteActualizado.getCorreo());
-            comando.setLong(4, clienteActualizado.getId());
+            comando.setString(2, clienteActualizado.getApellido_pa());
+            comando.setString(3, clienteActualizado.getApellido_ma());
+            comando.setString(4, clienteActualizado.getFecha_nacimiento().toString());
+            comando.setString(5, clienteActualizado.getCalle());
+            comando.setString(6, clienteActualizado.getColonia());
+            comando.setString(7, clienteActualizado.getCp());
+            comando.setString(8, clienteActualizado.getNumero_casa());
+            comando.setLong(9, clienteActualizado.getId());
 
             int numeroRegistrosInsertados = comando.executeUpdate();
 
             logger.log(Level.INFO, "Se actualizo al cliente {0}", numeroRegistrosInsertados);
-            return new Cliente(clienteActualizado.getId(), clienteActualizado.getNombre(), clienteActualizado.getTelefono(), clienteActualizado.getCorreo());
+            return new Cliente(clienteActualizado.getId(), clienteActualizado.getNombre(), clienteActualizado.getApellido_pa(),
+                    clienteActualizado.getApellido_ma(), clienteActualizado.getFecha_nacimiento(), clienteActualizado.getCalle(),
+                    clienteActualizado.getColonia(), clienteActualizado.getCp(), clienteActualizado.getNumero_casa());
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "No se pudo actualizar el cliente", ex);
             throw new PersistenciaException("No se pudo actualizar el cliente", ex);

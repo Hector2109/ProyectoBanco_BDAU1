@@ -60,6 +60,20 @@ public class Cliente {
         this.numero_casa = numero_casa;
         this.cp = cp;
     }
+
+    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, GregorianCalendar fecha_nacimiento, String calle, String colonia, String numero_casa, String cp) {
+        this.id_cliente = id_cliente;
+        this.nombre = nombre;
+        this.apellido_pa = apellido_pa;
+        this.apellido_ma = apellido_ma;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.calle = calle;
+        this.colonia = colonia;
+        this.numero_casa = numero_casa;
+        this.cp = cp;
+    }
+    
+    
     
     
     /**
