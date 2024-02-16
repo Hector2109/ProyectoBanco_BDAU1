@@ -48,7 +48,7 @@ public class Cliente {
     }
 
     /**
-     * Este constructor se utiliza para los objetos clientes los cuales se requeiren consultarm, de esta forma se muestra
+     * Este constructor se utiliza para los objetos clientes los cuales se requeiren consultar, de esta forma se muestra
      * el nombre completo en un campo y la contraseña no es guardada ni mostrada
      * @param id_cliente id del cliente
      * @param nombre nombre del cliente
@@ -67,7 +67,22 @@ public class Cliente {
         this.correo= correo;
     }
 
-    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle, String colonia, String numero_casa, String cp, String correo) {
+    /**
+     * Este constructor se utiliza en caso de necesitar actualizar a algún cliente o
+     * requerir un inicio de sesión
+     * @param id_cliente
+     * @param nombre
+     * @param apellido_pa
+     * @param apellido_ma
+     * @param fecha_nacimiento
+     * @param calle
+     * @param colonia
+     * @param numero_casa
+     * @param cp
+     * @param correo 
+     */
+    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle, 
+                String colonia, String numero_casa, String cp, String correo) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.apellido_pa = apellido_pa;
@@ -79,6 +94,44 @@ public class Cliente {
         this.cp = cp;
         this.correo= correo;
     }
+
+    /**
+     * Este construtor se usa una vez el cliente haya iniciado sesión para darle todos sus datos
+     * @param nombre nombre
+     * @param apellido_pa apellido paterno
+     * @param apellido_ma apellido materno
+     * @param fecha_nacimiento fecha de nacimiento
+     * @param calle calle
+     * @param colonia colonia
+     * @param numero_casa numero de casa
+     * @param cp código postal
+     * @param correo correo
+     */
+    public Cliente(String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle, String colonia, String numero_casa, String cp, String correo) {
+        this.nombre = nombre;
+        this.apellido_pa = apellido_pa;
+        this.apellido_ma = apellido_ma;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.calle = calle;
+        this.colonia = colonia;
+        this.numero_casa = numero_casa;
+        this.cp = cp;
+        this.correo = correo;
+    }
+    
+    
+
+    /**
+     * Este constructor se utiliza para iniciar sesión en el banco
+     * @param contrasenia contraseña del cliente
+     * @param correo correo del cliente
+     */
+    public Cliente(String contrasenia, String correo) {
+        this.contrasenia = contrasenia;
+        this.correo = correo;
+    }
+    
+    
     
     /**
      * Obtiene la id del cliente

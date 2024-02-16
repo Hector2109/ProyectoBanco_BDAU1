@@ -20,5 +20,6 @@ public interface IClientesDAO {
     
     public Cliente actualizarCliente (ClienteActualizadoDTO clienteActualizado) throws PersistenciaException;
 
+    public Cliente iniciarSesion (Cliente cliente) throws PersistenciaException; 
     
 }
