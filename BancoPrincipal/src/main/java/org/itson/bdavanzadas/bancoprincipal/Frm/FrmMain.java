@@ -29,7 +29,7 @@ public class FrmMain extends javax.swing.JFrame {
         //String contrasenia = "kikin22";
         IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
         IClientesDAO sociosDAO = new ClientesDAO(conexion);
-        setVisible (true);
+        setVisible(true);
         this.clientesDAO = clientesDAO;
     }
 
@@ -130,9 +130,6 @@ public class FrmMain extends javax.swing.JFrame {
         DlgInicioSesion inicioSesion = new DlgInicioSesion(clientesDAO);
         inicioSesion.setVisible(true);
         this.setVisible(false);
-        if (inicioSesion.getCliente() ==null){
-            setVisible(true);
-        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed

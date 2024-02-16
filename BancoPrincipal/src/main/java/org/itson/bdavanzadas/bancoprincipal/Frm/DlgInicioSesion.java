@@ -149,7 +149,8 @@ public class DlgInicioSesion extends javax.swing.JDialog {
             if (validar()){
                 try {
                     clienteSesion = clientesDAO.iniciarSesion(clienteSesion);
-                    FrmMenuPerfil menuSesion = new FrmMenuPerfil (clienteSesion); 
+                    FrmMenuPerfil menuSesion = new FrmMenuPerfil (clienteSesion, clientesDAO);
+                    this.setVisible(false);
                     
                 } catch (PersistenciaException ex) {
                     JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error de incio de sesión", JOptionPane.ERROR_MESSAGE);;
@@ -169,11 +170,13 @@ public class DlgInicioSesion extends javax.swing.JDialog {
     }
     
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        dispose();
+        FrmMain s = new FrmMain(clientesDAO);
+        s.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         iniciarSesion();
+        
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     
