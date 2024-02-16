@@ -24,6 +24,15 @@ public class Cliente {
     private String correo; //correo del cliente
 
     /**
+     * Constructor vacio
+     */
+    public Cliente() {
+    }
+
+    
+    
+    
+    /**
      * Constructor para crear un objeto Cliente
      * @param id_cliente id del cliente
      * @param nombre nombre del cliente
@@ -107,7 +116,7 @@ public class Cliente {
      * @param cp código postal
      * @param correo correo
      */
-    public Cliente(String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle, String colonia, String numero_casa, String cp, String correo) {
+    public Cliente(String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle, String colonia, String numero_casa, String cp, String correo, String contrasenia) {
         this.nombre = nombre;
         this.apellido_pa = apellido_pa;
         this.apellido_ma = apellido_ma;
@@ -117,6 +126,7 @@ public class Cliente {
         this.numero_casa = numero_casa;
         this.cp = cp;
         this.correo = correo;
+        this.contrasenia = contrasenia;
     }
     
     

@@ -190,36 +190,49 @@ public class ClientesDAO implements IClientesDAO {
 
     /**
      * Método para iniciar sesión en el banco
-     *
      * @param cliente
      * @return
      * @throws PersistenciaException
      */
     @Override
     public Cliente iniciarSesion(Cliente cliente) throws PersistenciaException {
-        String sentenciaSQL = """
-            SELECT nombre, apellido_paterno, apellido_materno, 
-                fecha_nacimiento, calle,  colonia, cp, num_casa, correo
-                              WHERE correo = ? AND contrasenia = ?""";
-        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL); ResultSet resultados = comando.executeQuery();) {
-            while (resultados.next()) {
+    String sentenciaSQL = """
+        SELECT nombre, apellido_paterno, apellido_materno, 
+            fecha_nacimiento, calle, colonia, cp, num_casa, correo, contrasenia
+        FROM clientes
+        WHERE correo = ? AND contrasenia = ?""";
+    try (Connection conexion = this.conexionBD.obtenerConection(); 
+         PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
+        
+        comando.setString(1, cliente.getCorreo());
+        comando.setString(2, cliente.getContrasenia());
+        
+        try (ResultSet resultados = comando.executeQuery()) {
+            if (resultados.next()) {
                 String nombre = resultados.getString("nombre");
                 String apellido_pa = resultados.getString("apellido_paterno");
                 String apellido_ma = resultados.getString("apellido_materno");
                 Date fecha_nacimiento = resultados.getDate("fecha_nacimiento");
-                String calle = resultados.getString("apellido_materno");
+                String calle = resultados.getString("calle"); // Arreglado: era apellido_materno
                 String colonia = resultados.getString("colonia");
                 String cp = resultados.getString("cp");
                 String num_casa = resultados.getString("num_casa");
                 String correo = resultados.getString("correo");   
-                cliente = new Cliente (nombre, apellido_pa, apellido_ma, fecha_nacimiento, calle, colonia, num_casa, cp, correo); 
+                String contrasenia = resultados.getString("contrasenia");
+                cliente = new Cliente(nombre, apellido_pa, apellido_ma, fecha_nacimiento, calle, colonia, num_casa, cp, correo, contrasenia); 
+                
+                logger.log(Level.INFO, "Se inició sesión de forma exitosa");
+            } else {
+                logger.log(Level.SEVERE, "Correo o contraseña incorrectos");
+                throw new PersistenciaException("Correo o contraseña incorrectos");
             }
-            logger.log(Level.INFO, "Se inicio sesiónd forma exitosa");
-        }catch (SQLException ex){
-             logger.log(Level.SEVERE, "No se pudo iniciar sesión", ex);
-                throw new PersistenciaException("Error al iniciar sesión, verifique sus datos", ex);
         }
-        return cliente;
+    } catch (SQLException ex) {
+        logger.log(Level.SEVERE, "No se pudo iniciar sesión", ex);
+        throw new PersistenciaException("Error al iniciar sesión, verifique sus datos", ex);
     }
+    return cliente;
+}
+
 
 }

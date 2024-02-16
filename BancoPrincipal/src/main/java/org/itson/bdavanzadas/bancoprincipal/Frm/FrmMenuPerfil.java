@@ -4,17 +4,22 @@
  */
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
+import org.itson.bdavanzadas.bancodominio.Cliente;
+
 /**
  *
  * @author Hector Espinoza
  */
 public class FrmMenuPerfil extends javax.swing.JFrame {
-
+    
+    private Cliente cliente;
     /**
      * Creates new form FrmMenuPerfil
      */
-    public FrmMenuPerfil() {
+    public FrmMenuPerfil(Cliente cliente) {
         initComponents();
+        this.cliente = cliente;
+        setVisible(true);
     }
 
     /**

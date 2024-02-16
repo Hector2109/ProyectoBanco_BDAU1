@@ -4,7 +4,14 @@
  */
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
+import com.itson.bdaavanzadas.bancopersistencia.DAO.ClientesDAO;
 import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DTO.ClienteNuevoDTO;
+import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
+import com.itson.bdaavanzadas.bancopersistencia.excepciones.ValidacionDTOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.bancodominio.Cliente;
 
 /**
@@ -15,13 +22,11 @@ public class DlgInicioSesion extends javax.swing.JDialog {
 
     private final IClientesDAO clientesDAO;
     private Cliente cliente;
-    
     /**
      * Creates new form DlgInicioSesion
      */
-    public DlgInicioSesion(IClientesDAO clientesDAO, Cliente cliente) {
+    public DlgInicioSesion(IClientesDAO clientesDAO) {
         this.clientesDAO = clientesDAO;
-        this.cliente = cliente;
         initComponents();
     }
 
@@ -36,7 +41,7 @@ public class DlgInicioSesion extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtUsuario = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtPasswordContrasenia = new javax.swing.JPasswordField();
         btnVolver = new javax.swing.JButton();
@@ -49,9 +54,9 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         jLabel1.setText("BETOBANK");
 
         jLabel2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel2.setText("Ingrese su identificador de usuario");
+        jLabel2.setText("Ingrese su correo");
 
-        txtUsuario.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        txtCorreo.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel3.setText("Ingrese su contraseña");
@@ -73,6 +78,11 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         });
 
         btnAceptar.setText("Iniciar Sesión");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,7 +102,7 @@ public class DlgInicioSesion extends javax.swing.JDialog {
                                 .addComponent(btnRestaurar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAceptar))
-                            .addComponent(txtUsuario)
+                            .addComponent(txtCorreo)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                             .addComponent(jLabel3)
                             .addComponent(txtPasswordContrasenia, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -105,7 +115,7 @@ public class DlgInicioSesion extends javax.swing.JDialog {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
@@ -123,15 +133,68 @@ public class DlgInicioSesion extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarActionPerformed
-        txtUsuario.setText("");
-        txtPasswordContrasenia.setText("");
+        limpiar();
     }//GEN-LAST:event_btnRestaurarActionPerformed
 
+    public void iniciarSesion(){
+        String correo = txtCorreo.getText();
+        String contrasenia = txtPasswordContrasenia.getText();
+        
+         Cliente clienteSesion = new Cliente();
+         
+         clienteSesion.setCorreo(correo);
+         clienteSesion.setContrasenia(contrasenia);
+         
+        try{
+            if (validar()){
+                try {
+                    clienteSesion = clientesDAO.iniciarSesion(clienteSesion);
+                    FrmMenuPerfil menuSesion = new FrmMenuPerfil (clienteSesion); 
+                    
+                } catch (PersistenciaException ex) {
+                    JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error de incio de sesión", JOptionPane.ERROR_MESSAGE);;
+                }
+            }
+        }catch (ValidacionDTOException ex){
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Rellena todas las casillas", JOptionPane.ERROR_MESSAGE);
+        }
+         
+         
+        
+    }
+    
+    private void limpiar(){
+        txtCorreo.setText("");
+        txtPasswordContrasenia.setText("");
+    }
+    
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        iniciarSesion();
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
+    
+    private boolean validar () throws ValidacionDTOException{
+        if (txtCorreo.getText().isBlank()){
+            throw new ValidacionDTOException ("Llene el campo de correo"); 
+        }else if (txtCorreo.getText().length()>200){
+            throw new ValidacionDTOException ("El correo debe de ser menor de 200 caracteres"); 
+        }else if (!txtCorreo.getText().contains("@")){
+            throw new ValidacionDTOException ("El correo debe contener un @");
+        }else if (txtPasswordContrasenia.getText().isBlank()) {
+            throw new ValidacionDTOException ("Ingrese la contraseña");
+        }
+        return true;
+    }
+    
+    protected Cliente getCliente (){
+        return cliente;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnRestaurar;
@@ -139,7 +202,7 @@ public class DlgInicioSesion extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField txtCorreo;
     private javax.swing.JPasswordField txtPasswordContrasenia;
-    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
