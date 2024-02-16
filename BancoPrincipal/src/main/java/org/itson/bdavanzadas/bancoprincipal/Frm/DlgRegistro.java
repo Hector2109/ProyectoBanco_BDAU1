@@ -6,6 +6,10 @@ package org.itson.bdavanzadas.bancoprincipal.Frm;
 
 import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
 import com.itson.bdaavanzadas.bancopersistencia.DTO.ClienteNuevoDTO;
+import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
+import com.itson.bdaavanzadas.bancopersistencia.excepciones.ValidacionDTOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.bancodominio.Cliente;
 
@@ -145,11 +149,14 @@ public class DlgRegistro extends javax.swing.JDialog {
         clienteNuevo.setCp(cp);
         clienteNuevo.setContrasenia(contra);
         try {
-            //clienteNuevo.esValido();
+            clienteNuevo.esValido();
             Cliente cliente = this.clientesDAO.agregarCliente(clienteNuevo);
             JOptionPane.showMessageDialog(this, "Se registró el cliente", "Todo correcto", JOptionPane.INFORMATION_MESSAGE);
             limpiar();
-        } catch (Exception e) {
+        } catch (ValidacionDTOException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Rellena todas las casillas", JOptionPane.ERROR_MESSAGE);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(DlgRegistro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
