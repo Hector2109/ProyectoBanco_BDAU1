@@ -196,6 +196,9 @@ public class ClienteNuevoDTO {
                 this.contrasenia.length() > 50){
             throw new ValidacionDTOException("Calle del cliente inválido");
         }
+        if (this.fecha_nacimiento == null){
+            throw new ValidacionDTOException("Fecha no valida del cliente inválido");
+        }
         return true;
     }
 
