@@ -39,8 +39,8 @@ public class ClientesDAO implements IClientesDAO{
     public Cliente agregarCliente(ClienteNuevoDTO clienteNuevo) throws PersistenciaException {
         String sentenciaSQL = """
             INSERT INTO clientes(nombre,apellido_paterno,apellido_materno,fecha_nacimiento,calle,colonia,
-                              cp,num_casa,contrasenia)
-            VALUES (?,?,?,?,?,?,?,?,?);
+                              cp,num_casa,contrasenia, correo)
+            VALUES (?,?,?,?,?,?,?,?,?,?);
                              """;
 
         try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -54,6 +54,7 @@ public class ClientesDAO implements IClientesDAO{
             comando.setString(7, clienteNuevo.getCp());
             comando.setString(8, clienteNuevo.getNumero_casa());
             comando.setString(9, clienteNuevo.getContrasenia());
+            comando.setString(10, clienteNuevo.getCorreo());
             
             int numeroRegistrosInsertados = comando.executeUpdate();
             logger.log(Level.INFO, "Se agregaron {0} clientes", numeroRegistrosInsertados);
@@ -61,7 +62,7 @@ public class ClientesDAO implements IClientesDAO{
             idsGenerados.next();
             Cliente cliente = new Cliente(idsGenerados.getLong(1), clienteNuevo.getNombre(), clienteNuevo.getApellido_pa(),
                     clienteNuevo.getApellido_ma(), clienteNuevo.getCalle(), clienteNuevo.getColonia(), 
-                    clienteNuevo.getNumero_casa(), clienteNuevo.getCp(), clienteNuevo.getContrasenia());
+                    clienteNuevo.getNumero_casa(), clienteNuevo.getCp(), clienteNuevo.getContrasenia(), clienteNuevo.getCorreo());
             return cliente;
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "No se pudo guardar el cliente", ex);
@@ -87,7 +88,8 @@ public class ClientesDAO implements IClientesDAO{
                 c.calle AS Calle, 
                 c.num_casa AS "Número de casa", 
                 c.cp AS "Código postal", 
-                FLOOR(DATEDIFF(CURDATE(), fecha_nacimiento) / 365) AS Edad 
+                FLOOR(DATEDIFF(CURDATE(), fecha_nacimiento) / 365) AS Edad,
+                              c.correo AS Correo
             FROM clientes AS c;;
         """;
         List<Cliente> clientes = new LinkedList<>();
@@ -100,8 +102,9 @@ public class ClientesDAO implements IClientesDAO{
             String numeroCasa = resultados.getString("Número de casa");
             String cp = resultados.getString("Código postal");
             int edad = resultados.getInt("Edad");
+            String correo = resultados.getString("Correo");
             // Crear el objeto Cliente con todos los parámetros y agregarlo a la lista
-            Cliente cliente = new Cliente(id, nombreCompleto, calle, colonia, numeroCasa, cp);
+            Cliente cliente = new Cliente(id, nombreCompleto, calle, colonia, numeroCasa, cp, correo);
             clientes.add(cliente);
         }
             logger.log(Level.INFO, "Se consultario {0}", clientes.size());
@@ -152,7 +155,7 @@ public class ClientesDAO implements IClientesDAO{
     public Cliente actualizarCliente(ClienteActualizadoDTO clienteActualizado) throws PersistenciaException {
         String sentenciaSQL = """
             UPDATE clientes SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, 
-                              fecha_nacimiento = ?, calle = ?,  colonia = ?, cp = ?, num_casa = ?
+                              fecha_nacimiento = ?, calle = ?,  colonia = ?, cp = ?, num_casa = ?, correo = ?
                               WHERE id = ?""";
 
         try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -166,13 +169,14 @@ public class ClientesDAO implements IClientesDAO{
             comando.setString(7, clienteActualizado.getCp());
             comando.setString(8, clienteActualizado.getNumero_casa());
             comando.setLong(9, clienteActualizado.getId());
+            comando.setString(10, clienteActualizado.getCorreo());
 
             int numeroRegistrosInsertados = comando.executeUpdate();
 
             logger.log(Level.INFO, "Se actualizo al cliente {0}", numeroRegistrosInsertados);
             return new Cliente(clienteActualizado.getId(), clienteActualizado.getNombre(), clienteActualizado.getApellido_pa(),
                     clienteActualizado.getApellido_ma(), clienteActualizado.getFecha_nacimiento(), clienteActualizado.getCalle(),
-                    clienteActualizado.getColonia(), clienteActualizado.getCp(), clienteActualizado.getNumero_casa());
+                    clienteActualizado.getColonia(), clienteActualizado.getCp(), clienteActualizado.getNumero_casa(), clienteActualizado.getCorreo());
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "No se pudo actualizar el cliente", ex);
             throw new PersistenciaException("No se pudo actualizar el cliente", ex);

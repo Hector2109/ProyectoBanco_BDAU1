@@ -19,6 +19,7 @@ public class ClienteNuevoDTO {
     private String numero_casa; //Número de casa del cliente
     private String cp; //código postal del cliente
     private String contrasenia; //contrasenia del cliente
+    private String correo; //correo del cliente
 
     /**
      * Obtiene nombre del cliente
@@ -156,6 +157,14 @@ public class ClienteNuevoDTO {
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
     
     

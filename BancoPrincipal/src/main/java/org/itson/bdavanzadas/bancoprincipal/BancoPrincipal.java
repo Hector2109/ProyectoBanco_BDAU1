@@ -15,9 +15,9 @@ public class BancoPrincipal {
     public static void main(String[] args) {
         String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
         String usuario = "root";
-        String contrasenia = "hector21";
+        String contrasenia = "Alluka04";
         //String contrasenia = "Itson";
-        //String contrasenia = "kikin22";
+        //String contrasenia = "Alluka04";
         IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
 
         IClientesDAO clientesDAO = new ClientesDAO(conexion);

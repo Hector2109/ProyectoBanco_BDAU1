@@ -21,6 +21,7 @@ public class Cliente {
     private String numero_casa; //Número de casa del cliente
     private String cp; //código postal del cliente
     private String contrasenia; //Contraseña del cliente
+    private String correo; //correo del cliente
 
     /**
      * Constructor para crear un objeto Cliente
@@ -33,7 +34,7 @@ public class Cliente {
      * @param numero_casa numero de cas del cliente
      * @param cp código postal del cliente
      */
-    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, String calle, String colonia, String numero_casa, String cp, String contrasenia) {
+    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, String calle, String colonia, String numero_casa, String cp, String contrasenia, String correo) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.apellido_pa = apellido_pa;
@@ -43,6 +44,7 @@ public class Cliente {
         this.numero_casa = numero_casa;
         this.cp = cp;
         this.contrasenia = contrasenia;
+        this.correo= correo;
     }
 
     /**
@@ -55,16 +57,17 @@ public class Cliente {
      * @param numero_casa numero de casa
      * @param cp código postal del cliente
      */
-    public Cliente(Long id_cliente, String nombre, String calle, String colonia, String numero_casa, String cp) {
+    public Cliente(Long id_cliente, String nombre, String calle, String colonia, String numero_casa, String cp, String correo) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.calle = calle;
         this.colonia = colonia;
         this.numero_casa = numero_casa;
         this.cp = cp;
+        this.correo= correo;
     }
 
-    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle, String colonia, String numero_casa, String cp) {
+    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle, String colonia, String numero_casa, String cp, String correo) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.apellido_pa = apellido_pa;
@@ -74,10 +77,8 @@ public class Cliente {
         this.colonia = colonia;
         this.numero_casa = numero_casa;
         this.cp = cp;
+        this.correo= correo;
     }
-    
-    
-    
     
     /**
      * Obtiene la id del cliente
@@ -230,6 +231,17 @@ public class Cliente {
     public void setCp(String cp) {
         this.cp = cp;
     }
+    
+    
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+    
+    
 
     @Override
     public int hashCode() {
