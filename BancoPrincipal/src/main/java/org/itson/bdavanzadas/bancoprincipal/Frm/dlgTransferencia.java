@@ -125,8 +125,18 @@ public class dlgTransferencia extends javax.swing.JDialog {
         txtMonto.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnVerificar.setText("Verificar");
+        btnVerificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,6 +189,14 @@ public class dlgTransferencia extends javax.swing.JDialog {
     private void txtCuentaRemitenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuentaRemitenteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCuentaRemitenteActionPerformed
+
+    private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerificarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     

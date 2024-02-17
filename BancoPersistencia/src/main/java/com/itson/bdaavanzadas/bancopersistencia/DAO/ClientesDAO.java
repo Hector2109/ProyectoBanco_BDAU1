@@ -197,7 +197,7 @@ public class ClientesDAO implements IClientesDAO {
     @Override
     public Cliente iniciarSesion(Cliente cliente) throws PersistenciaException {
     String sentenciaSQL = """
-        SELECT nombre, apellido_paterno, apellido_materno, 
+        SELECT id_cliente, nombre, apellido_paterno, apellido_materno, 
             fecha_nacimiento, calle, colonia, cp, num_casa, correo, contrasenia
         FROM clientes
         WHERE correo = ? AND contrasenia = ?""";
@@ -209,6 +209,7 @@ public class ClientesDAO implements IClientesDAO {
         
         try (ResultSet resultados = comando.executeQuery()) {
             if (resultados.next()) {
+                Long id_cliente = resultados.getLong("id_cliente");
                 String nombre = resultados.getString("nombre");
                 String apellido_pa = resultados.getString("apellido_paterno");
                 String apellido_ma = resultados.getString("apellido_materno");
@@ -219,7 +220,7 @@ public class ClientesDAO implements IClientesDAO {
                 String num_casa = resultados.getString("num_casa");
                 String correo = resultados.getString("correo");   
                 String contrasenia = resultados.getString("contrasenia");
-                cliente = new Cliente(nombre, apellido_pa, apellido_ma, fecha_nacimiento, calle, colonia, num_casa, cp, correo, contrasenia); 
+                cliente = new Cliente(id_cliente,nombre, apellido_pa, apellido_ma, fecha_nacimiento, calle, colonia, num_casa, cp, correo, contrasenia); 
                 
                 logger.log(Level.INFO, "Se inició sesión de forma exitosa");
             } else {

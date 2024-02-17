@@ -1,16 +1,14 @@
 package org.itson.bdavanzadas.bancodominio;
 
-
 import java.util.Date;
 import java.util.Objects;
 
-
 /**
- * 
+ *
  * @author Hector Espinoza y Enrique Rodriguez
  */
 public class Cliente {
-    
+
     private Long id_cliente; //id del cliente del Banco
     private String nombre; //Nombre del cliente del banco
     private String apellido_pa; //Apellido Paterno del cliente del banco
@@ -29,11 +27,9 @@ public class Cliente {
     public Cliente() {
     }
 
-    
-    
-    
     /**
      * Constructor para crear un objeto Cliente
+     *
      * @param id_cliente id del cliente
      * @param nombre nombre del cliente
      * @param apellido_pa apellido paterno del cliente
@@ -53,12 +49,14 @@ public class Cliente {
         this.numero_casa = numero_casa;
         this.cp = cp;
         this.contrasenia = contrasenia;
-        this.correo= correo;
+        this.correo = correo;
     }
 
     /**
-     * Este constructor se utiliza para los objetos clientes los cuales se requeiren consultar, de esta forma se muestra
-     * el nombre completo en un campo y la contraseña no es guardada ni mostrada
+     * Este constructor se utiliza para los objetos clientes los cuales se
+     * requeiren consultar, de esta forma se muestra el nombre completo en un
+     * campo y la contraseña no es guardada ni mostrada
+     *
      * @param id_cliente id del cliente
      * @param nombre nombre del cliente
      * @param calle calle del cliente
@@ -73,12 +71,13 @@ public class Cliente {
         this.colonia = colonia;
         this.numero_casa = numero_casa;
         this.cp = cp;
-        this.correo= correo;
+        this.correo = correo;
     }
 
     /**
-     * Este constructor se utiliza en caso de necesitar actualizar a algún cliente o
-     * requerir un inicio de sesión
+     * Este constructor se utiliza en caso de necesitar actualizar a algún
+     * cliente o requerir un inicio de sesión
+     *
      * @param id_cliente
      * @param nombre
      * @param apellido_pa
@@ -88,10 +87,10 @@ public class Cliente {
      * @param colonia
      * @param numero_casa
      * @param cp
-     * @param correo 
+     * @param correo
      */
-    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle, 
-                String colonia, String numero_casa, String cp, String correo) {
+    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle,
+            String colonia, String numero_casa, String cp, String correo) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.apellido_pa = apellido_pa;
@@ -101,11 +100,13 @@ public class Cliente {
         this.colonia = colonia;
         this.numero_casa = numero_casa;
         this.cp = cp;
-        this.correo= correo;
+        this.correo = correo;
     }
 
     /**
-     * Este construtor se usa una vez el cliente haya iniciado sesión para darle todos sus datos
+     * Este construtor se usa una vez el cliente haya iniciado sesión para darle
+     * todos sus datos
+     *
      * @param nombre nombre
      * @param apellido_pa apellido paterno
      * @param apellido_ma apellido materno
@@ -128,11 +129,25 @@ public class Cliente {
         this.correo = correo;
         this.contrasenia = contrasenia;
     }
-    
-    
+
+    public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle,
+            String colonia, String numero_casa, String cp, String correo, String contrasenia) {
+        this.id_cliente = id_cliente;
+        this.nombre = nombre;
+        this.apellido_pa = apellido_pa;
+        this.apellido_ma = apellido_ma;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.calle = calle;
+        this.colonia = colonia;
+        this.numero_casa = numero_casa;
+        this.cp = cp;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+    }
 
     /**
      * Este constructor se utiliza para iniciar sesión en el banco
+     *
      * @param contrasenia contraseña del cliente
      * @param correo correo del cliente
      */
@@ -140,11 +155,10 @@ public class Cliente {
         this.contrasenia = contrasenia;
         this.correo = correo;
     }
-    
-    
-    
+
     /**
      * Obtiene la id del cliente
+     *
      * @return id del cliente
      */
     public Long getId_cliente() {
@@ -153,6 +167,7 @@ public class Cliente {
 
     /**
      * Modifica la id del cliente
+     *
      * @param id_cliente id del cliente
      */
     public void setId_cliente(Long id_cliente) {
@@ -161,6 +176,7 @@ public class Cliente {
 
     /**
      * Obtiene nombre del cliente
+     *
      * @return obtiene nombre del cliente
      */
     public String getNombre() {
@@ -169,6 +185,7 @@ public class Cliente {
 
     /**
      * Modifica el nombre del cliente
+     *
      * @param nombre nombre del cliente
      */
     public void setNombre(String nombre) {
@@ -177,6 +194,7 @@ public class Cliente {
 
     /**
      * Obtiene el apellido paterno del cliente
+     *
      * @return apellido del cliente
      */
     public String getApellido_pa() {
@@ -185,6 +203,7 @@ public class Cliente {
 
     /**
      * Modifica el apellido paterno del clinte
+     *
      * @param apellido_pa apellido del cliente
      */
     public void setApellido_pa(String apellido_pa) {
@@ -193,6 +212,7 @@ public class Cliente {
 
     /**
      * Obtiene el apellido materno del cliente
+     *
      * @return apellido materno
      */
     public String getApellido_ma() {
@@ -201,6 +221,7 @@ public class Cliente {
 
     /**
      * Modifica el apellido materno del clinte
+     *
      * @param apellido_ma apellido materno
      */
     public void setApellido_ma(String apellido_ma) {
@@ -209,6 +230,7 @@ public class Cliente {
 
     /**
      * Obtiene la fecha de nacimiento del cliente
+     *
      * @return fecha de nacimiento
      */
     public Date getFecha_nacimiento() {
@@ -217,7 +239,8 @@ public class Cliente {
 
     /**
      * Modifica la fecha de nacimiento del cliente
-     * @param fecha_nacimiento 
+     *
+     * @param fecha_nacimiento
      */
     public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
@@ -233,6 +256,7 @@ public class Cliente {
 
     /**
      * Obtiene la call del cliente
+     *
      * @return calle del cliente
      */
     public String getCalle() {
@@ -241,6 +265,7 @@ public class Cliente {
 
     /**
      * Modifica la calle del cliente
+     *
      * @param calle calle del cliente
      */
     public void setCalle(String calle) {
@@ -249,6 +274,7 @@ public class Cliente {
 
     /**
      * Obtiene la colonia del cliente
+     *
      * @return colonia del cliente
      */
     public String getColonia() {
@@ -257,7 +283,8 @@ public class Cliente {
 
     /**
      * Modifica la colonia
-     * @param colonia 
+     *
+     * @param colonia
      */
     public void setColonia(String colonia) {
         this.colonia = colonia;
@@ -265,6 +292,7 @@ public class Cliente {
 
     /**
      * Obtiene el número de casa del cliente
+     *
      * @return número de casa del cliente
      */
     public String getNumero_casa() {
@@ -273,6 +301,7 @@ public class Cliente {
 
     /**
      * Modifica el número de casa del cliente
+     *
      * @param numero_casa número de casa del cliente
      */
     public void setNumero_casa(String numero_casa) {
@@ -281,6 +310,7 @@ public class Cliente {
 
     /**
      * Obtiene el código postal del cliente
+     *
      * @return código postal del cliente
      */
     public String getCp() {
@@ -289,13 +319,13 @@ public class Cliente {
 
     /**
      * Modifica el código postal del cliente
-     * @param cp 
+     *
+     * @param cp
      */
     public void setCp(String cp) {
         this.cp = cp;
     }
-    
-    
+
     public String getCorreo() {
         return correo;
     }
@@ -303,8 +333,6 @@ public class Cliente {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -328,12 +356,11 @@ public class Cliente {
         return Objects.equals(this.id_cliente, other.id_cliente);
     }
 
-    
-    
     /**
-    * Regresa todos los atributos del cliente
-    * @return Cliente
-    */
+     * Regresa todos los atributos del cliente
+     *
+     * @return Cliente
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -350,6 +377,5 @@ public class Cliente {
         sb.append('}');
         return sb.toString();
     }
-
 
 }

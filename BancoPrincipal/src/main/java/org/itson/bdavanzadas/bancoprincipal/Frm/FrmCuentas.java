@@ -29,9 +29,9 @@ public class FrmCuentas extends javax.swing.JFrame {
         this.cliente = cliente;
         String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
         String usuario = "root";
-        String contrasenia = "hector21";
+        //String contrasenia = "hector21";
         //String contrasenia = "Itson";
-        //String contrasenia = "kikin22";
+        String contrasenia = "kikin22";
         IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
         cuentasDAO = new CuentasDAO (conexion);
         setVisible(true);
@@ -54,6 +54,11 @@ public class FrmCuentas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         btnCrearNuevaCuenta.setText("Crear nueva");
         btnCrearNuevaCuenta.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +117,10 @@ public class FrmCuentas extends javax.swing.JFrame {
         dispose();
         DlgCuentaNueva cuentaNueva = new DlgCuentaNueva (this.cliente);
     }//GEN-LAST:event_btnCrearNuevaCuentaActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVolverActionPerformed
 
 
 
