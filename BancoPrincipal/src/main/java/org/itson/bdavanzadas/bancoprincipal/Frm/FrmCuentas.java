@@ -4,6 +4,12 @@
  */
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
+import com.itson.bdaavanzadas.bancopersistencia.DAO.ClientesDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.CuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.ICuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
 import org.itson.bdavanzadas.bancodominio.Cliente;
 
 /**
@@ -13,6 +19,7 @@ import org.itson.bdavanzadas.bancodominio.Cliente;
 public class FrmCuentas extends javax.swing.JFrame {
 
     private Cliente cliente;
+    private final ICuentasDAO cuentasDAO;
     
     /**
      * Creates new form FrmCuentas
@@ -20,6 +27,13 @@ public class FrmCuentas extends javax.swing.JFrame {
     public FrmCuentas(Cliente cliente) {
         initComponents();
         this.cliente = cliente;
+        String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
+        String usuario = "root";
+        String contrasenia = "hector21";
+        //String contrasenia = "Itson";
+        //String contrasenia = "kikin22";
+        IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
+        cuentasDAO = new CuentasDAO (conexion);
         setVisible(true);
     }
 

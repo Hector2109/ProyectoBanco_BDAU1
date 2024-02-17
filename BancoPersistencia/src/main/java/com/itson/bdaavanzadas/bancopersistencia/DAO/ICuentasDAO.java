@@ -8,6 +8,7 @@ import com.itson.bdaavanzadas.bancopersistencia.DTO.CuentaActualizadaDTO;
 import com.itson.bdaavanzadas.bancopersistencia.DTO.CuentaNuevaDTO;
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
 import java.util.List;
+import org.itson.bdavanzadas.bancodominio.Cliente;
 import org.itson.bdavanzadas.bancodominio.Cuenta;
 
 /**
@@ -16,7 +17,7 @@ import org.itson.bdavanzadas.bancodominio.Cuenta;
  */
 public interface ICuentasDAO {
 
-    Cuenta agregarCliente(CuentaNuevaDTO cuentaNueva) throws PersistenciaException;
+    public Cuenta crearCuenta (CuentaNuevaDTO cuentaNueva,Cliente cliente, float monto) throws PersistenciaException;
 
     List<Cuenta> consultar() throws PersistenciaException;
 

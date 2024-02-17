@@ -4,6 +4,10 @@
  */
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
+import com.itson.bdaavanzadas.bancopersistencia.DAO.CuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.ICuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
 import org.itson.bdavanzadas.bancodominio.Cliente;
 
 /**
@@ -13,11 +17,19 @@ import org.itson.bdavanzadas.bancodominio.Cliente;
 public class DlgCuentaNueva extends javax.swing.JDialog {
     
     private Cliente cliente;
+    private final ICuentasDAO cuentasDAO;
     /**
      * Creates new form DlgCuentaNueva
      */
-    public DlgCuentaNueva( Cliente cliente) {
+    public DlgCuentaNueva(Cliente cliente) {
         initComponents();
+        String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
+        String usuario = "root";
+        String contrasenia = "hector21";
+        //String contrasenia = "Itson";
+        //String contrasenia = "kikin22";
+        IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
+        cuentasDAO = new CuentasDAO (conexion);
         this.cliente = cliente;
         setVisible(true);
     }
@@ -46,6 +58,11 @@ public class DlgCuentaNueva extends javax.swing.JDialog {
         });
 
         btnContinuar.setText("Continuar");
+        btnContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinuarActionPerformed(evt);
+            }
+        });
 
         txtMonto.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
 
@@ -95,6 +112,14 @@ public class DlgCuentaNueva extends javax.swing.JDialog {
         FrmCuentas cuentas = new FrmCuentas (cliente);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnContinuarActionPerformed
+
+    
+    private void crearCuenta(){
+
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

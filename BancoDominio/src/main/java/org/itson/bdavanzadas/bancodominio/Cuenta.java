@@ -1,6 +1,6 @@
 package org.itson.bdavanzadas.bancodominio;
 
-import java.util.GregorianCalendar;
+import java.util.Date;
 
 /**
  *
@@ -8,11 +8,11 @@ import java.util.GregorianCalendar;
  */
 public class Cuenta {
 
-    private int num_cuenta;//número de cuenta.
+    private Long num_cuenta;//número de cuenta.
     private float saldo;//saldo de la cuenta.
-    private GregorianCalendar fecha_apertura;//fecha apertura de la cuenta.
+    private Date fecha_apertura;//fecha apertura de la cuenta.
     private byte estado;//Estado de la cuenta.
-    private int id_cliente;//id cliente asociado con la cuenta.
+    private Long id_cliente;//id cliente asociado con la cuenta.
 
     /**
      * Constructor para crear un objeto cuenta.
@@ -23,7 +23,7 @@ public class Cuenta {
      * @param estado Estado de la cuenta.
      * @param id_cliente id cliente asociado con la cuenta.
      */
-    public Cuenta(int num_cuenta, float saldo, GregorianCalendar fecha_apertura, byte estado, int id_cliente) {
+    public Cuenta(Long num_cuenta, float saldo, Date fecha_apertura, byte estado, Long id_cliente) {
         this.num_cuenta = num_cuenta;
         this.saldo = saldo;
         this.fecha_apertura = fecha_apertura;
@@ -35,14 +35,14 @@ public class Cuenta {
      * Método para obtener el número de cuenta.
      * @return número de cuenta.
      */
-    public int getNum_cuenta() {
+    public Long getNum_cuenta() {
         return num_cuenta;
     }
 
     /**
      * Método para establecer el número de cuenta.
      */
-    public void setNum_cuenta(int num_cuenta) {
+    public void setNum_cuenta(Long num_cuenta) {
         this.num_cuenta = num_cuenta;
     }
     
@@ -65,7 +65,7 @@ public class Cuenta {
      * Método para obtener la fecha de apertura de la cuenta.
      * @return fecha de apertura de la cuenta.
      */
-    public GregorianCalendar getFecha_apertura() {
+    public Date getFecha_apertura() {
         return fecha_apertura;
     }
     
@@ -73,7 +73,7 @@ public class Cuenta {
      * Método para establecer la fecha de apertura de la cuenta.
      * @param fecha_apertura fecha de apertura de la cuenta
      */
-    public void setFecha_apertura(GregorianCalendar fecha_apertura) {
+    public void setFecha_apertura(Date fecha_apertura) {
         this.fecha_apertura = fecha_apertura;
     }
     
@@ -97,7 +97,7 @@ public class Cuenta {
      * Método para obtener el id cliente asociado a la cuenta.
      * @return id cliente asociado a la cuenta.
      */
-    public int getId_cliente() {
+    public Long getId_cliente() {
         return id_cliente;
     }
     
@@ -105,7 +105,7 @@ public class Cuenta {
      * Método para establecer el id cliente asociado a la cuenta.
      * @param id_cliente id cliente asociado a la cuenta.
      */
-    public void setId_cliente(int id_cliente) {
+    public void setId_cliente(Long id_cliente) {
         this.id_cliente = id_cliente;
     }
     

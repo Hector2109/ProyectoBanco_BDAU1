@@ -1,6 +1,7 @@
 package com.itson.bdaavanzadas.bancopersistencia.DTO;
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.ValidacionDTOException;
-import java.util.GregorianCalendar;
+import java.util.Date;
+
 
 /**
  * DTO para representar la creación de una nueva cuenta en el banco.
@@ -11,9 +12,9 @@ import java.util.GregorianCalendar;
 public class CuentaNuevaDTO {
     
     private float saldo; // Saldo de la cuenta
-    private GregorianCalendar fecha_apertura; // Fecha de apertura de la cuenta
+    private Date fecha_apertura; // Fecha de apertura de la cuenta
     private byte estado; // Estado de la cuenta
-    private int id_cliente; // ID del cliente asociado con la cuenta
+    private Long id_cliente; // ID del cliente asociado con la cuenta
 
     /**
      * Obtiene el saldo de la cuenta.
@@ -38,7 +39,7 @@ public class CuentaNuevaDTO {
      * 
      * @return Fecha de apertura de la cuenta
      */
-    public GregorianCalendar getFecha_apertura() {
+    public Date getFecha_apertura() {
         return fecha_apertura;
     }
 
@@ -47,7 +48,7 @@ public class CuentaNuevaDTO {
      * 
      * @param fecha_apertura Fecha de apertura de la cuenta
      */
-    public void setFecha_apertura(GregorianCalendar fecha_apertura) {
+    public void setFecha_apertura(Date fecha_apertura) {
         this.fecha_apertura = fecha_apertura;
     }
 
@@ -74,7 +75,7 @@ public class CuentaNuevaDTO {
      * 
      * @return ID del cliente asociado con la cuenta
      */
-    public int getId_cliente() {
+    public Long getId_cliente() {
         return id_cliente;
     }
 
@@ -83,7 +84,7 @@ public class CuentaNuevaDTO {
      * 
      * @param id_cliente ID del cliente asociado con la cuenta
      */
-    public void setId_cliente(int id_cliente) {
+    public void setId_cliente(Long id_cliente) {
         this.id_cliente = id_cliente;
     }
     

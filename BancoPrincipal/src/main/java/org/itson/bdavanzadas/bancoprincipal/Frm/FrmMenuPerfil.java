@@ -132,6 +132,7 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRetiroActionPerformed
 
     private void btnCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentasActionPerformed
+
         FrmCuentas cuentas = new FrmCuentas (cliente);
         setVisible(false);
     }//GEN-LAST:event_btnCuentasActionPerformed

@@ -136,7 +136,7 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         limpiar();
     }//GEN-LAST:event_btnRestaurarActionPerformed
 
-    public void iniciarSesion(){
+    private void iniciarSesion(){
         String correo = txtCorreo.getText();
         String contrasenia = txtPasswordContrasenia.getText();
         
@@ -158,10 +158,7 @@ public class DlgInicioSesion extends javax.swing.JDialog {
             }
         }catch (ValidacionDTOException ex){
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Rellena todas las casillas", JOptionPane.ERROR_MESSAGE);
-        }
-         
-         
-        
+        }     
     }
     
     private void limpiar(){
