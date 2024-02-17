@@ -37,7 +37,8 @@ public class CuentasDAO implements ICuentasDAO {
         String sentenciaSQL = "INSERT INTO cuentas (saldo, fecha_apertura, estado, id_cliente) VALUES (?,?,?,?)";
         try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
             comando.setFloat(1, cuentaNueva.getSaldo());
-            comando.setString(2, cuentaNueva.getFecha_apertura().toString());
+            java.sql.Date fechaApertura = new java.sql.Date(cuentaNueva.getFecha_apertura().getTime());
+            comando.setDate(2, fechaApertura);
             comando.setByte(3, cuentaNueva.getEstado());
             comando.setLong(4, cuentaNueva.getId_cliente());
 

@@ -11,6 +11,8 @@ import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
 import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.ValidacionDTOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -127,25 +129,24 @@ public class DlgCuentaNueva extends javax.swing.JDialog {
 
     private void crearCuenta() {
         String monto1 = txtMonto.getText();
-        float monto = Float.valueOf(monto1);
-
+        float monto = Float.parseFloat(monto1);
         CuentaNuevaDTO cuentaNueva = new CuentaNuevaDTO();
+        cuentaNueva.setEstado(Byte.valueOf("1"));
 
-        cuentaNueva.setEstado(new Byte("1"));
         cuentaNueva.setFecha_apertura(new Date());
+
         cuentaNueva.setId_cliente(cliente.getId_cliente());
         cuentaNueva.setSaldo(monto);
         try {
             cuentaNueva.esValido();
             Cuenta cuenta = this.cuentasDAO.crearCuenta(cuentaNueva, cliente, monto);
-            JOptionPane.showMessageDialog(this, "Se creó la cuenta con exito", "Todo correcto", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Se creó la cuenta con éxito", "Todo correcto", JOptionPane.INFORMATION_MESSAGE);
             limpiar();
         } catch (ValidacionDTOException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Rellena todas las casillas", JOptionPane.ERROR_MESSAGE);
         } catch (PersistenciaException ex) {
             Logger.getLogger(DlgCuentaNueva.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     private void limpiar() {
