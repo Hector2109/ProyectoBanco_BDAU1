@@ -6,18 +6,27 @@ package org.itson.bdavanzadas.bancoprincipal.Frm;
 
 import com.itson.bdaavanzadas.bancopersistencia.DAO.CuentasDAO;
 import com.itson.bdaavanzadas.bancopersistencia.DAO.ICuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DTO.CuentaNuevaDTO;
 import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
 import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
+import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
+import com.itson.bdaavanzadas.bancopersistencia.excepciones.ValidacionDTOException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.bancodominio.Cliente;
+import org.itson.bdavanzadas.bancodominio.Cuenta;
 
 /**
  *
- * @author Enrique Rodriguez
+ * @author Hector Espinoza y Enrique Rodriguez
  */
 public class DlgCuentaNueva extends javax.swing.JDialog {
-    
+
     private Cliente cliente;
     private final ICuentasDAO cuentasDAO;
+
     /**
      * Creates new form DlgCuentaNueva
      */
@@ -28,8 +37,8 @@ public class DlgCuentaNueva extends javax.swing.JDialog {
         String contrasenia = "hector21";
         //String contrasenia = "Itson";
         //String contrasenia = "kikin22";
-        IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
-        cuentasDAO = new CuentasDAO (conexion);
+        IConexion conexion = new Conexion(cadenaConexion, usuario, contrasenia);
+        cuentasDAO = new CuentasDAO(conexion);
         this.cliente = cliente;
         setVisible(true);
     }
@@ -109,16 +118,38 @@ public class DlgCuentaNueva extends javax.swing.JDialog {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
-        FrmCuentas cuentas = new FrmCuentas (cliente);
+        FrmCuentas cuentas = new FrmCuentas(cliente);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        // TODO add your handling code here:
+        crearCuenta();
     }//GEN-LAST:event_btnContinuarActionPerformed
 
-    
-    private void crearCuenta(){
+    private void crearCuenta() {
+        String monto1 = txtMonto.getText();
+        float monto = Float.valueOf(monto1);
 
+        CuentaNuevaDTO cuentaNueva = new CuentaNuevaDTO();
+
+        cuentaNueva.setEstado(new Byte("1"));
+        cuentaNueva.setFecha_apertura(new Date());
+        cuentaNueva.setId_cliente(cliente.getId_cliente());
+        cuentaNueva.setSaldo(monto);
+        try {
+            cuentaNueva.esValido();
+            Cuenta cuenta = this.cuentasDAO.crearCuenta(cuentaNueva, cliente, monto);
+            JOptionPane.showMessageDialog(this, "Se creó la cuenta con exito", "Todo correcto", JOptionPane.INFORMATION_MESSAGE);
+            limpiar();
+        } catch (ValidacionDTOException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Rellena todas las casillas", JOptionPane.ERROR_MESSAGE);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(DlgCuentaNueva.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void limpiar() {
+        txtMonto.setText("");
     }
 
 

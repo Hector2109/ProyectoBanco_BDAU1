@@ -15,7 +15,7 @@ import org.itson.bdavanzadas.bancodominio.Cliente;
 
 /**
  *
- * @author Hector Espinoza
+ * @author Hector Espinoza y Enrique Rodríguez
  */
 public class DlgRegistro extends javax.swing.JDialog {
 
