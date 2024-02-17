@@ -4,17 +4,23 @@
  */
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
+import org.itson.bdavanzadas.bancodominio.Cliente;
+
 /**
  *
  * @author Enrique Rodriguez
  */
 public class FrmCuentas extends javax.swing.JFrame {
 
+    private Cliente cliente;
+    
     /**
      * Creates new form FrmCuentas
      */
-    public FrmCuentas() {
+    public FrmCuentas(Cliente cliente) {
         initComponents();
+        this.cliente = cliente;
+        setVisible(true);
     }
 
     /**
@@ -36,6 +42,11 @@ public class FrmCuentas extends javax.swing.JFrame {
         btnVolver.setText("Volver");
 
         btnCrearNuevaCuenta.setText("Crear nueva");
+        btnCrearNuevaCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearNuevaCuentaActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,7 +91,13 @@ public class FrmCuentas extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCrearNuevaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearNuevaCuentaActionPerformed
+        dispose();
+        DlgCuentaNueva cuentaNueva = new DlgCuentaNueva (this.cliente);
+    }//GEN-LAST:event_btnCrearNuevaCuentaActionPerformed
 
 
 

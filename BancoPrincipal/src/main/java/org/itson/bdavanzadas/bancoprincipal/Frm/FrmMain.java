@@ -129,7 +129,7 @@ public class FrmMain extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         DlgInicioSesion inicioSesion = new DlgInicioSesion(clientesDAO);
         inicioSesion.setVisible(true);
-        this.setVisible(false);
+        dispose();
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed

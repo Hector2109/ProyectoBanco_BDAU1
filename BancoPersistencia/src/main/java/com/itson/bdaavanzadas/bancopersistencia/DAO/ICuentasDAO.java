@@ -14,7 +14,7 @@ import org.itson.bdavanzadas.bancodominio.Cuenta;
  *
  * @author Hector Espinoza y Enrique Rodriguez
  */
-public interface ICuentaDAO {
+public interface ICuentasDAO {
 
     Cuenta agregarCliente(CuentaNuevaDTO cuentaNueva) throws PersistenciaException;
 
