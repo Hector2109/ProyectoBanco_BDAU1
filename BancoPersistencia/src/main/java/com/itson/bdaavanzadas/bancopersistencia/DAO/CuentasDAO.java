@@ -23,34 +23,32 @@ import org.itson.bdavanzadas.bancodominio.Cuenta;
  *
  * @author Hector Espinoza y Enrique Rodriguez
  */
-public class CuentasDAO implements ICuentasDAO{
-    
+public class CuentasDAO implements ICuentasDAO {
+
     final IConexion conexionBD;
     static final Logger logger = Logger.getLogger(CuentasDAO.class.getName());
-    
+
     public CuentasDAO(IConexion conexion) {
         this.conexionBD = conexion;
     }
-    
-    
+
     @Override
-    public Cuenta crearCuenta (CuentaNuevaDTO cuentaNueva, Cliente cliente, float monto) throws PersistenciaException{
-        String sentenciaSQL = """
-            INSERT INTO cuentas(saldo, fecha_apertura, estado, id_cliente)
-)            VALUES (?,?,1,?);
-                             """;
+    public Cuenta crearCuenta(CuentaNuevaDTO cuentaNueva, Cliente cliente, float monto) throws PersistenciaException {
+        String sentenciaSQL = "INSERT INTO cuentas (saldo, fecha_apertura, estado, id_cliente) VALUES (?,?,?,?)";
         try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
             comando.setFloat(1, cuentaNueva.getSaldo());
             comando.setString(2, cuentaNueva.getFecha_apertura().toString());
+            comando.setByte(3, cuentaNueva.getEstado());
             comando.setLong(4, cuentaNueva.getId_cliente());
-            
-            int numeroRegistrosInsertados = comando.executeUpdate();
-            logger.log(Level.INFO, "Se agregaron {0} cuentas", numeroRegistrosInsertados);
+
+            logger.log(Level.INFO, "Se agregaron {1} cuentas");
+            comando.executeUpdate();
+
             ResultSet idsGenerados = comando.getGeneratedKeys();
             idsGenerados.next();
-            Cuenta cuenta = new Cuenta (idsGenerados.getLong(1), cuentaNueva.getSaldo(), cuentaNueva.getFecha_apertura(), cuentaNueva.getEstado(), cuentaNueva.getId_cliente());
+            Cuenta cuenta = new Cuenta(idsGenerados.getLong(1), cuentaNueva.getSaldo(), cuentaNueva.getFecha_apertura(), cuentaNueva.getEstado(), cuentaNueva.getId_cliente());
             return cuenta;
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             logger.log(Level.SEVERE, "No se pudo crear la cuenta", ex);
             throw new PersistenciaException("No se pudo crear la cuenta", ex);
         }

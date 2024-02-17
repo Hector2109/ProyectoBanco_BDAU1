@@ -29,9 +29,9 @@ public class FrmCuentas extends javax.swing.JFrame {
         this.cliente = cliente;
         String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
         String usuario = "root";
-        //String contrasenia = "hector21";
+        String contrasenia = "hector21";
         //String contrasenia = "Itson";
-        String contrasenia = "kikin22";
+        //String contrasenia = "kikin22";
         IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
         cuentasDAO = new CuentasDAO (conexion);
         setVisible(true);
