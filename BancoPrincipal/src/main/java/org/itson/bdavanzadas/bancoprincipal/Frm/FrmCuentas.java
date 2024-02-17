@@ -34,6 +34,7 @@ public class FrmCuentas extends javax.swing.JFrame {
         //String contrasenia = "kikin22";
         IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
         cuentasDAO = new CuentasDAO (conexion);
+        lblNombreCliente.setText(cliente.getNombre());
         setVisible(true);
     }
 
@@ -50,6 +51,7 @@ public class FrmCuentas extends javax.swing.JFrame {
         btnCrearNuevaCuenta = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        lblNombreCliente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,11 +98,17 @@ public class FrmCuentas extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 59, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lblNombreCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -119,15 +127,25 @@ public class FrmCuentas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearNuevaCuentaActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        // TODO add your handling code here:
+        String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
+        String usuario = "root";
+        String contrasenia = "hector21";
+        //String contrasenia = "Itson";
+        //String contrasenia = "Alluka04";
+        IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
+        dispose();
+        IClientesDAO clientesDAO = new ClientesDAO(conexion);
+        dispose();
+        FrmMenuPerfil menu = new FrmMenuPerfil(cliente, clientesDAO);
     }//GEN-LAST:event_btnVolverActionPerformed
 
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearNuevaCuenta;
     private javax.swing.JButton btnVolver;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblNombreCliente;
     // End of variables declaration//GEN-END:variables
 }
