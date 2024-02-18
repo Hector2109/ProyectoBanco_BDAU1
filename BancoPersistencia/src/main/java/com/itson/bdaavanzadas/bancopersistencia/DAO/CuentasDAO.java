@@ -71,7 +71,6 @@ public class CuentasDAO implements ICuentasDAO {
                 float saldo = resultados.getFloat("cuentas.saldo");
                 byte estado = resultados.getByte("cuentas.estado");
                 Cuenta cuenta = new Cuenta(num_cuenta, saldo, estado);
-                System.out.println(cuenta);
                 cuentas.add(cuenta);
             }
         } catch (SQLException ex) {
@@ -81,8 +80,7 @@ public class CuentasDAO implements ICuentasDAO {
     }
 
     @Override
-    public void desactivarCuenta(int num_cuenta
-    ) {
+    public void desactivarCuenta(int num_cuenta) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
