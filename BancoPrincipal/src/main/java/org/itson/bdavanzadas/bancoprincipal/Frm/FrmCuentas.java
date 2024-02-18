@@ -8,6 +8,8 @@ import com.itson.bdaavanzadas.bancopersistencia.DAO.ClientesDAO;
 import com.itson.bdaavanzadas.bancopersistencia.DAO.CuentasDAO;
 import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
 import com.itson.bdaavanzadas.bancopersistencia.DAO.ICuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.ITransferenciasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.TransferenciasDAO;
 import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
 import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
@@ -152,6 +154,7 @@ public class FrmCuentas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void llenarTabla() {
+
         List<Cuenta> cuentas = new LinkedList<>();
         try {
             cuentas = cuentasDAO.consultar(cliente);
@@ -163,7 +166,6 @@ public class FrmCuentas extends javax.swing.JFrame {
             modelo.addColumn("TRANSFERIR");
             modelo.addColumn("RETIRO SIN CUENTA");
             modelo.addColumn("DESACTIVAR");
-            
 
             for (Cuenta cuenta : cuentas) {
                 Object[] fila = {
@@ -186,7 +188,7 @@ public class FrmCuentas extends javax.swing.JFrame {
                     int row = jTableCuentas.convertRowIndexToModel(jTableCuentas.getEditingRow());
                     try {
                         Cuenta cuenta = obtenerSocioDesdeFila(row);
-                        
+
                     } catch (PersistenciaException ex) {
                         Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -205,21 +207,21 @@ public class FrmCuentas extends javax.swing.JFrame {
                     }
                 }
             });
-            
+
             ButtonColumn transferirButtonColumn = new ButtonColumn("Transferir", new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     int row = jTableCuentas.convertRowIndexToModel(jTableCuentas.getEditingRow());
                     try {
                         Cuenta cuenta = obtenerSocioDesdeFila(row);
-                        dlgTransferencia transferencia = new dlgTransferencia (cuenta, cuentasDAO);
+                        dlgTransferencia transferencia = new dlgTransferencia(cuenta, cuentasDAO);
                         transferencia.setVisible(true);
                     } catch (PersistenciaException ex) {
                         Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             });
-            
+
             ButtonColumn crearRetiroButtonColumn = new ButtonColumn("Crear retiro", new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -236,16 +238,16 @@ public class FrmCuentas extends javax.swing.JFrame {
 
             columnModel.getColumn(3).setCellRenderer(modificarButtonColumn);
             columnModel.getColumn(3).setCellEditor(modificarButtonColumn);
-            
+
             columnModel.getColumn(4).setCellRenderer(transferirButtonColumn);
             columnModel.getColumn(4).setCellEditor(transferirButtonColumn);
-            
+
             columnModel.getColumn(5).setCellRenderer(crearRetiroButtonColumn);
             columnModel.getColumn(5).setCellEditor(crearRetiroButtonColumn);
-            
+
             columnModel.getColumn(6).setCellRenderer(eliminarButtonColumn);
             columnModel.getColumn(6).setCellEditor(eliminarButtonColumn);
-            
+
         } catch (PersistenciaException ex) {
             Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
         }

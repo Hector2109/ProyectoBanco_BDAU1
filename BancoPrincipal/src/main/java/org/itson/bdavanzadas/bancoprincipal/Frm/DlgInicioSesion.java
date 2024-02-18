@@ -153,7 +153,7 @@ public class DlgInicioSesion extends javax.swing.JDialog {
                     this.setVisible(false);
                     
                 } catch (PersistenciaException ex) {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error de incio de sesión", JOptionPane.ERROR_MESSAGE);;
+                    JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error de incio de sesión", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }catch (ValidacionDTOException ex){

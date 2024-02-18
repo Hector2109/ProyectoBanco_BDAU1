@@ -5,6 +5,10 @@
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
 import com.itson.bdaavanzadas.bancopersistencia.DAO.ICuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.ITransferenciasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.TransferenciasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,24 +22,33 @@ import org.itson.bdavanzadas.bancodominio.Cuenta;
 public class dlgTransferencia extends javax.swing.JDialog {
 
     private Cuenta cuentaRemitente;
-    private Cuenta cuentaReceptora;
     private final ICuentasDAO cuentasDAO;
-    
+    private final ITransferenciasDAO transferenciasDAO;
+
     /**
      * Creates new form dlgTransferencia
+     *
+     * @param cuentaRemitente
+     * @param cuentasDAO
+     * @param transferenciasDAO
      */
     public dlgTransferencia(Cuenta cuentaRemitente, ICuentasDAO cuentasDAO) {
         initComponents();
         this.cuentaRemitente = cuentaRemitente;
-        this.cuentasDAO = cuentasDAO; 
+        this.cuentasDAO = cuentasDAO;
+        String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
+        String usuario = "root";
+        String contrasenia = "hector21";
+        //String contrasenia = "Itson";
+        //String contrasenia = "kikin22";
+        IConexion conexion = new Conexion(cadenaConexion, usuario, contrasenia);
+        transferenciasDAO = new TransferenciasDAO(conexion);
         try {
             this.txtCuentaRemitente.setText(cuentasDAO.obtenerNombreCuenta(cuentaRemitente));
         } catch (PersistenciaException ex) {
-            
+
         }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,6 +102,11 @@ public class dlgTransferencia extends javax.swing.JDialog {
 
         btnConfirmar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,34 +231,48 @@ public class dlgTransferencia extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCuentaRemitenteActionPerformed
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
-       String nombre = getCuentaReceptora();
-        
-       if (nombre != null){
-           this.txtCuentaDestinario.setText(nombre);
-       }
-    }//GEN-LAST:event_btnVerificarActionPerformed
+        String nombre = getCuentaReceptora();
 
-    private String getCuentaReceptora (){
-        
+        if (nombre != null) {
+            this.txtCuentaDestinario.setText(nombre);
+        }
+    }//GEN-LAST:event_btnVerificarActionPerformed
+    private String getCuentaReceptora() {
         Long num_cuenta = Long.valueOf(txtNumeroCuentaTrans.getText());
-        
-        Cuenta cuenta = new Cuenta (num_cuenta);
-        
-        try{
+        Cuenta cuenta = new Cuenta(num_cuenta);
+        try {
             String nombre = cuentasDAO.obtenerNombreCuenta(cuenta);
             return nombre;
-        }catch (PersistenciaException ex){
+        } catch (PersistenciaException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error al encontrar cuenta", JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }
-    
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        transferir();
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
-    
+    private void transferir() {
+        Long num_cuenta = Long.valueOf(txtNumeroCuentaTrans.getText());
+        try {
+            transferenciasDAO.transferir(Float.valueOf(txtMonto.getText()),
+                    cuentaRemitente.getNum_cuenta(),
+                    num_cuenta);
+            
+             JOptionPane.showMessageDialog(rootPane, "Completado", 
+                     "Transferencia realizada", JOptionPane.INFORMATION_MESSAGE);
+        } catch (PersistenciaException e) {
+             JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                     "Falló la transferencia", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

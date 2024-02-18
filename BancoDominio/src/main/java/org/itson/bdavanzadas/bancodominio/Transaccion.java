@@ -1,6 +1,7 @@
 package org.itson.bdavanzadas.bancodominio;
 
-import java.util.GregorianCalendar;
+import java.util.Date;
+
 
 /**
  * Esta clase representa una transacción en el sistema bancario.
@@ -14,7 +15,7 @@ public class Transaccion {
     
     private int id_transaccion; // ID de la transacción.
     private float saldo_transaccion; // Saldo de la transacción.
-    private GregorianCalendar fecha; // Fecha de la transacción.
+    private Date fecha; // Fecha de la transacción.
     private int num_cuenta; // Número de cuenta asociado a la transacción.
 
     /**
@@ -25,13 +26,14 @@ public class Transaccion {
      * @param fecha la fecha de la transacción.
      * @param num_cuenta el número de cuenta asociado a la transacción.
      */
-    public Transaccion(int id_transaccion, float saldo_transaccion, GregorianCalendar fecha, int num_cuenta) {
+    public Transaccion(int id_transaccion, float saldo_transaccion, Date fecha, int num_cuenta) {
         this.id_transaccion = id_transaccion;
         this.saldo_transaccion = saldo_transaccion;
         this.fecha = fecha;
         this.num_cuenta = num_cuenta;
     }
-
+    
+    
     /**
      * Método para obtener el ID de la transacción.
      * @return el ID de la transacción.
@@ -68,7 +70,7 @@ public class Transaccion {
      * Método para obtener la fecha de la transacción.
      * @return la fecha de la transacción.
      */
-    public GregorianCalendar getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
@@ -76,7 +78,7 @@ public class Transaccion {
      * Método para establecer la fecha de la transacción.
      * @param fecha la fecha de la transacción.
      */
-    public void setFecha(GregorianCalendar fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

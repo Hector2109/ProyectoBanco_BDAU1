@@ -1,6 +1,6 @@
 package org.itson.bdavanzadas.bancodominio;
 
-import java.util.GregorianCalendar;
+import java.util.Date;
 
 /**
  * Esta clase representa un retiro en el sistema bancario.
@@ -27,7 +27,7 @@ public class Retiro extends Transaccion{
      * @param fecha fecha del retiro.
      * @param num_cuenta numero de cuenta del que se retira.
      */
-    public Retiro(int folio, String contrasenia, byte estado, int id_transaccion, float saldo_transaccion, GregorianCalendar fecha, int num_cuenta) {
+    public Retiro(int folio, String contrasenia, byte estado, int id_transaccion, float saldo_transaccion, Date fecha, int num_cuenta) {
         super(id_transaccion, saldo_transaccion, fecha, num_cuenta);
         this.folio = folio;
         this.contrasenia = contrasenia;
