@@ -10,7 +10,15 @@ import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
 import com.itson.bdaavanzadas.bancopersistencia.DAO.ICuentasDAO;
 import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
 import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
+import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import org.itson.bdavanzadas.bancodominio.Cliente;
+import org.itson.bdavanzadas.bancodominio.Cuenta;
 
 /**
  *
@@ -35,6 +43,7 @@ public class FrmCuentas extends javax.swing.JFrame {
         IConexion conexion = new Conexion (cadenaConexion, usuario, contrasenia);
         cuentasDAO = new CuentasDAO (conexion);
         lblNombreCliente.setText(cliente.getNombre());
+        llenarTabla();
         setVisible(true);
     }
 
@@ -50,7 +59,7 @@ public class FrmCuentas extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         btnCrearNuevaCuenta = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCuentas = new javax.swing.JTable();
         lblNombreCliente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,7 +78,7 @@ public class FrmCuentas extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCuentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -80,7 +89,7 @@ public class FrmCuentas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableCuentas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,13 +148,36 @@ public class FrmCuentas extends javax.swing.JFrame {
         FrmMenuPerfil menu = new FrmMenuPerfil(cliente, clientesDAO);
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    
+    private void llenarTabla(){
+        List<Cuenta> cuentas = new LinkedList<>();
+        try {
+            cuentas = cuentasDAO.consultar();
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("CUENTA No");
+            modelo.addColumn("SALDO");
+            modelo.addColumn("ESTADO");
+            
+            for (Cuenta cuenta : cuentas) {
+                Object[] fila = {cuenta.getNum_cuenta(),
+                        cuenta.getSaldo(), 
+                        cuenta.getEstado()
+                };
+                modelo.addRow(fila);
+            }
+            jTableCuentas.setModel(modelo);
+            TableColumnModel columnModel = jTableCuentas.getColumnModel();
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearNuevaCuenta;
     private javax.swing.JButton btnVolver;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableCuentas;
     private javax.swing.JLabel lblNombreCliente;
     // End of variables declaration//GEN-END:variables
 }

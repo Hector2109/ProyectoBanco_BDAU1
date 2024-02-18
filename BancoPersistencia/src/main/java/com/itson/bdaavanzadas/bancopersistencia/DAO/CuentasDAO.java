@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,11 +58,31 @@ public class CuentasDAO implements ICuentasDAO {
 
     @Override
     public List<Cuenta> consultar() throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        String sentenciaSQL = "SELECT cuentas.num_cuenta, cuentas.saldo, cuentas.estado FROM cuentas INNER JOIN clientes on clientes.id_cliente = cuentas.id_cliente where cuentas.id_cliente = 1";
+        List<Cuenta> cuentas = new LinkedList<>();
+        
+        try (Connection conexion = this.conexionBD.obtenerConection(); 
+                PreparedStatement comando = conexion.prepareStatement(sentenciaSQL); 
+                ResultSet resultados = comando.executeQuery();) {
+            
+            while (resultados.next()) {
+                Long num_cuenta = resultados.getLong("cuentas.num_cuenta");
+                float saldo = resultados.getFloat("cuentas.saldo");
+                byte estado = resultados.getByte("cuentas.estado");
+                Cuenta cuenta = new Cuenta(num_cuenta, saldo, estado);
+                System.out.println(cuenta);
+                cuentas.add(cuenta);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CuentasDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cuentas;
     }
 
     @Override
-    public void desactivarCuenta(int num_cuenta) {
+    public void desactivarCuenta(int num_cuenta
+    ) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

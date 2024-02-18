@@ -31,6 +31,14 @@ public class Cuenta {
         this.id_cliente = id_cliente;
     }
 
+    public Cuenta(Long num_cuenta, float saldo, byte estado) {
+        this.num_cuenta = num_cuenta;
+        this.saldo = saldo;
+        this.estado = estado;
+    }
+    
+    
+
     /**
      * Método para obtener el número de cuenta.
      * @return número de cuenta.

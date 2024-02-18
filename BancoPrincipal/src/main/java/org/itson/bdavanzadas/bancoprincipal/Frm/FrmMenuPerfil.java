@@ -5,7 +5,9 @@
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
 import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
+import java.util.List;
 import org.itson.bdavanzadas.bancodominio.Cliente;
+import org.itson.bdavanzadas.bancodominio.Cuenta;
 
 /**
  *
@@ -141,7 +143,7 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHistorialTransferenciaActionPerformed
 
     private void btnTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferenciaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnTransferenciaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -150,6 +152,10 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void llenarTabla(){
+        List<Cuenta> listaCuenta;
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCuentas;
