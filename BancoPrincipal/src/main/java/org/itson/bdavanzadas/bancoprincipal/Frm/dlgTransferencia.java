@@ -6,6 +6,8 @@ package org.itson.bdavanzadas.bancoprincipal.Frm;
 
 import com.itson.bdaavanzadas.bancopersistencia.DAO.ICuentasDAO;
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.itson.bdavanzadas.bancodominio.Cuenta;
 
@@ -26,6 +28,11 @@ public class dlgTransferencia extends javax.swing.JDialog {
         initComponents();
         this.cuentaRemitente = cuentaRemitente;
         this.cuentasDAO = cuentasDAO; 
+        try {
+            this.txtCuentaRemitente.setText(cuentasDAO.obtenerNombreCuenta(cuentaRemitente));
+        } catch (PersistenciaException ex) {
+            
+        }
     }
     
     
@@ -65,6 +72,7 @@ public class dlgTransferencia extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel3.setText("Cuenta destinario");
 
+        txtCuentaRemitente.setEditable(false);
         txtCuentaRemitente.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         txtCuentaRemitente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCuentaRemitente.addActionListener(new java.awt.event.ActionListener() {
@@ -73,8 +81,10 @@ public class dlgTransferencia extends javax.swing.JDialog {
             }
         });
 
+        txtCuentaDestinario.setEditable(false);
         txtCuentaDestinario.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
 
+        txtSaldoRestante.setEditable(false);
         txtSaldoRestante.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
 
         btnConfirmar.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
