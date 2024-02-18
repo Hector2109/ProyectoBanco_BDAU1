@@ -11,10 +11,10 @@ import java.util.Date;
  */
 public class Retiro extends Transaccion{
     
-    private int folio; // Folio del retiro.
+    private Long folio; // Folio del retiro.
     private String contrasenia; // Contraseña del retiro.
     private byte estado; // Estado del retiro.
-    private int id_transaccion; // ID de la transacción asociada al retiro.
+    private Long id_transaccion; // ID de la transacción asociada al retiro.
 
     /**
      * Constructor para crear un objeto retiro.
@@ -27,7 +27,7 @@ public class Retiro extends Transaccion{
      * @param fecha fecha del retiro.
      * @param num_cuenta numero de cuenta del que se retira.
      */
-    public Retiro(int folio, String contrasenia, byte estado, int id_transaccion, float saldo_transaccion, Date fecha, int num_cuenta) {
+    public Retiro(Long folio, String contrasenia, byte estado, Long id_transaccion, float saldo_transaccion, Date fecha, Long num_cuenta) {
         super(id_transaccion, saldo_transaccion, fecha, num_cuenta);
         this.folio = folio;
         this.contrasenia = contrasenia;
@@ -35,10 +35,19 @@ public class Retiro extends Transaccion{
     }
 
     /**
+     * Constructor vacio
+     */
+    public Retiro() {
+
+    }
+    
+    
+
+    /**
      * Método para obtener el folio del retiro.
      * @return el folio del retiro.
      */
-    public int getFolio() {
+    public Long getFolio() {
         return folio;
     }
 
@@ -46,7 +55,7 @@ public class Retiro extends Transaccion{
      * Método para establecer el folio del retiro.
      * @param folio el folio del retiro.
      */
-    public void setFolio(int folio) {
+    public void setFolio(Long folio) {
         this.folio = folio;
     }
 
@@ -80,22 +89,6 @@ public class Retiro extends Transaccion{
      */
     public void setEstado(byte estado) {
         this.estado = estado;
-    }
-
-    /**
-     * Método para obtener la ID de la transacción asociada al retiro.
-     * @return la ID de la transacción asociada al retiro.
-     */
-    public int getId_transaccion() {
-        return id_transaccion;
-    }
-
-    /**
-     * Método para establecer la ID de la transacción asociada al retiro.
-     * @param id_transaccion la ID de la transacción asociada al retiro.
-     */
-    public void setId_transaccion(int id_transaccion) {
-        this.id_transaccion = id_transaccion;
     }
 
     /**

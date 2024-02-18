@@ -1,6 +1,5 @@
 package com.itson.bdaavanzadas.bancopersistencia.DAO;
 
-
 import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
 import java.sql.Connection;
@@ -31,12 +30,13 @@ public class TransferenciasDAO implements ITransferenciasDAO {
      * @param cuenta_receptora
      */
     @Override
-    public void transferir(float saldo, Long cuenta_destino, Long cuenta_receptora) throws PersistenciaException{
-        if (cuenta_destino == cuenta_receptora){
-            throw new PersistenciaException ("No es posible transferir a tu misma cuenta");
+    public void transferir(float saldo, Long cuenta_destino, Long cuenta_receptora) throws PersistenciaException {
+        if (cuenta_destino == cuenta_receptora) {
+            throw new PersistenciaException("No es posible transferir a tu misma cuenta");
         }
         String sentenciaSQL = "CALL realizar_transferencia(?, ?, ?);";
-        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement
+            (sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
             comando.setFloat(1, saldo);
             comando.setLong(2, cuenta_destino);
             comando.setLong(3, cuenta_receptora);
@@ -45,7 +45,7 @@ public class TransferenciasDAO implements ITransferenciasDAO {
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "No se pudo transferir", ex);
             if (ex.getSQLState().equals("45000")) {
-                throw new PersistenciaException ("No es posible transferir");
+                throw new PersistenciaException("No es posible transferir");
             }
         }
     }

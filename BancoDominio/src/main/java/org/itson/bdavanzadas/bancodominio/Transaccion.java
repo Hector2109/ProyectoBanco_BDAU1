@@ -13,10 +13,10 @@ import java.util.Date;
  */
 public class Transaccion {
     
-    private int id_transaccion; // ID de la transacción.
+    private Long id_transaccion; // ID de la transacción.
     private float saldo_transaccion; // Saldo de la transacción.
     private Date fecha; // Fecha de la transacción.
-    private int num_cuenta; // Número de cuenta asociado a la transacción.
+    private Long num_cuenta; // Número de cuenta asociado a la transacción.
 
     /**
      * Constructor para crear un objeto transacción.
@@ -26,19 +26,26 @@ public class Transaccion {
      * @param fecha la fecha de la transacción.
      * @param num_cuenta el número de cuenta asociado a la transacción.
      */
-    public Transaccion(int id_transaccion, float saldo_transaccion, Date fecha, int num_cuenta) {
+    public Transaccion(Long id_transaccion, float saldo_transaccion, Date fecha, Long num_cuenta) {
         this.id_transaccion = id_transaccion;
         this.saldo_transaccion = saldo_transaccion;
         this.fecha = fecha;
         this.num_cuenta = num_cuenta;
     }
+
+    /**
+     * Constructor vacio
+     */
+    public Transaccion() {
+    }
+    
     
     
     /**
      * Método para obtener el ID de la transacción.
      * @return el ID de la transacción.
      */
-    public int getId_transaccion() {
+    public Long getId_transaccion() {
         return id_transaccion;
     }
 
@@ -46,7 +53,7 @@ public class Transaccion {
      * Método para establecer el ID de la transacción.
      * @param id_transaccion el ID de la transacción.
      */
-    public void setId_transaccion(int id_transaccion) {
+    public void setId_transaccion(Long id_transaccion) {
         this.id_transaccion = id_transaccion;
     }
 
@@ -86,7 +93,7 @@ public class Transaccion {
      * Método para obtener el número de cuenta asociado a la transacción.
      * @return el número de cuenta asociado a la transacción.
      */
-    public int getNum_cuenta() {
+    public Long getNum_cuenta() {
         return num_cuenta;
     }
 
@@ -94,7 +101,7 @@ public class Transaccion {
      * Método para establecer el número de cuenta asociado a la transacción.
      * @param num_cuenta el número de cuenta asociado a la transacción.
      */
-    public void setNum_cuenta(int num_cuenta) {
+    public void setNum_cuenta(Long num_cuenta) {
         this.num_cuenta = num_cuenta;
     }
 
