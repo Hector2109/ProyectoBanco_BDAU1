@@ -47,6 +47,7 @@ public class FrmCuentas extends javax.swing.JFrame {
         lblNombreCliente.setText(cliente.getNombre());
         llenarTabla();
         setVisible(true);
+        System.out.println(cliente);
     }
 
     /**
@@ -153,7 +154,7 @@ public class FrmCuentas extends javax.swing.JFrame {
     private void llenarTabla() {
         List<Cuenta> cuentas = new LinkedList<>();
         try {
-            cuentas = cuentasDAO.consultar();
+            cuentas = cuentasDAO.consultar(cliente);
             DefaultTableModel modelo = new DefaultTableModel();
             modelo.addColumn("CUENTA No");
             modelo.addColumn("SALDO");
@@ -252,7 +253,7 @@ public class FrmCuentas extends javax.swing.JFrame {
     }
 
     private Cuenta obtenerSocioDesdeFila(int fila) throws PersistenciaException {
-        List<Cuenta> cuentas = cuentasDAO.consultar();
+        List<Cuenta> cuentas = cuentasDAO.consultar(this.cliente);
         if (fila >= 0 && fila < cuentas.size()) {
             return cuentas.get(fila);
         } else {

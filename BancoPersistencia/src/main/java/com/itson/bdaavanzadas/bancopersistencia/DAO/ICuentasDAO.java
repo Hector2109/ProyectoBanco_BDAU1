@@ -19,7 +19,7 @@ public interface ICuentasDAO {
 
     public Cuenta crearCuenta (CuentaNuevaDTO cuentaNueva,Cliente cliente, float monto) throws PersistenciaException;
 
-    List<Cuenta> consultar() throws PersistenciaException;
+    List<Cuenta> consultar(Cliente cliente) throws PersistenciaException;
 
     public void desactivarCuenta(int num_cuenta);
 

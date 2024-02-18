@@ -72,23 +72,24 @@ public class CuentasDAO implements ICuentasDAO {
      * @throws PersistenciaException En caso de algúne error
      */
     @Override
-    public List<Cuenta> consultar() throws PersistenciaException {
-
+    public List<Cuenta> consultar(Cliente cliente) throws PersistenciaException {
         String sentenciaSQL = "SELECT cuentas.num_cuenta, cuentas.saldo, cuentas.estado FROM cuentas INNER JOIN "
-                + "clientes on clientes.id_cliente = cuentas.id_cliente where cuentas.id_cliente = 2";
+                + "clientes on clientes.id_cliente = cuentas.id_cliente where cuentas.id_cliente = ?";
         List<Cuenta> cuentas = new LinkedList<>();
-
-        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL); ResultSet resultados = comando.executeQuery();) {
-
-            while (resultados.next()) {
-                Long num_cuenta = resultados.getLong("cuentas.num_cuenta");
-                float saldo = resultados.getFloat("cuentas.saldo");
-                byte estado = resultados.getByte("cuentas.estado");
-                Cuenta cuenta = new Cuenta(num_cuenta, saldo, estado);
-                cuentas.add(cuenta);
+        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
+            comando.setLong(1, cliente.getId_cliente());
+            try (ResultSet resultados = comando.executeQuery()) {
+                while (resultados.next()) {
+                    Long num_cuenta = resultados.getLong("cuentas.num_cuenta");
+                    float saldo = resultados.getFloat("cuentas.saldo");
+                    byte estado = resultados.getByte("cuentas.estado");
+                    Cuenta cuenta = new Cuenta(num_cuenta, saldo, estado);
+                    cuentas.add(cuenta);
+                }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CuentasDAO.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, "No se pudo iniciar sesión", ex);
+            throw new PersistenciaException("Error al iniciar sesión, verifique sus datos", ex);
         }
         return cuentas;
     }
@@ -103,9 +104,9 @@ public class CuentasDAO implements ICuentasDAO {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    
     /**
      * Obtiene el nombre del cliente de una cuenta
+     *
      * @param cuenta cuenta
      * @return nombre del cliente
      * @throws PersistenciaException en caso de error
@@ -116,34 +117,33 @@ public class CuentasDAO implements ICuentasDAO {
         SELECT concat(cl.nombre, " ", cl.apellido_paterno) AS nombre_completo, cu.estado  FROM cuentas AS cu INNER JOIN 
                 clientes AS cl ON cl.id_cliente = cu.id_cliente
                 WHERE cu.num_cuenta = ?;  """;
-        
-        try (Connection conexion = this.conexionBD.obtenerConection(); 
-         PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
-            
+
+        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
+
             comando.setLong(1, cuenta.getNum_cuenta());
-             try (ResultSet resultados = comando.executeQuery()) {
-                 if (resultados.next()) {
-                     
-                     String nombre = resultados.getString("nombre_completo");
-                     Byte estado = resultados.getByte("cu.estado");
-                     
-                     logger.log(Level.INFO, "Se encontró la cuenta de forma exitosa");
-                     
-                     if (estado == 0){
-                         throw new PersistenciaException("Esta cuenta se enceuntra desactivada");
-                     }else{
-                       return nombre;  
-                     }
-                 }else{
-                     logger.log(Level.SEVERE, "Cuenta no existente");
-                     throw new PersistenciaException("Cuenta no existente");
-                 }
-                
-             }
-        }catch (SQLException ex){
-             logger.log(Level.SEVERE, "No se pudo ENCONTRAR LA CUENTA", ex);
-        throw new PersistenciaException("Error: No se puede encontrar la cuenta", ex);
+            try (ResultSet resultados = comando.executeQuery()) {
+                if (resultados.next()) {
+
+                    String nombre = resultados.getString("nombre_completo");
+                    Byte estado = resultados.getByte("cu.estado");
+
+                    logger.log(Level.INFO, "Se encontró la cuenta de forma exitosa");
+
+                    if (estado == 0) {
+                        throw new PersistenciaException("Esta cuenta se enceuntra desactivada");
+                    } else {
+                        return nombre;
+                    }
+                } else {
+                    logger.log(Level.SEVERE, "Cuenta no existente");
+                    throw new PersistenciaException("Cuenta no existente");
+                }
+
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "No se pudo ENCONTRAR LA CUENTA", ex);
+            throw new PersistenciaException("Error: No se puede encontrar la cuenta", ex);
         }
-        
+
     }
 }
