@@ -52,6 +52,5 @@ BEGIN
 END //
 
 DELIMITER ;
-
 -- Prueba
 -- CALL realizar_transferencia(499.99, 3, 1);
