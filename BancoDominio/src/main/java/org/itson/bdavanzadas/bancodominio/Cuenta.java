@@ -38,6 +38,11 @@ public class Cuenta {
     }
     
     
+    public Cuenta(Long num_cuenta) {
+        this.num_cuenta = num_cuenta;
+    }
+    
+    
 
     /**
      * Método para obtener el número de cuenta.

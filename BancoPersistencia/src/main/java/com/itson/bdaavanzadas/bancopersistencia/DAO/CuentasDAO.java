@@ -33,6 +33,15 @@ public class CuentasDAO implements ICuentasDAO {
         this.conexionBD = conexion;
     }
 
+    /**
+     * Crea una cuenta nueva a un cliente
+     *
+     * @param cuentaNueva cuenta nueva
+     * @param cliente cliente
+     * @param monto monto
+     * @return cuenta que se agrego
+     * @throws PersistenciaException
+     */
     @Override
     public Cuenta crearCuenta(CuentaNuevaDTO cuentaNueva, Cliente cliente, float monto) throws PersistenciaException {
         String sentenciaSQL = "INSERT INTO cuentas (saldo, fecha_apertura, estado, id_cliente) VALUES (?,?,?,?)";
@@ -56,16 +65,21 @@ public class CuentasDAO implements ICuentasDAO {
         }
     }
 
+    /**
+     * Regresa la lista de cuentas de un cliente
+     *
+     * @return Lista de cuentas
+     * @throws PersistenciaException En caso de algúne error
+     */
     @Override
     public List<Cuenta> consultar() throws PersistenciaException {
-        
-        String sentenciaSQL = "SELECT cuentas.num_cuenta, cuentas.saldo, cuentas.estado FROM cuentas INNER JOIN clientes on clientes.id_cliente = cuentas.id_cliente where cuentas.id_cliente = 1";
+
+        String sentenciaSQL = "SELECT cuentas.num_cuenta, cuentas.saldo, cuentas.estado FROM cuentas INNER JOIN "
+                + "clientes on clientes.id_cliente = cuentas.id_cliente where cuentas.id_cliente = 2";
         List<Cuenta> cuentas = new LinkedList<>();
-        
-        try (Connection conexion = this.conexionBD.obtenerConection(); 
-                PreparedStatement comando = conexion.prepareStatement(sentenciaSQL); 
-                ResultSet resultados = comando.executeQuery();) {
-            
+
+        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL); ResultSet resultados = comando.executeQuery();) {
+
             while (resultados.next()) {
                 Long num_cuenta = resultados.getLong("cuentas.num_cuenta");
                 float saldo = resultados.getFloat("cuentas.saldo");
@@ -87,5 +101,49 @@ public class CuentasDAO implements ICuentasDAO {
     @Override
     public Cuenta actualizarCliente(CuentaActualizadaDTO cuentaActualizada) throws PersistenciaException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
+    /**
+     * Obtiene el nombre del cliente de una cuenta
+     * @param cuenta cuenta
+     * @return nombre del cliente
+     * @throws PersistenciaException en caso de error
+     */
+    @Override
+    public String obtenerNombreCuenta(Cuenta cuenta) throws PersistenciaException {
+        String sentenciaSQL = """
+        SELECT concat(cl.nombre, " ", cl.apellido_paterno) AS nombre_completo, cu.estado  FROM cuentas AS cu INNER JOIN 
+                clientes AS cl ON cl.id_cliente = cu.id_cliente
+                WHERE cu.num_cuenta = ?;  """;
+        
+        try (Connection conexion = this.conexionBD.obtenerConection(); 
+         PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
+            
+            comando.setLong(1, cuenta.getNum_cuenta());
+             try (ResultSet resultados = comando.executeQuery()) {
+                 if (resultados.next()) {
+                     
+                     String nombre = resultados.getString("nombre_completo");
+                     Byte estado = resultados.getByte("cu.estado");
+                     
+                     logger.log(Level.INFO, "Se encontró la cuenta de forma exitosa");
+                     
+                     if (estado == 0){
+                         throw new PersistenciaException("Esta cuenta se enceuntra desactivada");
+                     }else{
+                       return nombre;  
+                     }
+                 }else{
+                     logger.log(Level.SEVERE, "Cuenta no existente");
+                     throw new PersistenciaException("Cuenta no existente");
+                 }
+                
+             }
+        }catch (SQLException ex){
+             logger.log(Level.SEVERE, "No se pudo ENCONTRAR LA CUENTA", ex);
+        throw new PersistenciaException("Error: No se puede encontrar la cuenta", ex);
+        }
+        
     }
 }

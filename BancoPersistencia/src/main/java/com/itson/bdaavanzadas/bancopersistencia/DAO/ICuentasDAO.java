@@ -24,4 +24,6 @@ public interface ICuentasDAO {
     public void desactivarCuenta(int num_cuenta);
 
     public Cuenta actualizarCliente(CuentaActualizadaDTO cuentaActualizada) throws PersistenciaException;
+    
+    public String obtenerNombreCuenta (Cuenta cuenta) throws PersistenciaException;
 }

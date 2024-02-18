@@ -4,19 +4,31 @@
  */
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
+import com.itson.bdaavanzadas.bancopersistencia.DAO.ICuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
+import javax.swing.JOptionPane;
+import org.itson.bdavanzadas.bancodominio.Cuenta;
+
 /**
  *
  * @author Hector Espinoza
  */
 public class dlgTransferencia extends javax.swing.JDialog {
 
+    private Cuenta cuentaRemitente;
+    private Cuenta cuentaReceptora;
+    private final ICuentasDAO cuentasDAO;
+    
     /**
      * Creates new form dlgTransferencia
      */
-    public dlgTransferencia(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public dlgTransferencia(Cuenta cuentaRemitente, ICuentasDAO cuentasDAO) {
         initComponents();
+        this.cuentaRemitente = cuentaRemitente;
+        this.cuentasDAO = cuentasDAO; 
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -191,9 +203,28 @@ public class dlgTransferencia extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCuentaRemitenteActionPerformed
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
-        // TODO add your handling code here:
+       String nombre = getCuentaReceptora();
+        
+       if (nombre != null){
+           this.txtCuentaDestinario.setText(nombre);
+       }
     }//GEN-LAST:event_btnVerificarActionPerformed
 
+    private String getCuentaReceptora (){
+        
+        Long num_cuenta = Long.valueOf(txtNumeroCuentaTrans.getText());
+        
+        Cuenta cuenta = new Cuenta (num_cuenta);
+        
+        try{
+            String nombre = cuentasDAO.obtenerNombreCuenta(cuenta);
+            return nombre;
+        }catch (PersistenciaException ex){
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error al encontrar cuenta", JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
+    }
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed

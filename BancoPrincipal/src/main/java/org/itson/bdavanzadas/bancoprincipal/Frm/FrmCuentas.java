@@ -179,13 +179,13 @@ public class FrmCuentas extends javax.swing.JFrame {
             jTableCuentas.setModel(modelo);
             TableColumnModel columnModel = jTableCuentas.getColumnModel();
 
-            ButtonColumn modificarButtonColumn = new ButtonColumn("Actualizar", new ActionListener() {
+            ButtonColumn modificarButtonColumn = new ButtonColumn("Agregar saldo", new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     int row = jTableCuentas.convertRowIndexToModel(jTableCuentas.getEditingRow());
                     try {
                         Cuenta cuenta = obtenerSocioDesdeFila(row);
-                        System.out.println("actualizar");
+                        
                     } catch (PersistenciaException ex) {
                         Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -211,7 +211,8 @@ public class FrmCuentas extends javax.swing.JFrame {
                     int row = jTableCuentas.convertRowIndexToModel(jTableCuentas.getEditingRow());
                     try {
                         Cuenta cuenta = obtenerSocioDesdeFila(row);
-                        System.out.println("transferir");
+                        dlgTransferencia transferencia = new dlgTransferencia (cuenta, cuentasDAO);
+                        transferencia.setVisible(true);
                     } catch (PersistenciaException ex) {
                         Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -224,6 +225,7 @@ public class FrmCuentas extends javax.swing.JFrame {
                     int row = jTableCuentas.convertRowIndexToModel(jTableCuentas.getEditingRow());
                     try {
                         Cuenta cuenta = obtenerSocioDesdeFila(row);
+                        System.out.println(cuenta);
                         System.out.println("transferir");
                     } catch (PersistenciaException ex) {
                         Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
