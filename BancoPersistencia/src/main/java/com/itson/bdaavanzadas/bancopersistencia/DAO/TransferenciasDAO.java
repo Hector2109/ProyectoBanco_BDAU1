@@ -22,7 +22,7 @@ public class TransferenciasDAO implements ITransferenciasDAO {
     public TransferenciasDAO(IConexion conexion) {
         this.conexionBD = conexion;
     }
-
+    
     @Override
     public void transferir(float saldo, Long cuenta_destino, Long cuenta_receptora) {
         String sentenciaSQL = "CALL realizar_transferencia(?, ?, ?);";
