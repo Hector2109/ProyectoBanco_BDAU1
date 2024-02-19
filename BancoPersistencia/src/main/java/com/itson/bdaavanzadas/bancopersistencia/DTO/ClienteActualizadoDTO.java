@@ -191,6 +191,24 @@ public class ClienteActualizadoDTO {
         this.correo = correo;
     }
 
+    /**
+     * Método para obtener la contraseña de un cliente
+     * @return contraseña de cliente
+     */
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    /**
+     * Método para modificar la contraseña 
+     * @param contrasenia nueva contgraseña
+     */
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+    
+    
+
     public boolean esValido() throws ValidacionDTOException {
 
         if (this.nombre == null

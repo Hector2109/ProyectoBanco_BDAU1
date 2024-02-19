@@ -90,7 +90,7 @@ public class Cliente {
      * @param correo
      */
     public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle,
-            String colonia, String numero_casa, String cp, String correo) {
+            String colonia, String numero_casa, String cp, String contrasenia) {
         this.id_cliente = id_cliente;
         this.nombre = nombre;
         this.apellido_pa = apellido_pa;
@@ -100,7 +100,7 @@ public class Cliente {
         this.colonia = colonia;
         this.numero_casa = numero_casa;
         this.cp = cp;
-        this.correo = correo;
+        this.contrasenia = contrasenia;
     }
 
     /**

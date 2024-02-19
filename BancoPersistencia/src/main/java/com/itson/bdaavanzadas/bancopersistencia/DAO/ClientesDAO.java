@@ -160,8 +160,8 @@ public class ClientesDAO implements IClientesDAO {
     public Cliente actualizarCliente(ClienteActualizadoDTO clienteActualizado) throws PersistenciaException {
         String sentenciaSQL = """
             UPDATE clientes SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, 
-                              fecha_nacimiento = ?, calle = ?,  colonia = ?, cp = ?, num_casa = ?, correo = ?
-                              WHERE id = ?""";
+                      fecha_nacimiento = ?, calle = ?,  colonia = ?, cp = ?, num_casa = ?, contrasenia = ?
+                      WHERE correo = ?""";
 
         try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -173,15 +173,17 @@ public class ClientesDAO implements IClientesDAO {
             comando.setString(6, clienteActualizado.getColonia());
             comando.setString(7, clienteActualizado.getCp());
             comando.setString(8, clienteActualizado.getNumero_casa());
-            comando.setLong(9, clienteActualizado.getId());
+            comando.setString(9, clienteActualizado.getContrasenia());
             comando.setString(10, clienteActualizado.getCorreo());
 
             int numeroRegistrosInsertados = comando.executeUpdate();
 
             logger.log(Level.INFO, "Se actualizo al cliente {0}", numeroRegistrosInsertados);
+
             return new Cliente(clienteActualizado.getId(), clienteActualizado.getNombre(), clienteActualizado.getApellido_pa(),
                     clienteActualizado.getApellido_ma(), clienteActualizado.getFecha_nacimiento(), clienteActualizado.getCalle(),
-                    clienteActualizado.getColonia(), clienteActualizado.getCp(), clienteActualizado.getNumero_casa(), clienteActualizado.getCorreo());
+                    clienteActualizado.getColonia(), clienteActualizado.getCp(), clienteActualizado.getNumero_casa(), clienteActualizado.getContrasenia());
+
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "No se pudo actualizar el cliente", ex);
             throw new PersistenciaException("No se pudo actualizar el cliente", ex);
@@ -190,50 +192,49 @@ public class ClientesDAO implements IClientesDAO {
 
     /**
      * Método para iniciar sesión en el banco
+     *
      * @param cliente
      * @return
      * @throws PersistenciaException
      */
     @Override
     public Cliente iniciarSesion(Cliente cliente) throws PersistenciaException {
-    String sentenciaSQL = """
+        String sentenciaSQL = """
         SELECT id_cliente, nombre, apellido_paterno, apellido_materno, 
             fecha_nacimiento, calle, colonia, cp, num_casa, correo, contrasenia
         FROM clientes
         WHERE correo = ? AND contrasenia = ?""";
-    try (Connection conexion = this.conexionBD.obtenerConection(); 
-         PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
-        
-        comando.setString(1, cliente.getCorreo());
-        comando.setString(2, cliente.getContrasenia());
-        
-        try (ResultSet resultados = comando.executeQuery()) {
-            if (resultados.next()) {
-                Long id_cliente = resultados.getLong("id_cliente");
-                String nombre = resultados.getString("nombre");
-                String apellido_pa = resultados.getString("apellido_paterno");
-                String apellido_ma = resultados.getString("apellido_materno");
-                Date fecha_nacimiento = resultados.getDate("fecha_nacimiento");
-                String calle = resultados.getString("calle"); // Arreglado: era apellido_materno
-                String colonia = resultados.getString("colonia");
-                String cp = resultados.getString("cp");
-                String num_casa = resultados.getString("num_casa");
-                String correo = resultados.getString("correo");   
-                String contrasenia = resultados.getString("contrasenia");
-                cliente = new Cliente(id_cliente,nombre, apellido_pa, apellido_ma, fecha_nacimiento, calle, colonia, num_casa, cp, correo, contrasenia); 
-                
-                logger.log(Level.INFO, "Se inició sesión de forma exitosa");
-            } else {
-                logger.log(Level.SEVERE, "Correo o contraseña incorrectos");
-                throw new PersistenciaException("Correo o contraseña incorrectos");
-            }
-        }
-    } catch (SQLException ex) {
-        logger.log(Level.SEVERE, "No se pudo iniciar sesión", ex);
-        throw new PersistenciaException("Error al iniciar sesión, verifique sus datos", ex);
-    }
-    return cliente;
-}
+        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
 
+            comando.setString(1, cliente.getCorreo());
+            comando.setString(2, cliente.getContrasenia());
+
+            try (ResultSet resultados = comando.executeQuery()) {
+                if (resultados.next()) {
+                    Long id_cliente = resultados.getLong("id_cliente");
+                    String nombre = resultados.getString("nombre");
+                    String apellido_pa = resultados.getString("apellido_paterno");
+                    String apellido_ma = resultados.getString("apellido_materno");
+                    Date fecha_nacimiento = resultados.getDate("fecha_nacimiento");
+                    String calle = resultados.getString("calle"); // Arreglado: era apellido_materno
+                    String colonia = resultados.getString("colonia");
+                    String cp = resultados.getString("cp");
+                    String num_casa = resultados.getString("num_casa");
+                    String correo = resultados.getString("correo");
+                    String contrasenia = resultados.getString("contrasenia");
+                    cliente = new Cliente(id_cliente, nombre, apellido_pa, apellido_ma, fecha_nacimiento, calle, colonia, num_casa, cp, correo, contrasenia);
+
+                    logger.log(Level.INFO, "Se inició sesión de forma exitosa");
+                } else {
+                    logger.log(Level.SEVERE, "Correo o contraseña incorrectos");
+                    throw new PersistenciaException("Correo o contraseña incorrectos");
+                }
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "No se pudo iniciar sesión", ex);
+            throw new PersistenciaException("Error al iniciar sesión, verifique sus datos", ex);
+        }
+        return cliente;
+    }
 
 }

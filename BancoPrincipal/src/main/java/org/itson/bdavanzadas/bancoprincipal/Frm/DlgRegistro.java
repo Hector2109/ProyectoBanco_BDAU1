@@ -5,6 +5,7 @@
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
 import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DTO.ClienteActualizadoDTO;
 import com.itson.bdaavanzadas.bancopersistencia.DTO.ClienteNuevoDTO;
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.ValidacionDTOException;
@@ -20,12 +21,40 @@ import org.itson.bdavanzadas.bancodominio.Cliente;
 public class DlgRegistro extends javax.swing.JDialog {
 
     private final IClientesDAO clientesDAO;
+    private int operacion;
+    private Cliente cliente;
 
-    public DlgRegistro(IClientesDAO clientesDAO) {
+    public DlgRegistro(IClientesDAO clientesDAO, int operacion) {
         initComponents();
         this.clientesDAO = clientesDAO;
+        this.operacion = operacion;
+
     }
 
+    public DlgRegistro(IClientesDAO clientesDAO, int operacion, Cliente cliente) {
+        initComponents();
+        this.clientesDAO = clientesDAO;
+        this.operacion = operacion;
+        this.cliente = cliente;
+
+        if (this.operacion == ConstantesGUI.ACTUALIZAR) {
+            this.txtNombre.setText(cliente.getNombre());
+            this.txtApellidoPa.setText(cliente.getApellido_pa());
+            this.txtApellidoMa.setText(cliente.getApellido_ma());
+            this.jDateFechaNacimiento.setDate(cliente.getFecha_nacimiento());
+            this.txtColonia.setText(cliente.getColonia());
+            this.txtCalle.setText(cliente.getCalle());
+            this.txtNumCasa.setText(cliente.getNumero_casa());
+            this.txtCp.setText(cliente.getCp());
+            this.txtContrasenia.setText(cliente.getContrasenia());
+            this.txtCorreo.setText(cliente.getCorreo());
+            this.txtCorreo.setEditable(false);
+        }
+    }
+
+    /**
+     * Método el cual obitiene los datos de los txt para guardar un cliente
+     */
     private void guardar() {
         String nombre = txtNombre.getText();
         String aP = txtApellidoPa.getText();
@@ -63,16 +92,68 @@ public class DlgRegistro extends javax.swing.JDialog {
         }
     }
 
+    private void actualizar() {
+
+        String nombre = txtNombre.getText();
+        String aP = txtApellidoPa.getText();
+        String aM = txtApellidoMa.getText();
+        String calle = txtCalle.getText();
+        String colonia = txtColonia.getText();
+        String num_casa = txtNumCasa.getText();
+        String cp = txtCp.getText();
+        String contra = txtContrasenia.getText();
+        String correo = txtCorreo.getText();
+
+
+        ClienteActualizadoDTO clienteActualizado = new ClienteActualizadoDTO();
+
+        clienteActualizado.setNombre(nombre);
+        clienteActualizado.setApellido_pa(aP);
+        clienteActualizado.setApellido_ma(aM);
+        java.util.Date fechaSeleccionada = jDateFechaNacimiento.getDate();
+        java.sql.Date fechaNacimiento = new java.sql.Date(fechaSeleccionada.getTime());
+        clienteActualizado.setFecha_nacimiento(fechaNacimiento);
+        clienteActualizado.setCalle(calle);
+        clienteActualizado.setColonia(colonia);
+        clienteActualizado.setNumero_casa(num_casa);
+        clienteActualizado.setCp(cp);
+        clienteActualizado.setContrasenia(contra);
+        clienteActualizado.setCorreo(correo);
+        try {
+            clienteActualizado.esValido();
+            try {
+                Cliente cliente = this.clientesDAO.actualizarCliente(clienteActualizado);
+            } catch (PersistenciaException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error al actualizar el cliente", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (ValidacionDTOException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Rellena todas las casillas", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
     private void limpiar() {
-        txtNombre.setText("");
-        txtApellidoPa.setText("");
-        txtApellidoMa.setText("");
-        txtCalle.setText("");
-        txtColonia.setText("");
-        txtNumCasa.setText("");
-        txtCp.setText("");
-        txtCorreo.setText("");
-        txtContrasenia.setText("");
+        if (this.operacion == ConstantesGUI.REGISTRAR) {
+            txtNombre.setText("");
+            txtApellidoPa.setText("");
+            txtApellidoMa.setText("");
+            txtCalle.setText("");
+            txtColonia.setText("");
+            txtNumCasa.setText("");
+            txtCp.setText("");
+            txtCorreo.setText("");
+            txtContrasenia.setText("");
+        } else if (this.operacion == ConstantesGUI.ACTUALIZAR) {
+            this.txtNombre.setText(cliente.getNombre());
+            this.txtApellidoPa.setText(cliente.getApellido_pa());
+            this.txtApellidoMa.setText(cliente.getApellido_ma());
+            this.jDateFechaNacimiento.setDate(cliente.getFecha_nacimiento());
+            this.txtColonia.setText(cliente.getColonia());
+            this.txtCalle.setText(cliente.getCalle());
+            this.txtNumCasa.setText(cliente.getNumero_casa());
+            this.txtCp.setText(cliente.getCp());
+            this.txtContrasenia.setText(cliente.getContrasenia());
+        }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -251,7 +332,13 @@ public class DlgRegistro extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        guardar();
+
+        if (operacion == ConstantesGUI.REGISTRAR) {
+            guardar();
+        } else if (operacion == ConstantesGUI.ACTUALIZAR) {
+            actualizar();
+        }
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarActionPerformed

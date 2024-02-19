@@ -31,21 +31,21 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        btnRetiro = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         btnCuentas = new javax.swing.JButton();
         btnHistorialTransferencia = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 48)); // NOI18N
         jLabel1.setText("BETOBANK");
 
-        btnRetiro.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        btnRetiro.setText("AJUSTES");
-        btnRetiro.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        btnActualizar.setText("Actualizar datos");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRetiroActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
 
@@ -65,10 +65,10 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("CERRAR SESION");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.setText("CERRAR SESION");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
@@ -83,12 +83,12 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(133, 133, 133)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHistorialTransferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(118, 118, 118)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCuentas, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 151, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -102,8 +102,8 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
                     .addComponent(btnCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRetiro, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                    .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(113, 113, 113))
         );
 
@@ -111,10 +111,13 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetiroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRetiroActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        DlgRegistro dlgActualizar = new DlgRegistro (clientesDAO, ConstantesGUI.ACTUALIZAR, cliente);
+        dlgActualizar.setVisible(true);
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
+    
+    
     private void btnCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentasActionPerformed
         FrmCuentas cuentas = new FrmCuentas(cliente);
         setVisible(false);
@@ -125,11 +128,11 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_btnHistorialTransferenciaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         FrmMain s = new FrmMain(clientesDAO);
         s.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void llenarTabla(){
         List<Cuenta> listaCuenta;
@@ -137,10 +140,10 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCuentas;
     private javax.swing.JButton btnHistorialTransferencia;
-    private javax.swing.JButton btnRetiro;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
