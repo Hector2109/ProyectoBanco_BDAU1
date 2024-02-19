@@ -1,17 +1,49 @@
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
+import com.itson.bdaavanzadas.bancopersistencia.DAO.ICuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.IRetirosDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.RetirosDAO;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
+import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.itson.bdavanzadas.bancodominio.Cuenta;
+import org.itson.bdavanzadas.bancodominio.Retiro;
+
 /**
  *
  * @author Enrique Rodriguez
  */
 public class DlgCrearRetiro extends javax.swing.JDialog {
 
+    private Cuenta cuenta;
+    private final ICuentasDAO cuentasDAO;
+    private final IRetirosDAO retirosDAO;
+    
+    
     /**
      * Creates new form DlgRetiroCuenta
      */
-    public DlgCrearRetiro(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public DlgCrearRetiro(Cuenta cuenta, ICuentasDAO cuentasDAO) {
         initComponents();
+        this.cuentasDAO = cuentasDAO;
+        this.cuenta = cuenta;
+        String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
+        String usuario = "root";
+        String contrasenia = "hector21";
+        //String contrasenia = "Itson";
+        //String contrasenia = "kikin22";
+        IConexion conexion = new Conexion(cadenaConexion, usuario, contrasenia);
+        retirosDAO = new RetirosDAO(conexion);
+        
+        try {
+            this.txtNombreClienteAsociado.setText(cuentasDAO.obtenerNombreCuenta(cuenta));
+            this.txtNombreClienteAsociado.setEditable(false);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(DlgCrearRetiro.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -48,6 +80,12 @@ public class DlgCrearRetiro extends javax.swing.JDialog {
         jLabel3.setText("Nombre del cliente asociado");
 
         jLabel4.setText("Monto");
+
+        txtMonto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMontoActionPerformed(evt);
+            }
+        });
 
         btnGenerarFolio.setText("Generar");
         btnGenerarFolio.addActionListener(new java.awt.event.ActionListener() {
@@ -140,13 +178,38 @@ public class DlgCrearRetiro extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarFolioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarFolioActionPerformed
-        // TODO add your handling code here:
+        generarRetiro();
     }//GEN-LAST:event_btnGenerarFolioActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMontoActionPerformed
+
+    private void generarRetiro(){
+        try{
+            float monto = Float.valueOf(txtMonto.getText());
+            if (monto>0){
+                Retiro retiro = retirosDAO.crearRetiro(cuenta.getNum_cuenta(), monto);
+                if (retiro != null){
+                    this.btnGenerarFolio.setEnabled(false);
+                    this.txtContraseniaGenerada.setText(retiro.getContrasenia());
+                    this.txtFolioGenerado.setText(retiro.getFolio().toString());
+                    this.txtContraseniaGenerada.setEditable(false);
+                    this.txtFolioGenerado.setEditable(false);
+                    this.txtMonto.setEditable(false);
+                }
+            }
+        }catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(rootPane, "Ingrese solo números", "Error en monto", JOptionPane.ERROR_MESSAGE);
+        } catch (PersistenciaException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error al generar folio", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGenerarFolio;

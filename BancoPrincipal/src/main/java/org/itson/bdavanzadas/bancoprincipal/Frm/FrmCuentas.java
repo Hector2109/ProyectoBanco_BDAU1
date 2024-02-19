@@ -230,6 +230,8 @@ public class FrmCuentas extends javax.swing.JFrame {
                         Cuenta cuenta = obtenerSocioDesdeFila(row);
                         System.out.println(cuenta);
                         System.out.println("transferir");
+                        DlgCrearRetiro retiro = new DlgCrearRetiro (cuenta, cuentasDAO);
+                        retiro.setVisible(true);
                     } catch (PersistenciaException ex) {
                         Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
                     }
