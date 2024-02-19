@@ -143,7 +143,8 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
-        // TODO add your handling code here:
+        DlgRetiro retiroSinCuenta = new DlgRetiro();
+        retiroSinCuenta.setVisible(true);
     }//GEN-LAST:event_btnRetirarActionPerformed
 
 

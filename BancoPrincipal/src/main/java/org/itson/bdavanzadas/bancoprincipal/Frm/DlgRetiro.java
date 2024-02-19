@@ -10,6 +10,15 @@ import com.itson.bdaavanzadas.bancopersistencia.DAO.IRetirosDAO;
 import com.itson.bdaavanzadas.bancopersistencia.DAO.RetirosDAO;
 import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
 import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
+import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
+import com.itson.bdaavanzadas.bancopersistencia.excepciones.ValidacionDTOException;
+import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
+import org.itson.bdavanzadas.bancodominio.Cliente;
+import org.itson.bdavanzadas.bancodominio.Retiro;
 
 /**
  *
@@ -50,13 +59,12 @@ public class DlgRetiro extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         txtFolio = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        btnRetirar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtClienteAsociado = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtMonto = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         txtContrasenia = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -67,10 +75,10 @@ public class DlgRetiro extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
-        jButton2.setText("Retirar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnRetirar.setText("Retirar");
+        btnRetirar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnRetirarActionPerformed(evt);
             }
         });
 
@@ -88,7 +96,7 @@ public class DlgRetiro extends javax.swing.JDialog {
                         .addGap(102, 102, 102)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
-                            .addComponent(jButton2)))
+                            .addComponent(btnRetirar)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -112,7 +120,7 @@ public class DlgRetiro extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnRetirar)
                 .addGap(44, 44, 44))
         );
 
@@ -123,24 +131,17 @@ public class DlgRetiro extends javax.swing.JDialog {
             }
         });
 
-        jButton3.setText("Verificar");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(txtFolio)
-                            .addComponent(txtContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jButton3)))
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(txtFolio)
+                    .addComponent(txtContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51))
@@ -161,9 +162,7 @@ public class DlgRetiro extends javax.swing.JDialog {
                         .addGap(41, 41, 41)
                         .addComponent(jLabel2)
                         .addGap(26, 26, 26)
-                        .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(jButton3))
+                        .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -179,20 +178,58 @@ public class DlgRetiro extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
+        realizarRetiro();
+    }//GEN-LAST:event_btnRetirarActionPerformed
 
     
-    private void realizarRetiro (){
-        
+    private void realizarRetiro() {
+    try {
+        if (validacion()) {
+            Long folio = Long.valueOf(txtFolio.getText());
+            String contrasenia = txtContrasenia.getText();
+            Timestamp fecha_realizar = new Timestamp(System.currentTimeMillis());
+            
+            try {
+                retirosDAO.realizarRetiro(folio, contrasenia, fecha_realizar);      
+                
+                Retiro retiro = retirosDAO.obtenerRetiroPorFolio(folio);
+                
+                Cliente cliente = retirosDAO.obtenerClientePorFolioRetiro(folio);
+                this.txtClienteAsociado.setText(cliente.getNombre() +" "+cliente.getApellido_pa());
+                this.txtMonto.setText(String.valueOf(retiro.getSaldo_transaccion()));
+                
+            } catch (PersistenciaException ex) {
+                JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "No se pudo realizar el retiro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error en folio", JOptionPane.ERROR_MESSAGE);
+    } catch (ValidacionDTOException ex) {
+        JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Error en contraseña", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    
+    private boolean validacion() throws NumberFormatException, ValidacionDTOException{
+        try{
+            Long folio = Long.valueOf(txtFolio.getText());
+           
+            if (!txtContrasenia.getText().isBlank()){
+                return true;
+            }else{
+                throw new ValidacionDTOException ("Ingrese la contraseña");
+            }
+           
+        }catch (NumberFormatException ex){
+            throw new NumberFormatException ("Ingrese un valor valido para el folio");
+        }
     }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRetirar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
