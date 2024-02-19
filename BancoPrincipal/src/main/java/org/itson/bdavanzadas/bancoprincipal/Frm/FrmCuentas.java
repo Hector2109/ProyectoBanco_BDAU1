@@ -49,7 +49,6 @@ public class FrmCuentas extends javax.swing.JFrame {
         lblNombreCliente.setText(cliente.getNombre());
         llenarTabla();
         setVisible(true);
-        System.out.println(cliente);
     }
 
     /**

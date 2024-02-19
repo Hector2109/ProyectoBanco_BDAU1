@@ -121,7 +121,8 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCuentasActionPerformed
 
     private void btnHistorialTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialTransferenciaActionPerformed
-        // TODO add your handling code here:
+        FrmHistorialProcesos historial = new FrmHistorialProcesos(cliente);
+        setVisible(false);
     }//GEN-LAST:event_btnHistorialTransferenciaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

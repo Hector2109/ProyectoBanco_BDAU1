@@ -17,6 +17,7 @@ public class Transaccion {
     private float saldo_transaccion; // Saldo de la transacción.
     private Date fecha; // Fecha de la transacción.
     private Long num_cuenta; // Número de cuenta asociado a la transacción.
+    private String tipo_transaccion;
 
     /**
      * Constructor para crear un objeto transacción.
@@ -39,7 +40,12 @@ public class Transaccion {
     public Transaccion() {
     }
     
-    
+    public Transaccion(Long id_transaccion, float saldo_transaccion, Date fecha, String tipo_transaccion) {
+        this.id_transaccion = id_transaccion;
+        this.saldo_transaccion = saldo_transaccion;
+        this.fecha = fecha;
+        this.tipo_transaccion = tipo_transaccion;
+    }
     
     /**
      * Método para obtener el ID de la transacción.
@@ -105,6 +111,16 @@ public class Transaccion {
         this.num_cuenta = num_cuenta;
     }
 
+    public String getTipo_transaccion() {
+        return tipo_transaccion;
+    }
+
+    public void setTipo_transaccion(String tipo_transaccion) {
+        this.tipo_transaccion = tipo_transaccion;
+    }
+    
+    
+    
     /**
      * Método toString que devuelve una cadena ordenada con los valores de los
      * datos de la clase.
