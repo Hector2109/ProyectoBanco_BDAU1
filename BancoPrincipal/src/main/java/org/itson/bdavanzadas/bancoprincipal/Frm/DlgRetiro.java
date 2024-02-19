@@ -4,18 +4,37 @@
  */
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
+import com.itson.bdaavanzadas.bancopersistencia.DAO.CuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.ICuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.IRetirosDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.RetirosDAO;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
+import com.itson.bdaavanzadas.bancopersistencia.conexion.IConexion;
+
 /**
  *
  * @author Enrique Rodriguez
  */
 public class DlgRetiro extends javax.swing.JDialog {
 
+    private final ICuentasDAO cuentasDAO;
+    private final IRetirosDAO retirosDAO;
+    
     /**
      * Creates new form DlgRetiro
      */
-    public DlgRetiro(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public DlgRetiro() {
         initComponents();
+        String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
+        String usuario = "root";
+        String contrasenia = "hector21";
+        //String contrasenia = "Itson";
+        //String contrasenia = "kikin22";
+        IConexion conexion = new Conexion(cadenaConexion, usuario, contrasenia);
+        retirosDAO = new RetirosDAO(conexion);
+        cuentasDAO = new CuentasDAO (conexion);
+        this.txtClienteAsociado.setEditable(false);
+        this.txtMonto.setEditable(false);
     }
 
     /**
@@ -49,6 +68,11 @@ public class DlgRetiro extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jButton2.setText("Retirar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Cliente asociado");
 
@@ -152,9 +176,19 @@ public class DlgRetiro extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    
+    private void realizarRetiro (){
+        
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

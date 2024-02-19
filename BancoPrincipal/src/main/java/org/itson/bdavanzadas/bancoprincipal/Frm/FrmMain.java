@@ -57,6 +57,11 @@ public class FrmMain extends javax.swing.JFrame {
 
         btnRetirar.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         btnRetirar.setText("Retirar efectivo");
+        btnRetirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetirarActionPerformed(evt);
+            }
+        });
 
         btnRegistrarse.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         btnRegistrarse.setText("Registrarse");
@@ -136,6 +141,10 @@ public class FrmMain extends javax.swing.JFrame {
         DlgRegistro registro = new DlgRegistro(clientesDAO);
         registro.setVisible(true);
     }//GEN-LAST:event_btnRegistrarseActionPerformed
+
+    private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRetirarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
