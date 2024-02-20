@@ -78,16 +78,16 @@ public class Cliente {
      * Este constructor se utiliza en caso de necesitar actualizar a algún
      * cliente o requerir un inicio de sesión
      *
-     * @param id_cliente
-     * @param nombre
-     * @param apellido_pa
-     * @param apellido_ma
-     * @param fecha_nacimiento
-     * @param calle
-     * @param colonia
-     * @param numero_casa
-     * @param cp
-     * @param correo
+     * @param id_cliente id 
+     * @param nombre nombre
+     * @param apellido_pa apellido 
+     * @param apellido_ma am
+     * @param fecha_nacimiento fn
+     * @param calle calle
+     * @param colonia colo
+     * @param numero_casa casa
+     * @param cp cp
+     * @param correo correo
      */
     public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle,
             String colonia, String numero_casa, String cp, String contrasenia) {
