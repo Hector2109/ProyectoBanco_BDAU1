@@ -30,14 +30,24 @@ public class Cuenta {
         this.estado = estado;
         this.id_cliente = id_cliente;
     }
-
+    
+    /**
+     * Constructor usado para la tabla de cuentas
+     * @param num_cuenta numero de cuenta.
+     * @param saldo saldo de cuenta.
+     * @param estado estado de cuenta.
+     */
     public Cuenta(Long num_cuenta, float saldo, byte estado) {
         this.num_cuenta = num_cuenta;
         this.saldo = saldo;
         this.estado = estado;
     }
     
-    
+    /**
+     * Constructor que solo recibe el número de cuenta.
+     * 
+     * @param num_cuenta numero de cuenta.
+     */
     public Cuenta(Long num_cuenta) {
         this.num_cuenta = num_cuenta;
     }

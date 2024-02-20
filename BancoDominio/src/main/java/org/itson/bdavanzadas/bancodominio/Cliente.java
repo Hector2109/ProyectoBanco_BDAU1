@@ -105,7 +105,7 @@ public class Cliente {
 
     /**
      * Este construtor se usa una vez el cliente haya iniciado sesión para darle
-     * todos sus datos
+     * todos sus datos.
      *
      * @param nombre nombre
      * @param apellido_pa apellido paterno
@@ -129,7 +129,21 @@ public class Cliente {
         this.correo = correo;
         this.contrasenia = contrasenia;
     }
-
+    
+    /**
+     * Constructor usado para
+     * @param id_cliente id del cliente.
+     * @param nombre nombre del cliente.
+     * @param apellido_pa apellido paterno del cliente.
+     * @param apellido_ma apellido materno del cliente.
+     * @param fecha_nacimiento fecha de nacimiento del cliente.
+     * @param calle calle del cliente.
+     * @param colonia colonia del cliente.
+     * @param numero_casa numero de casa del cliente.
+     * @param cp CP del cliente.
+     * @param correo correo del cliente.
+     * @param contrasenia contraseña del cliente.
+     */
     public Cliente(Long id_cliente, String nombre, String apellido_pa, String apellido_ma, Date fecha_nacimiento, String calle,
             String colonia, String numero_casa, String cp, String correo, String contrasenia) {
         this.id_cliente = id_cliente;
@@ -146,7 +160,8 @@ public class Cliente {
     }
 
     /**
-     * Este constructor se utiliza para iniciar sesión en el banco
+     * Este constructor se utiliza para iniciar sesión en el banco e inicializa 
+     * los valores de los párametros a los valores de la clase.
      *
      * @param contrasenia contraseña del cliente
      * @param correo correo del cliente
@@ -335,11 +350,21 @@ public class Cliente {
     public void setCp(String cp) {
         this.cp = cp;
     }
-
+    
+    /**
+     * Obtiene el correo del cliente
+     *
+     * @return correo del cliente
+     */
     public String getCorreo() {
         return correo;
     }
-
+    
+    /**
+     * Modifica el código postal del cliente
+     *
+     * @param correo
+     */
     public void setCorreo(String correo) {
         this.correo = correo;
     }
