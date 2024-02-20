@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import org.itson.bdavanzadas.bancodominio.Cliente;
@@ -164,7 +165,7 @@ public class FrmCuentas extends javax.swing.JFrame {
             modelo.addColumn("AGREGAR MONTO");
             modelo.addColumn("TRANSFERIR");
             modelo.addColumn("RETIRO SIN CUENTA");
-            modelo.addColumn("DESACTIVAR");
+            modelo.addColumn("DESACTIVAR/ACTIVAR");
 
             for (Cuenta cuenta : cuentas) {
                 Object[] fila = {
@@ -194,13 +195,14 @@ public class FrmCuentas extends javax.swing.JFrame {
                 }
             });
 
-            ButtonColumn eliminarButtonColumn = new ButtonColumn("Eliminar", new ActionListener() {
+            ButtonColumn eliminarButtonColumn = new ButtonColumn("DESACTIVAR/ACTIVAR", new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     int row = jTableCuentas.convertRowIndexToModel(jTableCuentas.getEditingRow());
                     try {
                         Cuenta cuenta = obtenerSocioDesdeFila(row);
-                        System.out.println("eliminar");
+                        cuentasDAO.activacionCuenta(cuenta);
+                        llenarTabla();
                     } catch (PersistenciaException ex) {
                         Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -213,8 +215,13 @@ public class FrmCuentas extends javax.swing.JFrame {
                     int row = jTableCuentas.convertRowIndexToModel(jTableCuentas.getEditingRow());
                     try {
                         Cuenta cuenta = obtenerSocioDesdeFila(row);
-                        dlgTransferencia transferencia = new dlgTransferencia(cuenta, cuentasDAO);
-                        transferencia.setVisible(true);
+                        if (cuenta.getEstado() == 1) {
+                            dlgTransferencia transferencia = new dlgTransferencia(cuenta, cuentasDAO);
+                            transferencia.setVisible(true);
+                        }else{
+                            JOptionPane.showMessageDialog(rootPane, "La cuenta necesita estar activa","No es posible realizar una transferencia", JOptionPane.WARNING_MESSAGE);
+                        }
+
                     } catch (PersistenciaException ex) {
                         Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -229,7 +236,7 @@ public class FrmCuentas extends javax.swing.JFrame {
                         Cuenta cuenta = obtenerSocioDesdeFila(row);
                         System.out.println(cuenta);
                         System.out.println("transferir");
-                        DlgCrearRetiro retiro = new DlgCrearRetiro (cuenta, cuentasDAO);
+                        DlgCrearRetiro retiro = new DlgCrearRetiro(cuenta, cuentasDAO);
                         retiro.setVisible(true);
                     } catch (PersistenciaException ex) {
                         Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);

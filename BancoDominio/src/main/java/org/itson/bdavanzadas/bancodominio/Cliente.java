@@ -157,6 +157,16 @@ public class Cliente {
     }
 
     /**
+     * Crea un cliente a partir del correo
+     * @param correo correo del cliente
+     */
+    public Cliente(String correo) {
+        this.correo = correo;
+    }
+    
+    
+
+    /**
      * Obtiene la id del cliente
      *
      * @return id del cliente
