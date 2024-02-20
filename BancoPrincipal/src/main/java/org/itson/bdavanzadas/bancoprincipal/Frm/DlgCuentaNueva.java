@@ -161,11 +161,9 @@ public class DlgCuentaNueva extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        if (operacion == ConstantesGUI.REGISTRAR) {
+
             crearCuenta();
-        } else if (operacion == ConstantesGUI.ACTUALIZAR) {
-            agregarMonto();
-        }
+
     }//GEN-LAST:event_btnContinuarActionPerformed
     
     /**
