@@ -5,6 +5,7 @@
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
 import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
+import java.awt.HeadlessException;
 import java.util.List;
 import org.itson.bdavanzadas.bancodominio.Cliente;
 import org.itson.bdavanzadas.bancodominio.Cuenta;
@@ -28,6 +29,7 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
         this.txtNombre.setText(this.cliente.getNombre());
     }
 
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

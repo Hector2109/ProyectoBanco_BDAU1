@@ -4,7 +4,8 @@
  */
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
-import com.itson.bdaavanzadas.bancopersistencia.DAO.CuentasDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.ClientesDAO;
+import com.itson.bdaavanzadas.bancopersistencia.DAO.IClientesDAO;
 import com.itson.bdaavanzadas.bancopersistencia.DAO.ITransaccionDAO;
 import com.itson.bdaavanzadas.bancopersistencia.DAO.TransaccionDAO;
 import com.itson.bdaavanzadas.bancopersistencia.conexion.Conexion;
@@ -30,6 +31,7 @@ public class FrmHistorialProcesos extends javax.swing.JFrame {
 
     private Cliente cliente;
     private final ITransaccionDAO transaccionDAO;
+    private final IClientesDAO clientesDAO;
 
     public FrmHistorialProcesos(Cliente cliente) {
         initComponents();
@@ -41,6 +43,7 @@ public class FrmHistorialProcesos extends javax.swing.JFrame {
         //String contrasenia = "kikin22";
         IConexion conexion = new Conexion(cadenaConexion, usuario, contrasenia);
         transaccionDAO = new TransaccionDAO(conexion);
+        clientesDAO = new ClientesDAO(conexion);
         llenarTabla();
         setVisible(true);
     }
@@ -86,14 +89,17 @@ public class FrmHistorialProcesos extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        rtbnTransferencia.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rtbnTransferencia);
         rtbnTransferencia.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         rtbnTransferencia.setText("Transferencia");
 
+        rbtnRetiros.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rbtnRetiros);
         rbtnRetiros.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         rbtnRetiros.setText("Retiros");
 
+        rbtnAmbos.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rbtnAmbos);
         rbtnAmbos.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         rbtnAmbos.setText("Ambos");
@@ -127,8 +133,12 @@ public class FrmHistorialProcesos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setText("Fecha desde");
 
+        jDateDesde.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel2.setText("Fecha Hasta");
+
+        jDateHasta.setBackground(new java.awt.Color(255, 255, 255));
 
         btnActualizar.setBackground(new java.awt.Color(204, 204, 204));
         btnActualizar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
@@ -264,6 +274,7 @@ public class FrmHistorialProcesos extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -271,7 +282,8 @@ public class FrmHistorialProcesos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        FrmMenuPerfil menu = new FrmMenuPerfil(cliente, clientesDAO);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void llenarTabla() {
