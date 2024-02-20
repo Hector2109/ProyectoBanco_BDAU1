@@ -90,8 +90,8 @@ public class FrmHistorialProcesos extends javax.swing.JFrame {
             DefaultTableModel modelo = new DefaultTableModel();
             modelo.addColumn("TRANSACCION No");
             modelo.addColumn("FECHA");
-            modelo.addColumn("ESTADO");
-            modelo.addColumn("AGREGAR MONTO");
+            modelo.addColumn("MONTO");
+            modelo.addColumn("TIPO TRANSACCION");
             for (Transaccion transaccion : transacciones) {
                 Object[] fila = {
                     transaccion.getId_transaccion(),
