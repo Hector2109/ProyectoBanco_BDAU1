@@ -39,20 +39,23 @@ public class RetirosDAO implements IRetirosDAO {
      */
     @Override
     public Retiro crearRetiro(Long id_cuenta, float monto) throws PersistenciaException {
-        String sentenciaSQL = "{CALL crear_retiro(?, ?, ?)}";
+        String sentenciaSQL = "{CALL crear_retiro(?, ?, ?, ?)}";
         try (Connection conexion = this.conexionBD.obtenerConection(); CallableStatement comando = conexion.prepareCall(sentenciaSQL)) {
-
             comando.setLong(1, id_cuenta);
             comando.setFloat(2, monto);
-            comando.registerOutParameter(3, Types.BIGINT);
+            comando.registerOutParameter(3, Types.INTEGER);
+            comando.registerOutParameter(4, Types.VARCHAR); // Salida para la contraseña sin encriptar
 
             comando.executeUpdate();
 
             Long id_retiro = comando.getLong(3);
+            String contrasenia_plana = comando.getString(4);
 
-            logger.log(Level.INFO, "Se creó el retiro de forma exiosa");
+            logger.log(Level.INFO, "Se creó el retiro de forma exitosa");
 
             Retiro retiro = obtenerRetiroPorID(id_retiro);
+            retiro.setContrasenia(contrasenia_plana);
+
             return retiro;
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "No se pudo generar el retiro", ex);
@@ -111,7 +114,7 @@ public class RetirosDAO implements IRetirosDAO {
     public void realizarRetiro(Long folio, String contrasenia, Timestamp fecha_realizar) throws PersistenciaException {
         String sentenciaSQL = "CALL realizar_retiro(?, ?, ?)";
 
-        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
+        try (Connection conexion = this.conexionBD.obtenerConection(); CallableStatement comando = conexion.prepareCall(sentenciaSQL)) {
 
             comando.setLong(1, folio);
             comando.setString(2, contrasenia);
@@ -123,12 +126,12 @@ public class RetirosDAO implements IRetirosDAO {
         }
     }
 
-    
     /**
      * Método para obtener un cliente, solo su nombre y apellido
+     *
      * @param folioRetiro folio del retiro
      * @return
-     * @throws PersistenciaException 
+     * @throws PersistenciaException
      */
     public Cliente obtenerClientePorFolioRetiro(Long folioRetiro) throws PersistenciaException {
         Cliente cliente = null;
@@ -155,39 +158,37 @@ public class RetirosDAO implements IRetirosDAO {
         }
         return cliente;
     }
-    
-    
+
     public Retiro obtenerRetiroPorFolio(Long folio) throws PersistenciaException {
-    Retiro retiro = null;
-    String sentenciaSQL = "SELECT r.folio, r.contrasenia, r.estado, r.id_transaccion, t.saldo_transaccion "
-            + "FROM retiros r "
-            + "INNER JOIN transacciones t ON r.id_transaccion = t.id_transaccion "
-            + "WHERE r.folio = ?";
+        Retiro retiro = null;
+        String sentenciaSQL = "SELECT r.folio, r.contrasenia, r.estado, r.id_transaccion, t.saldo_transaccion "
+                + "FROM retiros r "
+                + "INNER JOIN transacciones t ON r.id_transaccion = t.id_transaccion "
+                + "WHERE r.folio = ?";
 
-    try (Connection conexion = this.conexionBD.obtenerConection(); 
-         PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
+        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
 
-        comando.setLong(1, folio);
+            comando.setLong(1, folio);
 
-        try (ResultSet resultados = comando.executeQuery()) {
-            if (resultados.next()) {
-                retiro = new Retiro();
-                retiro.setFolio(resultados.getLong("folio"));
-                retiro.setContrasenia(resultados.getString("contrasenia"));
-                retiro.setEstado(resultados.getByte("estado"));
-                retiro.setId_transaccion(resultados.getLong("id_transaccion"));
-                retiro.setSaldo_transaccion(resultados.getFloat("saldo_transaccion"));
+            try (ResultSet resultados = comando.executeQuery()) {
+                if (resultados.next()) {
+                    retiro = new Retiro();
+                    retiro.setFolio(resultados.getLong("folio"));
+                    retiro.setContrasenia(resultados.getString("contrasenia"));
+                    retiro.setEstado(resultados.getByte("estado"));
+                    retiro.setId_transaccion(resultados.getLong("id_transaccion"));
+                    retiro.setSaldo_transaccion(resultados.getFloat("saldo_transaccion"));
 
-                logger.log(Level.SEVERE, "Se encontró el retiro de forma exitosa");
-            } else {
-                logger.log(Level.SEVERE, "No se encontró el retiro con folio: " + folio);
-                throw new PersistenciaException("Error: Retiro no encontrado");
+                    logger.log(Level.SEVERE, "Se encontró el retiro de forma exitosa");
+                } else {
+                    logger.log(Level.SEVERE, "No se encontró el retiro con folio: " + folio);
+                    throw new PersistenciaException("Error: Retiro no encontrado");
+                }
             }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "No se pudo encontrar el retiro", ex);
+            throw new PersistenciaException("Error al intentar encontrar retiro", ex);
         }
-    } catch (SQLException ex) {
-        logger.log(Level.SEVERE, "No se pudo encontrar el retiro", ex);
-        throw new PersistenciaException("Error al intentar encontrar retiro", ex);
+        return retiro;
     }
-    return retiro;
-}
 }
