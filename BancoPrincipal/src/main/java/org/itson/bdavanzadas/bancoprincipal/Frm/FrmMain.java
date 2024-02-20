@@ -138,7 +138,7 @@ public class FrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-        DlgRegistro registro = new DlgRegistro(clientesDAO, ConstantesGUI.ACTUALIZAR);
+        DlgRegistro registro = new DlgRegistro(clientesDAO, ConstantesGUI.REGISTRAR);
         registro.setVisible(true);
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 

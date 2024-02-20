@@ -45,30 +45,35 @@ public class ClientesDAO implements IClientesDAO {
             VALUES (?,?,?,?,?,?,?,?,?,?);
                              """;
 
-        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
+        if (obtenerClienteCorreo(clienteNuevo.getCorreo()) == null) {
 
-            comando.setString(1, clienteNuevo.getNombre());
-            comando.setString(2, clienteNuevo.getApellido_pa());
-            comando.setString(3, clienteNuevo.getApellido_ma());
-            comando.setString(4, clienteNuevo.getFecha_nacimiento().toString());
-            comando.setString(5, clienteNuevo.getCalle());
-            comando.setString(6, clienteNuevo.getColonia());
-            comando.setString(7, clienteNuevo.getCp());
-            comando.setString(8, clienteNuevo.getNumero_casa());
-            comando.setString(9, clienteNuevo.getContrasenia());
-            comando.setString(10, clienteNuevo.getCorreo());
+            try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL, Statement.RETURN_GENERATED_KEYS)) {
 
-            int numeroRegistrosInsertados = comando.executeUpdate();
-            logger.log(Level.INFO, "Se agregaron {0} clientes", numeroRegistrosInsertados);
-            ResultSet idsGenerados = comando.getGeneratedKeys();
-            idsGenerados.next();
-            Cliente cliente = new Cliente(idsGenerados.getLong(1), clienteNuevo.getNombre(), clienteNuevo.getApellido_pa(),
-                    clienteNuevo.getApellido_ma(), clienteNuevo.getCalle(), clienteNuevo.getColonia(),
-                    clienteNuevo.getNumero_casa(), clienteNuevo.getCp(), clienteNuevo.getContrasenia(), clienteNuevo.getCorreo());
-            return cliente;
-        } catch (SQLException ex) {
-            logger.log(Level.SEVERE, "No se pudo guardar el cliente", ex);
-            throw new PersistenciaException("No se pudo guardar el cliente", ex);
+                comando.setString(1, clienteNuevo.getNombre());
+                comando.setString(2, clienteNuevo.getApellido_pa());
+                comando.setString(3, clienteNuevo.getApellido_ma());
+                comando.setString(4, clienteNuevo.getFecha_nacimiento().toString());
+                comando.setString(5, clienteNuevo.getCalle());
+                comando.setString(6, clienteNuevo.getColonia());
+                comando.setString(7, clienteNuevo.getCp());
+                comando.setString(8, clienteNuevo.getNumero_casa());
+                comando.setString(9, clienteNuevo.getContrasenia());
+                comando.setString(10, clienteNuevo.getCorreo());
+
+                int numeroRegistrosInsertados = comando.executeUpdate();
+                logger.log(Level.INFO, "Se agregaron {0} clientes", numeroRegistrosInsertados);
+                ResultSet idsGenerados = comando.getGeneratedKeys();
+                idsGenerados.next();
+                Cliente cliente = new Cliente(idsGenerados.getLong(1), clienteNuevo.getNombre(), clienteNuevo.getApellido_pa(),
+                        clienteNuevo.getApellido_ma(), clienteNuevo.getCalle(), clienteNuevo.getColonia(),
+                        clienteNuevo.getNumero_casa(), clienteNuevo.getCp(), clienteNuevo.getContrasenia(), clienteNuevo.getCorreo());
+                return cliente;
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, "No se pudo guardar el cliente", ex);
+                throw new PersistenciaException("No se pudo guardar el cliente", ex);
+            }
+        } else {
+            throw new PersistenciaException("Este correo ya esta registrado");
         }
     }
 
@@ -235,6 +240,40 @@ public class ClientesDAO implements IClientesDAO {
             throw new PersistenciaException("Error al iniciar sesión, verifique sus datos", ex);
         }
         return cliente;
+    }
+
+    /**
+     * Método para obtener cliente por medio de su correo
+     *
+     * @param correo
+     * @return
+     * @throws PersistenciaException
+     */
+    @Override
+    public Cliente obtenerClienteCorreo(String correo) throws PersistenciaException {
+        String sentenciaSQL = """
+                              SELECT correo FROM clientes
+                              WHERE correo = ?;
+                              """;
+        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
+
+            comando.setString(1, correo);
+            Cliente cliente = new Cliente();
+
+            try (ResultSet resultados = comando.executeQuery()) {
+                if (resultados.next()) {
+
+                    String correoObtenido = resultados.getString("correo");
+                    cliente = new Cliente(correoObtenido);
+                    return cliente;
+
+                }
+            }
+
+        } catch (SQLException ex) {
+
+        }
+        return null;
     }
 
 }

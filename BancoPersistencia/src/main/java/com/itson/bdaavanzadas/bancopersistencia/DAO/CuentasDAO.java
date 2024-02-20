@@ -146,4 +146,34 @@ public class CuentasDAO implements ICuentasDAO {
         }
 
     }
+
+    /**
+     * Método el cual desactiva o activa la cuenta de un usuario cambiando su
+     * estado
+     * @param cuenta cuenta que se desactiavara o activara
+     * @throws PersistenciaException
+     */
+    @Override
+    public void activacionCuenta(Cuenta cuenta) throws PersistenciaException {
+        String sentenciaSQL = """
+                             UPDATE cuentas SET estado = ?
+                             WHERE num_cuenta = ?
+                             """;
+
+        try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
+
+            if (cuenta.getEstado() == 1) {
+                comando.setByte(1, (byte) 0);
+            } else {
+                comando.setByte(1, (byte) 1);
+            }
+            comando.setLong(2, cuenta.getNum_cuenta());
+
+            comando.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CuentasDAO.class.getName()).log(Level.SEVERE, "Error al cambiar el estado de la cuenta", ex);
+            throw new PersistenciaException("Error: No se pudo cambiar el estado de la cuenta", ex);
+        }
+    }
 }
