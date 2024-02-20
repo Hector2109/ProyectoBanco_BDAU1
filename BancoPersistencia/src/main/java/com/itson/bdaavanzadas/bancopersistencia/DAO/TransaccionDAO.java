@@ -34,17 +34,19 @@ public class TransaccionDAO implements ITransaccionDAO {
     @Override
     public List<Transaccion> consultar(Cliente cliente) throws PersistenciaException {
         String sentenciaSQL = """
-                              SELECT r.id_transaccion, t.fecha, t.saldo_transaccion, 'retiro' AS tipo_transaccion
+                              SELECT r.id_transaccion, t.fecha, t.saldo_transaccion, c.num_cuenta, 'retiro' AS tipo_transaccion
                               FROM retiros r
                               INNER JOIN transacciones t ON r.id_transaccion = t.id_transaccion
                               INNER JOIN cuentas c ON t.num_cuenta = c.num_cuenta
-                              WHERE c.num_cuenta = ?
+                              INNER JOIN clientes cl ON c.id_cliente = cl.id_cliente
+                              WHERE cl.id_cliente = ?
                               UNION
-                              SELECT tr.id_transaccion, t.fecha, t.saldo_transaccion, 'transferencia' AS tipo_transaccion
+                              SELECT tr.id_transaccion, t.fecha, t.saldo_transaccion, c.num_cuenta, 'transferencia' AS tipo_transaccion
                               FROM transferencia tr
                               INNER JOIN transacciones t ON tr.id_transaccion = t.id_transaccion
                               INNER JOIN cuentas c ON t.num_cuenta = c.num_cuenta
-                              WHERE c.num_cuenta = ? AND t.id_transaccion NOT IN (SELECT id_transaccion FROM retiros)
+                              INNER JOIN clientes cl ON c.id_cliente = cl.id_cliente
+                              WHERE cl.id_cliente = ? AND t.id_transaccion NOT IN (SELECT id_transaccion FROM retiros)
                               ORDER BY fecha DESC;
                               """;
         List<Transaccion> transferencias = new LinkedList<>();
@@ -57,8 +59,9 @@ public class TransaccionDAO implements ITransaccionDAO {
                     float saldo_transaccion = resultados.getFloat("saldo_transaccion");
                     Date fecha = resultados.getDate("fecha");
                     String tipo_transaccion = resultados.getString("tipo_transaccion");
+                    Long num_cuenta = resultados.getLong("num_cuenta");
                     
-                    Transaccion transaccion = new Transaccion(id_transaccion, saldo_transaccion, fecha, tipo_transaccion);
+                    Transaccion transaccion = new Transaccion(id_transaccion, saldo_transaccion, fecha, tipo_transaccion, num_cuenta);
                     transferencias.add(transaccion);
                 }
             }

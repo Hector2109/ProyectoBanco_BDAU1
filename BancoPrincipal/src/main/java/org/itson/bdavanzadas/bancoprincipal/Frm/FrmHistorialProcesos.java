@@ -170,12 +170,14 @@ public class FrmHistorialProcesos extends javax.swing.JFrame {
             modelo.addColumn("FECHA");
             modelo.addColumn("MONTO");
             modelo.addColumn("TIPO TRANSACCION");
+            modelo.addColumn("CUENTA");
             for (Transaccion transaccion : transacciones) {
                 Object[] fila = {
                     transaccion.getId_transaccion(),
                     transaccion.getFecha(),
                     transaccion.getSaldo_transaccion(),
-                    transaccion.getTipo_transaccion()
+                    transaccion.getTipo_transaccion(),
+                    transaccion.getNum_cuenta()
                 };
 
                 modelo.addRow(fila);
@@ -198,12 +200,14 @@ public class FrmHistorialProcesos extends javax.swing.JFrame {
             modelo.addColumn("FECHA");
             modelo.addColumn("MONTO");
             modelo.addColumn("TIPO TRANSACCION");
+            modelo.addColumn("CUENTA");
             for (Transaccion transaccion : transacciones) {
                 Object[] fila = {
                     transaccion.getId_transaccion(),
                     transaccion.getFecha(),
                     transaccion.getSaldo_transaccion(),
-                    transaccion.getTipo_transaccion()
+                    transaccion.getTipo_transaccion(),
+                    transaccion.getNum_cuenta()
                 };
 
                 try {

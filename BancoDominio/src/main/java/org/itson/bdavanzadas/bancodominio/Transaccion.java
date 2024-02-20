@@ -32,6 +32,7 @@ public class Transaccion {
         this.saldo_transaccion = saldo_transaccion;
         this.fecha = fecha;
         this.num_cuenta = num_cuenta;
+        this.tipo_transaccion = tipo_transaccion;
     }
 
     /**
@@ -40,11 +41,12 @@ public class Transaccion {
     public Transaccion() {
     }
     
-    public Transaccion(Long id_transaccion, float saldo_transaccion, Date fecha, String tipo_transaccion) {
+    public Transaccion(Long id_transaccion, float saldo_transaccion, Date fecha, String tipo_transaccion, Long num_cuenta) {
         this.id_transaccion = id_transaccion;
         this.saldo_transaccion = saldo_transaccion;
         this.fecha = fecha;
         this.tipo_transaccion = tipo_transaccion;
+        this.num_cuenta = num_cuenta;
     }
     
     /**
