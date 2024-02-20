@@ -27,12 +27,13 @@ import org.itson.bdavanzadas.bancodominio.Cuenta;
 public class DlgCuentaNueva extends javax.swing.JDialog {
 
     private Cliente cliente;
+    private int operacion;
     private final ICuentasDAO cuentasDAO;
 
     /**
      * Creates new form DlgCuentaNueva
      */
-    public DlgCuentaNueva(Cliente cliente) {
+    public DlgCuentaNueva(Cliente cliente, int operacion) {
         initComponents();
         String cadenaConexion = "jdbc:mysql://localhost/betobank_bda";
         String usuario = "root";
@@ -160,7 +161,11 @@ public class DlgCuentaNueva extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        crearCuenta();
+        if (operacion == ConstantesGUI.REGISTRAR) {
+            crearCuenta();
+        } else if (operacion == ConstantesGUI.ACTUALIZAR) {
+            agregarMonto();
+        }
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void crearCuenta() {
@@ -184,7 +189,11 @@ public class DlgCuentaNueva extends javax.swing.JDialog {
             Logger.getLogger(DlgCuentaNueva.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    private void agregarMonto(){
+        String monto1 = txtMonto.getText();
+        float monto = Float.parseFloat(monto1);
+    }
     private void limpiar() {
         txtMonto.setText("");
     }

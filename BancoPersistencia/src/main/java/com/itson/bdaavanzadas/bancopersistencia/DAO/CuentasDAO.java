@@ -93,15 +93,20 @@ public class CuentasDAO implements ICuentasDAO {
         }
         return cuentas;
     }
-
+    
     @Override
-    public void desactivarCuenta(int num_cuenta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Cuenta actualizarCliente(CuentaActualizadaDTO cuentaActualizada) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void actualizarMonto(Long num_cuenta, float monto) {
+        String sentenciaSQL = """
+                              UPDATE cuentas
+                              SET saldo = saldo + ?
+                              WHERE num_cuenta = ?
+                              """;
+         try (Connection conexion = this.conexionBD.obtenerConection(); PreparedStatement comando = conexion.prepareStatement(sentenciaSQL)) {
+             comando.setFloat(1, monto);
+             comando.setLong(2, num_cuenta);
+         } catch (SQLException ex) {
+            Logger.getLogger(CuentasDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -184,7 +184,7 @@ public class FrmCuentas extends javax.swing.JFrame {
 
     private void btnCrearNuevaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearNuevaCuentaActionPerformed
         dispose();
-        DlgCuentaNueva cuentaNueva = new DlgCuentaNueva(this.cliente);
+        DlgCuentaNueva cuentaNueva = new DlgCuentaNueva(this.cliente, 1);
     }//GEN-LAST:event_btnCrearNuevaCuentaActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -235,7 +235,7 @@ public class FrmCuentas extends javax.swing.JFrame {
                     int row = jTableCuentas.convertRowIndexToModel(jTableCuentas.getEditingRow());
                     try {
                         Cuenta cuenta = obtenerSocioDesdeFila(row);
-
+                        DlgCuentaNueva s = new DlgCuentaNueva(cliente, 2);
                     } catch (PersistenciaException ex) {
                         Logger.getLogger(FrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
                     }

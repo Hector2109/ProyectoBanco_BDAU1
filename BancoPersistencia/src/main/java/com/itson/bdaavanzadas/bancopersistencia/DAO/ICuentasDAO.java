@@ -21,9 +21,7 @@ public interface ICuentasDAO {
 
     List<Cuenta> consultar(Cliente cliente) throws PersistenciaException;
 
-    public void desactivarCuenta(int num_cuenta);
-
-    public Cuenta actualizarCliente(CuentaActualizadaDTO cuentaActualizada) throws PersistenciaException;
+    public void actualizarMonto(Long num_cuenta, float monto);
     
     public String obtenerNombreCuenta (Cuenta cuenta) throws PersistenciaException;
     
