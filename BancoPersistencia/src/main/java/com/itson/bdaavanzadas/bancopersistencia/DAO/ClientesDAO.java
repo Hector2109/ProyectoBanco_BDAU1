@@ -78,7 +78,7 @@ public class ClientesDAO implements IClientesDAO {
     }
 
     /**
-     * Regresa una lista de los clientes del banco
+     * Regresa una lista de los clientes del banco con ayuda de una sentencia SQL
      *
      * @return lizsta de clientes
      * @throws PersistenciaException
@@ -127,7 +127,7 @@ public class ClientesDAO implements IClientesDAO {
      * Contiene la sentencia SQL apra lograr eliminar un cliente de la base de
      * datos
      *
-     * @param id
+     * @param id id del cliente
      */
     @Override
     public void eliminarCliente(Long id) {
@@ -157,7 +157,7 @@ public class ClientesDAO implements IClientesDAO {
     /**
      * Contiene la sentencia SQL para actualizar un cliente de la base de datos
      *
-     * @param clienteActualizado
+     * @param clienteActualizado cliente actualizado.
      * @return Cliente
      * @throws PersistenciaException En caso de algún error
      */
@@ -245,7 +245,7 @@ public class ClientesDAO implements IClientesDAO {
     /**
      * Método para obtener cliente por medio de su correo
      *
-     * @param correo
+     * @param correo correo del cliente
      * @return
      * @throws PersistenciaException
      */

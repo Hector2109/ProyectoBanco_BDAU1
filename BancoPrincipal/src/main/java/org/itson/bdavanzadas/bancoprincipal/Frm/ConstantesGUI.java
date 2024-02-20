@@ -1,7 +1,7 @@
 package org.itson.bdavanzadas.bancoprincipal.Frm;
 
 /**
- *
+ * Clase de ConstantesGUI
  * @author Hector Espinoza y Enrique Rodriguez
  */
 public class ConstantesGUI {

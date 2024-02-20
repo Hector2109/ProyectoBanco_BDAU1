@@ -27,10 +27,22 @@ public class TransaccionDAO implements ITransaccionDAO {
     final IConexion conexionBD;
     static final Logger logger = Logger.getLogger(CuentasDAO.class.getName());
 
+    /**
+     * Constructor que establece la conexión con la base de datos.
+     * @param conexion 
+     */
     public TransaccionDAO(IConexion conexion) {
         this.conexionBD = conexion;
     }
-
+    
+    /**
+     * Método que consulta todas las transacciones, de todas las cuentas de 
+     * un cliente en especifico.
+     * 
+     * @param cliente cliente
+     * @return Lista de transacciones.
+     * @throws PersistenciaException 
+     */
     @Override
     public List<Transaccion> consultar(Cliente cliente) throws PersistenciaException {
         String sentenciaSQL = """

@@ -285,7 +285,11 @@ public class FrmHistorialProcesos extends javax.swing.JFrame {
         this.setVisible(false);
         FrmMenuPerfil menu = new FrmMenuPerfil(cliente, clientesDAO);
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    
+    /**
+     * Este método crea una tabla y la rellena con los datos de las diferentes 
+     * transacciones asociadas a un cliente en especifico.
+     */
     private void llenarTabla() {
         List<Transaccion> transacciones = new LinkedList<>();
         try {

@@ -204,7 +204,6 @@ public class FrmMenuPerfil extends javax.swing.JFrame {
 
     private void llenarTabla(){
         List<Cuenta> listaCuenta;
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -31,7 +31,7 @@ public class DlgCuentaNueva extends javax.swing.JDialog {
     private final ICuentasDAO cuentasDAO;
 
     /**
-     * Creates new form DlgCuentaNueva
+     * Constructor que crea el cuadro de dialogo
      */
     public DlgCuentaNueva(Cliente cliente, int operacion) {
         initComponents();
@@ -167,7 +167,10 @@ public class DlgCuentaNueva extends javax.swing.JDialog {
             agregarMonto();
         }
     }//GEN-LAST:event_btnContinuarActionPerformed
-
+    
+    /**
+     * Método para crear una nueva cuenta.
+     */
     private void crearCuenta() {
         String monto1 = txtMonto.getText();
         float monto = Float.parseFloat(monto1);
@@ -189,11 +192,17 @@ public class DlgCuentaNueva extends javax.swing.JDialog {
             Logger.getLogger(DlgCuentaNueva.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /**
+     * Método para agregar saldo a una cuenta
+     */
     private void agregarMonto(){
         String monto1 = txtMonto.getText();
         float monto = Float.parseFloat(monto1);
     }
+    
+    /**
+     * Limpia los campos de texto
+     */
     private void limpiar() {
         txtMonto.setText("");
     }

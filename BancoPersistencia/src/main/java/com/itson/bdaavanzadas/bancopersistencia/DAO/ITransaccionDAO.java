@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package com.itson.bdaavanzadas.bancopersistencia.DAO;
 
 import com.itson.bdaavanzadas.bancopersistencia.excepciones.PersistenciaException;
@@ -11,8 +7,17 @@ import org.itson.bdavanzadas.bancodominio.Transaccion;
 
 /**
  *
- * @author Enrique Rodriguez
+ * @author Enrique Rodriguez y Hector Espinoza
  */
 public interface ITransaccionDAO {
+
+    /**
+     * Método que consulta todas las transacciones, de todas las cuentas de un
+     * cliente en especifico.
+     *
+     * @param cliente cliente
+     * @return Lista de transacciones.
+     * @throws PersistenciaException
+     */
     List<Transaccion> consultar(Cliente cliente) throws PersistenciaException;
 }

@@ -256,7 +256,10 @@ public class dlgTransferencia extends javax.swing.JDialog {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         transferir();
     }//GEN-LAST:event_btnConfirmarActionPerformed
-
+    
+    /**
+     * Método para transferir
+     */
     private void transferir() {
         Long num_cuenta = Long.valueOf(txtNumeroCuentaTrans.getText());
         try {

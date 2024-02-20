@@ -212,7 +212,11 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    
+    /**
+     * Método que nos ayuda a validar y asegurar el correcto inicio de sesión.
+     * @return verdadero o falso dependiendo del caso
+     * @throws ValidacionDTOException 
+     */
     private boolean validar () throws ValidacionDTOException{
         if (txtCorreo.getText().isBlank()){
             throw new ValidacionDTOException ("Llene el campo de correo"); 
@@ -226,6 +230,10 @@ public class DlgInicioSesion extends javax.swing.JDialog {
         return true;
     }
     
+    /**
+     * Método para obtener el cliente
+     * @return 
+     */
     protected Cliente getCliente (){
         return cliente;
     }

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.itson.bdaavanzadas.bancopersistencia.DAO;
 
 import com.itson.bdaavanzadas.bancopersistencia.DTO.CuentaActualizadaDTO;
@@ -68,6 +65,7 @@ public class CuentasDAO implements ICuentasDAO {
     /**
      * Regresa la lista de cuentas de un cliente
      *
+     * @param cliente
      * @return Lista de cuentas
      * @throws PersistenciaException En caso de algúne error
      */
@@ -94,6 +92,13 @@ public class CuentasDAO implements ICuentasDAO {
         return cuentas;
     }
     
+    /**
+     * Método que actualiza el saldo de una cuenta usando el numero de la misma y
+     * y un monto definido en sus párametros.
+     * 
+     * @param num_cuenta número de cuenta.
+     * @param monto monto a agregar.
+     */
     @Override
     public void actualizarMonto(Long num_cuenta, float monto) {
         String sentenciaSQL = """

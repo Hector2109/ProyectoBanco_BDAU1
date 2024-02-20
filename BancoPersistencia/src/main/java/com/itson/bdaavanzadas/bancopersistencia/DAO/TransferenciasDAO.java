@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Enrique Rodriguez
+ * @author Enrique Rodriguez y Hector Espinoza
  */
 public class TransferenciasDAO implements ITransferenciasDAO {
 
@@ -23,11 +23,12 @@ public class TransferenciasDAO implements ITransferenciasDAO {
     }
 
     /**
-     * Este método funciona como una transferencia, se conecta
+     * Este método funciona como una transferencia, se conecta a la base de datos
+     * y transfiere una cantidad de una cuenta a otra.
      *
-     * @param saldo
-     * @param cuenta_destino
-     * @param cuenta_receptora
+     * @param saldo saldo a transferir.
+     * @param cuenta_destino cuenta receptora.
+     * @param cuenta_receptora cuenta destino.
      */
     @Override
     public void transferir(float saldo, Long cuenta_destino, Long cuenta_receptora) throws PersistenciaException {

@@ -199,9 +199,12 @@ public class FrmCuentas extends javax.swing.JFrame {
         dispose();
         FrmMenuPerfil menu = new FrmMenuPerfil(cliente, clientesDAO);
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    
+    /**
+     * Este método crea una tabla y la rellena con los datos de las diferentes 
+     * cuentas asociadas a un cliente en especifico.
+     */
     private void llenarTabla() {
-
         List<Cuenta> cuentas = new LinkedList<>();
         try {
             cuentas = cuentasDAO.consultar(cliente);
@@ -308,7 +311,13 @@ public class FrmCuentas extends javax.swing.JFrame {
         }
 
     }
-
+    
+    /**
+     * Este método nos ayuda a conocer que cuenta fue seleccionada.
+     * @param fila fila donde se encuentra la cuenta seleccionada.
+     * @return
+     * @throws PersistenciaException 
+     */
     private Cuenta obtenerSocioDesdeFila(int fila) throws PersistenciaException {
         List<Cuenta> cuentas = cuentasDAO.consultar(this.cliente);
         if (fila >= 0 && fila < cuentas.size()) {
