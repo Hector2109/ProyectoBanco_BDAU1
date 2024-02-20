@@ -107,7 +107,6 @@ public class RetirosDAO implements IRetirosDAO {
      *
      * @param folio folio del retiro
      * @param contrasenia contraseña del retiro
-     * @return
      * @throws PersistenciaException
      */
     @Override
@@ -133,6 +132,7 @@ public class RetirosDAO implements IRetirosDAO {
      * @return
      * @throws PersistenciaException
      */
+    @Override
     public Cliente obtenerClientePorFolioRetiro(Long folioRetiro) throws PersistenciaException {
         Cliente cliente = null;
         String sentenciaSQL = "SELECT c.nombre, c.apellido_paterno "
@@ -158,7 +158,15 @@ public class RetirosDAO implements IRetirosDAO {
         }
         return cliente;
     }
-
+    
+    /**
+     * Este método nos ayuda a obtener un retiro mediante el folio de este mismo
+     * 
+     * @param folio folio del retiro.
+     * @return retiro.
+     * @throws PersistenciaException 
+     */
+    @Override
     public Retiro obtenerRetiroPorFolio(Long folio) throws PersistenciaException {
         Retiro retiro = null;
         String sentenciaSQL = "SELECT r.folio, r.contrasenia, r.estado, r.id_transaccion, t.saldo_transaccion "
